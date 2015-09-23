@@ -95,3 +95,5 @@ d_2008 <- d_2008[c('time_stamp','H','LE','Z.L','U.','t_hmp_1_Avg',
                    'Water_temp_Avg.3.','Water_temp_Avg.4.','Water_temp_Avg.5.',
                    'Water_temp_Avg.6.','Water_temp_Avg.7.','Water_temp_Avg.8.')]
 
+# Remove repeating/overlapping data
+d_2008 <- d_2008[c(-1:-3110),]

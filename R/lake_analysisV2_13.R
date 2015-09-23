@@ -80,6 +80,11 @@ rm(i)
 # Remove Rn_Q71_Avg to be able to be combined with the 2008 data
 data <- data[,-19]
 
+# Combine data from 2008, dataframe d_2008 will be created
+source('R/lake_analysis2008.R')
+
+data <- rbind(data,d_2008)
+
 ##### 1A. Bad data removal, cold front classification ##############################
 # This section is dataset-dependent. Rows with bad data obtained from visual
 # inspection of data. Removal of data depends on plotting multiple box plots 
@@ -104,7 +109,7 @@ data$Wd_Spd_014A_Avg.2.[which(data$Wd_Spd_014A_Avg.2.==0.447)] <- NA
 data$Pyra_Avg[which(data$Pyra_Avg > 1500)] <- NA
 # Rn_Q71_Avg and Rn_Lite_Avg get stuck at 184.7701 and 143.1251 respectively
 # and removed data index no. from 3647 to 3884
-data$Rn_Q71_Avg[3647:3884] <- NA
+# data$Rn_Q71_Avg[3647:3884] <- NA # Temporarily delete due to it being NA for 2008
 data$Rn_Lite_Avg[3647:3884] <- NA
 # rh_hmp_1_Avg and the other 2 (2 and 3) have values lower than zero
 # t_hmp_1_Avg and the other 2 (2 and 3) have values lower than -20C
@@ -522,13 +527,13 @@ data <- timeAverage(data, avg.time = '30 min', statistic = 'mean')
 names(data)[1] <- 'time_stamp'
 data$time_stamp <- as.POSIXlt(data$time_stamp)
 
-## Combine QC data for LE and H into data
-qc_H <- as.factor(dataEC$QCFlag_h)
-qc_LE <- as.factor(dataEC$QCFlag_e)
-qc_Tau <- as.factor(dataEC$QCFlag_t)
+## Combine QC data for LE and H into data, note decided not to include QC values
+# qc_H <- as.factor(dataEC$QCFlag_h)
+# qc_LE <- as.factor(dataEC$QCFlag_e)
+# qc_Tau <- as.factor(dataEC$QCFlag_t)
 
-data <- cbind(data,qc_H,qc_LE,qc_Tau)
-rm(qc_H,qc_LE,qc_Tau)
+# data <- cbind(data,qc_H,qc_LE,qc_Tau)
+# rm(qc_H,qc_LE,qc_Tau)
 
 # 80% footprint (m) calculations using Hsieh et al. (2000) model
 Distance <- numeric()
