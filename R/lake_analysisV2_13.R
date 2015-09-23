@@ -254,7 +254,7 @@ n_windy <- (data$time_stamp >= as.POSIXct("2007-08-26 00:00:00") &
 # Classifying into days
 start <- 1187884800 # 2007-08-24 00:00:00
 difference <- 86400 # 24 * 60 * 60 seconds
-end <- 1203177600 # Might not need to use 
+end <- 1203177600 # Might not need to use, NOT USED
 index = 1 # The number the days
 day = numeric(length=nrow(data)) # Initialize day variable
 
@@ -873,7 +873,7 @@ rm(neg,pos,lm1,lm2,lm3,lm4,lm5,lm6,lm7,lm8,lm9,lm10,lm11,lm12)
 ##### Fig. 4: LE, deltaE, u, u_deltaE vs. atmospheric stability category ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_4.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V4/fig_4.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 ## Creating a new plot
 plot.new()
@@ -906,7 +906,8 @@ plot2 <- ggplot(na.omit(data[,c('deltaE','stability_no')]), aes(factor(stability
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(-9,1,12,6),"mm")) + 
   scale_y_continuous(breaks=seq(-1,3,by=1)) + 
-  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
+  coord_cartesian(ylim = c(-0.8, 3.2))
 # c) U
 plot3 <- ggplot(na.omit(data[,c('WS_Spd_WVT','stability_no')]), aes(factor(stability_no),WS_Spd_WVT)) + geom_boxplot(outlier.size=0,fill='white') + 
   geom_jitter(alpha=I(1/32),aes(color=factor(stability_no))) + 
@@ -930,7 +931,8 @@ plot4 <- ggplot(na.omit(data[,c('u_deltaE','stability_no')]), aes(factor(stabili
         plot.margin=unit(c(-31,1,7,2.7),"mm")) + 
   scale_y_continuous(breaks=seq(-5,15,by=5),labels=c(paste("\u2212",5,sep=""),0,5,10,15)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
-  scale_x_discrete(labels=names_boxplot)
+  scale_x_discrete(labels=names_boxplot) +
+  coord_cartesian(ylim = c(-5, 15))
 multiplot2(plot1,plot2,plot3,plot4,
            cols=1,labs=list("             ASL stability ranges",""))
 dev.off()
@@ -1105,7 +1107,7 @@ dev.off()
 ##### Fig. 4 (prev. 8): H, deltaT, u, u_deltaT versus atmospheric stability category ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_8.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V4/fig_8.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 
 ## Creating a new plot
