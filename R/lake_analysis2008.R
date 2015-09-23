@@ -69,8 +69,15 @@ d_2008 <- convert_magic_num(d_2008,c('character',rep('numeric',times = 48)))
 # Convert "date" from character to date
 d_2008$time_stamp <- strptime(d_2008$time_stamp,"%m/%d/%y %H:%M")
 
-# Remove 2nd and 3rd columns
-d_2008 <- d_2008[,c(-2,-3)]
+# Rename all the headers so that it is the same as original data
+names(d_2008)[28] <- 'U.'
+names(d_2008)[29] <- 'Z.L'
+names(d_2008)[32] <- 'sonic_WS'
+names(d_2008)[33] <- 'sonic_WD'
+names(d_2008)[17] <- 'Water.surface.temperature'
+
+# Remove 2nd, 3rd, 4th, and 5th columns not available in the original data
+d_2008 <- d_2008[,c(-2,-3,-4,-5,-13,-23,-34,-35,-38:-49)]
 # Changing all the '-999' (missing data) to NA
 for (i in 1:length(d_2008)){
   d_2008[i][d_2008[i] < -990] <- NA

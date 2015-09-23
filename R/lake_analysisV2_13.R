@@ -77,6 +77,9 @@ for (i in 1:length(data)){
 }
 rm(i)
 
+# Remove Rn_Q71_Avg to be able to be combined with the 2008 data
+data <- data[,-19]
+
 ##### 1A. Bad data removal, cold front classification ##############################
 # This section is dataset-dependent. Rows with bad data obtained from visual
 # inspection of data. Removal of data depends on plotting multiple box plots 
