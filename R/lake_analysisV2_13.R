@@ -42,20 +42,21 @@ source("R/WindRose.R")
 source("R/midpoint.R")
 source("R/footprint_hsieh1.R") # Calculate footprint using Hsieh et al. (2000)
 source("R/footprint_hsieh_peak.R") # Calculate peak footprint
-source('R/footprint_schmid.R') # Calculate the peak distance using Schmid (1994)
+source("R/footprint_schmid.R") # Calculate the peak distance using Schmid (1994)
 
 ##### 1. Data import and clean up #################################################
 
 # Read data from original csv file
 data <- read.csv('data/lake_data_new.csv')
+
 # Read from EC processed data using Foken (2004) chapter
 # Skip to line 12 to only include data from 2007-08-24 17:45 (or 17:30)
-temp <-read.csv('data/Reservoir_data_08242007-02162008.csv')
-header <- names(temp)
-dataEC <- read.csv('data/Reservoir_data_08242007-02162008.csv',skip=36)
-dataEC <- dataEC[-c(8449:nrow(dataEC)),]
-names(dataEC) <- header
-rm(temp,header)
+#temp <-read.csv('data/Reservoir_data_08242007-02162008.csv')
+#header <- names(temp)
+#dataEC <- read.csv('data/Reservoir_data_08242007-02162008.csv',skip=36)
+#dataEC <- dataEC[-c(8449:nrow(dataEC)),]
+#names(dataEC) <- header
+#rm(temp,header)
 
 # Remove the first four rows because they are empty rows or non-data rows
 data <- data[c(-1,-2,-3,-4),]
