@@ -70,10 +70,10 @@ d_2008 <- convert_magic_num(d_2008,c('character',rep('numeric',times = 48)))
 d_2008$time_stamp <- strptime(d_2008$time_stamp,"%m/%d/%y %H:%M")
 
 # Rename all the headers so that it is the same as original data
-names(d_2008)[28] <- 'U.'
-names(d_2008)[29] <- 'Z.L'
-names(d_2008)[32] <- 'sonic_WS'
-names(d_2008)[33] <- 'sonic_WD'
+names(d_2008)[32] <- 'U.'
+names(d_2008)[33] <- 'Z.L'
+names(d_2008)[36] <- 'sonic_WS'
+names(d_2008)[37] <- 'sonic_WD'
 names(d_2008)[17] <- 'Water.surface.temperature'
 
 # Remove 2nd, 3rd, 4th, and 5th columns not available in the original data
@@ -83,3 +83,15 @@ for (i in 1:length(d_2008)){
   d_2008[i][d_2008[i] < -990] <- NA
 }
 rm(i)
+
+# Rearrange the columns according to data
+
+d_2008 <- d_2008[c('time_stamp','H','LE','Z.L','U.','t_hmp_1_Avg',
+                   'rh_hmp_1_Avg','t_hmp_2_Avg','rh_hmp_2_Avg',
+                   't_hmp_3_Avg','rh_hmp_3_Avg','sonic_WS','sonic_WD',
+                   'WS_Spd_WVT','Wd_Spd_014A_Avg.1.','Wd_Spd_014A_Avg.2.',
+                   'Wd_Spd_014A_Avg.3.','Water.surface.temperature','Rn_Lite_Avg',
+                   'Quant_Avg','Pyra_Avg','Press_CS115_Avg','Rain_mm_Tot',
+                   'Water_temp_Avg.3.','Water_temp_Avg.4.','Water_temp_Avg.5.',
+                   'Water_temp_Avg.6.','Water_temp_Avg.7.','Water_temp_Avg.8.')]
+
