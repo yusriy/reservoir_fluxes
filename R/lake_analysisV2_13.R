@@ -1363,12 +1363,12 @@ dev.off()
 ##### Fig. 9 (prev. 12): LE/U and LE/deltaE for different ASL stability ranges ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_12.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V4/fig_8a.jpg')
 jpeg(file=path_fig,width=5,height=10,res=360,units='in')
 ## Creating a new plot
 plot.new()
 plot1 <- ggplot(na.omit(data[,c('LE_U','stability_no')]), aes(factor(stability_no),LE_U)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/8),aes(color=factor(stability_no))) + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(stability_no))) + 
   stat_summary(fun.y="mean",colour='black',geom='text',label='---',size=9) + 
   labs(x="",y='LE/U') + theme_bw() +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
@@ -1379,10 +1379,10 @@ plot1 <- ggplot(na.omit(data[,c('LE_U','stability_no')]), aes(factor(stability_n
   coord_cartesian(ylim = c(-20, 100)) +
   scale_y_continuous(breaks=seq(-20,100,by=20),labels=c(paste("\u2212",20,sep=""),0,20,40,60,80,100)) + 
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
-  annotate("text",x=0.8,y=100,label="a)",family='Times',size=7)
+  annotate("text",x=0.8,y=95,label="a)",family='Times',size=7)
 
 plot2 <- ggplot(na.omit(data[,c('LE_deltaE','stability_no')]), aes(factor(stability_no),LE_deltaE)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/8),aes(color=factor(stability_no))) + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(stability_no))) + 
   stat_summary(fun.y="mean",colour='black',geom='text',label='---',size=9) + 
   labs(x="",y=expression(paste('LE/',Delta,'e'))) + theme_bw() +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
@@ -1391,9 +1391,9 @@ plot2 <- ggplot(na.omit(data[,c('LE_deltaE','stability_no')]), aes(factor(stabil
         plot.margin=unit(c(-20,1,10,-0.5),"mm")) + 
   scale_x_discrete(labels=names_boxplot) +
   coord_cartesian(ylim = c(-100, 300)) +
-  scale_y_continuous(breaks=seq(-100,300,by=100),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
+  scale_y_continuous(breaks=seq(-100,300,by=100),labels=c(paste("\u2212",100,sep=""),0,100,200,300),limits=c(-100,300)) + 
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
-  annotate("text",x=0.8,y=300,label="b)",family='Times',size=7)
+  annotate("text",x=0.8,y=280,label="b)",family='Times',size=7)
 
 multiplot2(plot1,plot2,cols=1,labs=list('              ASL stability ranges',''))
 dev.off()
@@ -1401,7 +1401,7 @@ dev.off()
 ##### Fig. 9 (prev. 13): H/U and H/deltaE for different ASL stability ranges ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_13.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V4/fig_8b.jpg')
 jpeg(file=path_fig,width=5,height=10,res=360,units='in')
 ## Creating a new plot
 plot.new()
@@ -1414,10 +1414,10 @@ plot1 <- ggplot(na.omit(data[,c('H_U','stability_no')]), aes(factor(stability_no
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_text(size=16,family='Times'),
         plot.margin=unit(c(1,1,12,0.5),"mm")) + 
   scale_x_discrete(labels='') +
-  coord_cartesian(ylim = c(-10, 40)) +
+  coord_cartesian(ylim = c(-10, 40)) + 
   scale_y_continuous(breaks=seq(-10,40,by=10),labels=c(paste("\u2212",10,sep=""),0,10,20,30,40)) + 
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
-  annotate("text",x=0.80,y=40,label="c)",family='Times',size=7)
+  annotate("text",x=0.80,y=39,label="c)",family='Times',size=7)
 
 plot2 <- ggplot(na.omit(data[,c('H_deltaT','stability_no')]), aes(factor(stability_no),H_deltaT)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(stability_no))) + 
@@ -1428,10 +1428,10 @@ plot2 <- ggplot(na.omit(data[,c('H_deltaT','stability_no')]), aes(factor(stabili
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),
         plot.margin=unit(c(-20,1,10,0),"mm")) + 
   scale_x_discrete(labels=names_boxplot) +
-  coord_cartesian(ylim = c(-20, 30)) +
-  scale_y_continuous(breaks=seq(-20,30,by=10),labels=c(paste("\u2212",20,sep=""),paste("\u2212",10,sep=""),0,10,20,30)) + 
+  coord_cartesian(ylim = c(-20, 30)) + 
+  scale_y_continuous(breaks=seq(-20,30,by=10),labels=c(paste("\u2212",20,sep=""),paste("\u2212",10,sep=""),0,10,20,30),limits=c(-20,30)) + 
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
-  annotate("text",x=0.80,y=30,label="d)",family='Times',size=7)
+  annotate("text",x=0.80,y=28,label="d)",family='Times',size=7)
 
 multiplot2(plot1,plot2,cols=1,labs=list('              ASL stability ranges',''))
 dev.off()
@@ -1439,38 +1439,38 @@ dev.off()
 ##### Fig. 10 (prev. 14): CE and CH under different ASL stability ranges ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_14.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V4/fig_9.jpg')
 jpeg(file=path_fig,width=5,height=10,res=360,units='in')
 ## Creating a new plot
 plot.new()
 
 plot1 <- ggplot(na.omit(data[,c('C_E','stability_no')]), aes(factor(stability_no),C_E)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/8),aes(color=factor(stability_no))) + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(stability_no))) + 
   stat_summary(fun.y="mean",colour='black',geom='text',label='---',size=8) + 
   labs(x="",y=expression("C"["E"])) + theme_bw() +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times'),axis.title.x=element_text(size=16,family='Times'),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),
-        plot.margin=unit(c(1,1,5,1),"mm")) + 
+        plot.margin=unit(c(3,1,5,1),"mm")) + 
   scale_x_discrete(labels=names_boxplot) +
   coord_cartesian(ylim = c(-0.001, 0.005)) +
-  scale_y_continuous(breaks=seq(-0.001,0.005,by=0.0010),labels=c(paste("\u2212",0.001,sep=""),0.000,0.001,0.002,0.003,0.004,0.005)) + 
+  scale_y_continuous(breaks=seq(-0.001,0.005,by=0.0010),labels=c(paste("\u2212",0.001,sep=""),0.000,0.001,0.002,0.003,0.004,0.005),limits=c(-0.001,0.005)) + 
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
-  annotate("text",x=0.80,y=0.005,label="a)",family='Times',size=7)
+  annotate("text",x=0.80,y=0.0048,label="a)",family='Times',size=7)
 
 plot2 <- ggplot(na.omit(data[,c('C_H','stability_no')]), aes(factor(stability_no),C_H)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/8),aes(color=factor(stability_no))) + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(stability_no))) + 
   stat_summary(fun.y="mean",colour='black',geom='text',label='---',size=8) + 
   labs(x="",y=expression("C"["H"])) + theme_bw() +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times'),axis.title.x=element_text(size=16,family='Times'),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),
-        plot.margin=unit(c(-8,1,10,0.5),"mm")) + 
+        plot.margin=unit(c(-5,1,10,0.5),"mm")) + 
   scale_x_discrete(labels=names_boxplot) +
   coord_cartesian(ylim = c(-0.003, 0.005)) +
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),0.001,0.003,0.005)) + 
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),0.001,0.003,0.005),limits=c(-0.003,0.005)) + 
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
-  annotate("text",x=0.80,y=0.005,label="b)",family='Times',size=7)
+  annotate("text",x=0.80,y=0.0047,label="b)",family='Times',size=7)
 
 multiplot2(plot1,plot2,cols=1,labs=list('                 ASL stability ranges',''))
 dev.off()
