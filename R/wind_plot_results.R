@@ -1,11 +1,46 @@
-##### Prelim #########
-# Boxplots LE and H in different z/L ranges
+########################################################################
+# Title:  Wind speeds and energy fluxes in the above-water surface layer
+#         in windy and non-windy days in different ASL ranges
+# 
+# Data provided by Heping Liu, PhD, from Washington State University (WSU) in 
+# MS Excel and converted to csv format within Excel.
+# This script is to plot results for second manuscript.
+# Need to run "lake_analysisV2_13.R" first to get data
+# 
+# Data duration: 2007-08-24 to 2008-03-05
+#
+# Author: Yusri Yusup, PhD
+# Affiliation:  Environmental Technology, School of Industrial Technology, 
+#               Universiti Sains Malaysia (USM)
+# Date created: 2015-11-16
+# 
+# Version: 1.00
+# 
+
+##### Preliminaries #########
 library(ggplot2)
 library(Hmisc)
+library(dplyr)
 library(MASS)
-source("R/multiplot2.R")
+source("R/tools/multiplot2.R")
 
-##### Data preparation ######
+# Load and processed the data if needed
+#source('R/lake_analysisV2_13.R')
+
+
+##### Data preparation to sperate into the 4 wind class days ######
+
+# Grouping the data according the 4 categories of winds to plot time series
+data_group_4wind <- data %>% 
+  mutate(time_stamp=as.POSIXct(time_stamp)) %>%
+  group_by(wind_category_day,
+           hour=format(as.POSIXlt(cut(time_stamp,breaks='hour')),'%H')) %>%
+  summarise(LE=mean(LE,na.rm=TRUE), H= mean(H,na.rm=TRUE),Z.L = mean(Z.L,na.rm=TRUE),
+            WS = mean(WS_Spd_WVT,na.rm=TRUE),water_temp=mean(Water.surface.temperature,na.rm=TRUE),
+            es=mean(e_s1,na.rm=TRUE) * 0.1 ,ea=mean(e_a,na.rm=TRUE) * 0.1,deltaE=mean(deltaE,na.rm=TRUE),
+            Ta=mean(t_hmp_3_Avg,na.rm=TRUE))# need to multiply e_s1 and e_a with 0.1 because units in hPa not kPa
+data_group_4wind <- data_group_4wind[-98,]
+
 no_stability1 <- data$stability_no[which(data$wind_category_day==1)]
 LE1 <- data$LE[which(data$wind_category_day==1)]
 H1 <- data$H[which(data$wind_category_day==1)]
@@ -21,8 +56,7 @@ udeltaE1 <- data$u_deltaE[which(data$wind_category_day==1)]
 C_D1 <- data$C_D[which(data$wind_category_day==1)]
 C_E1 <- data$C_E[which(data$wind_category_day==1)]
 C_H1 <- data$C_H[which(data$wind_category_day==1)]
-#C_com1 <- data1$C_com[which(data$wind_category_day==1)]
-#C_u.1 <- data1$C_u.[which(data$wind_category_day==1)]
+
 
 no_stability2 <- data$stability_no[which(data$wind_category_day==2)]
 LE2 <- data$LE[which(data$wind_category_day==2)]
@@ -39,8 +73,6 @@ udeltaE2 <- data$u_deltaE[which(data$wind_category_day==2)]
 C_D2 <- data$C_D[which(data$wind_category_day==2)]
 C_E2 <- data$C_E[which(data$wind_category_day==2)]
 C_H2 <- data$C_H[which(data$wind_category_day==2)]
-#C_com2 <- data1$C_com[which(data$wind_category_day==2)]
-#C_u.2 <- data1$C_u.[which(data$wind_category_day==2)]
 
 no_stability3 <- data$stability_no[which(data$wind_category_day==3)]
 LE3 <- data$LE[which(data$wind_category_day==3)]
@@ -57,8 +89,6 @@ udeltaE3 <- data$u_deltaE[which(data$wind_category_day==3)]
 C_D3 <- data$C_D[which(data$wind_category_day==3)]
 C_E3 <- data$C_E[which(data$wind_category_day==3)]
 C_H3 <- data$C_H[which(data$wind_category_day==3)]
-#C_com3 <- data1$C_com[which(data$wind_category_day==3)]
-#C_u.3 <- data1$C_u.[which(data$wind_category_day==3)]
 
 no_stability4 <- data$stability_no[which(data$wind_category_day==4)]
 LE4 <- data$LE[which(data$wind_category_day==4)]
@@ -75,8 +105,7 @@ udeltaE4 <- data$u_deltaE[which(data$wind_category_day==4)]
 C_D4 <- data$C_D[which(data$wind_category_day==4)]
 C_E4 <- data$C_E[which(data$wind_category_day==4)]
 C_H4 <- data$C_H[which(data$wind_category_day==4)]
-#C_com4 <- data1$C_com[which(data$wind_category_day==4)]
-#C_u.4 <- data1$C_u.[which(data$wind_category_day==4)]
+
 
 df1 <- data.frame(no_stability1,LE1,H1,U1,deltaE1,ea1,es31,es21,es1,deltaT1,udeltaT1,udeltaE1,C_D1,
                   C_E1,C_H1)#,C_com1,C_u.1)
@@ -90,141 +119,285 @@ rm(no_stability1,no_stability2,no_stability3,no_stability4,LE1,LE2,LE3,LE4,H1,H2
    U1,U2,U3,U4,deltaE1,deltaE2,deltaE3,deltaE4,ea1,es1,ea2,es2,ea3,es3,ea4,es4,
    es31,es21,es32,es22,es33,es23,es34,es24,deltaT1,deltaT2,deltaT3,deltaT4,
    udeltaT1,udeltaE1,udeltaT2,udeltaE2,udeltaT3,udeltaE3,udeltaT4,udeltaE4,
-   C_D1,C_D2,C_D3,C_D4,C_E1,C_E2,C_E3,C_E4,C_H1,C_H2,C_H3,C_H4)#,C_com1,C_com2,
-   C_com3,C_com4,C_u.1,C_u.2,C_u.3,C_u.4)
+   C_D1,C_D2,C_D3,C_D4,C_E1,C_E2,C_E3,C_E4,C_H1,C_H2,C_H3,C_H4)
 
 ##### Names of various figures and box plots ####
 names_boxplot = c('\u221210\u2264\u03B6<\u22121','\u22121\u2264\u03B6<\u22120.5','\u22120.5\u2264\u03B6<\u22120.1','\u22120.1\u2264\u03B6<\u22120.05',
                   '\u22120.05\u2264\u03B6<0','0\u2264\u03B6<0.05','0.05\u2264\u03B6<0.1','0.1\u2264\u03B6<0.5','0.5\u2264\u03B6<1',
                   '1\u2264\u03B6<10')
 
-##### Fig. 1: LE vs ASL stability ranges for 4 ws categories ####
-
-# Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/wind_figs/fig_1.jpg')
-jpeg(file=path_fig,width=5, height=10,res=360,units='in')
+#### Fig. 1 Time series of parameters ####
+## For wind category day 1 
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig1_wind_cat_1.jpg')
+jpeg(file=path_fig,width=1450,height=1800,res=320)
+## Creating 5 panels of plots
 plot.new()
-# a) For wind category 1 LE
-plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=LE1)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability1))) + 
-  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) + 
-  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="a)",size=7,family='Times') +
-  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
-        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
-        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
-        plot.margin=unit(c(1,1,5,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
-  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+par(family='Times',mfrow=c(5,1),oma=c(0.4,0.1,1.3,0.1))
 
-# b) For wind category 2 LE
-plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=LE2)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability2))) + 
-  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) +
-  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="b)",size=7,family='Times') +
-  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
-        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
-        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
-        plot.margin=unit(c(-9,1,14,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
-  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+# a) LE
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$LE[data_group_4wind$wind_category_day == 1],
+     ylab='LE and H',xlab='',type='l',ylim=c(0,200),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$H[data_group_4wind$wind_category_day == 1],lty=2,lwd=2)
+axis(side=2,at=c(0,100,200),cex.axis=2)
+#text(4,180,'a) Wind-class I',cex=2)
+legend(-1,220,bty='n',lty=c(1,2),lwd=c(2,2,2),
+       c(expression('LE'),expression('H')),cex=1.5)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+title(main='\t\t\t\t\t\t\t\t\ta) Wind-class Day I',outer=TRUE,cex.main=2,font.main=1,adj=0)
 
-# c) For wind category 3 LE
-plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=LE3)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability3))) + 
-  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) +
-  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="c)",size=7,family='Times') +
-  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
-        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
-        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
-        plot.margin=unit(c(-19,1,23,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
-  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+# b) Vapor pressure (kPa)
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$es[data_group_4wind$wind_category_day == 1],
+     ylab='e',xlab='',type='l',lwd=2,ylim=c(-0.5,5.0),xaxt='n',yaxt='n',cex.lab=2,lty=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$ea[data_group_4wind$wind_category_day == 1],
+      ylab=expression('e'['a']),type='l',lty=1,lwd=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$deltaE[data_group_4wind$wind_category_day == 1],
+      ylab=expression(paste(Delta,'e')),type='l',lty=3,lwd=2)
+#text(0,3.1,'b)',cex=2)
+legend(-1,5.6,bty='n',lty=c(2,1,3),lwd=c(2,2,2),y.intersp=0.5,
+       c(expression('e'['s']),expression('e'['a']),expression(paste(Delta,'e'))),cex=1.8)
+axis(side=2,at=c(0,1,2,3,4,5),cex.axis=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
 
-# d) For wind category 4 LE
-plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=LE4)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/8),aes(color=factor(no_stability4))) + 
-  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) +
-  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="d)",size=7,family='Times') +
-  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
-        axis.title.x=element_text(size=16,family='Times'),axis.title.y=element_text(size=16,family='Times',vjust=0.01),
-        axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),axis.text.y=element_text(size=16,family='Times'),
-        plot.margin=unit(c(-28,1,4,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
-  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
-  scale_x_discrete(labels=names_boxplot)
+# c) zeta
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$Z.L[data_group_4wind$wind_category_day == 1],
+     ylab=expression(zeta),xlab='',type='l',lwd=2,ylim=c(-1.5,0.5),xaxt ='n',yaxt='n',cex.lab=2,cex.axis=2)
+#text(-0.5,0.45,'c)',cex=2)
+axis(side=2,at=c(-1,0),cex.axis=2)
+minor.tick(ny=5,nx=5,tick.ratio=0.5)
 
-multiplot2(plot1,plot2,plot3,plot4,
-           cols=1,labs=list("","LE"))
+
+# d) Temperature
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$Ta[data_group_4wind$wind_category_day == 1],
+     ylab='T',xlab='',type='l',ylim=c(5,30),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$water_temp[data_group_4wind$wind_category_day == 1],ylab='T',type='l',lty=2,lwd=2)
+legend(-1,34,y.intersp=0.8,bty='n',lty=c(1,2),lwd=c(2,2),c(expression('T'['a']),expression('T'['s'])),cex=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+axis(side=2,at=c(10,30),cex.axis=2)
+axis(side=2,at=20,cex.axis=2)
+#text(-0.5,29,'d)',cex=2)
+
+# e) Wind speed
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$WS[data_group_4wind$wind_category_day == 1],
+     ylab='U',xlab='',type='l',lwd=2,ylim=c(0,10),cex.lab=2,xaxt='n',cex.axis=2)
+#text(-0.5,9.5,'e)',cex=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+axis(side=1,at=c(0,3,6,9,12,15,18,21,24),cex.axis=2)
+#title(xlab='Hour (local time)',ylab='',outer=TRUE,cex.lab=2)
+
+rm(path_fig)
 
 dev.off()
 
-#### Fig. 1a: H vs ASL for 4 ws categories ####
-# Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/wind_figs/fig_1a.jpg')
-jpeg(file=path_fig,width=5, height=10,res=360,units='in')
+## For wind category day 2 
+
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig1_wind_cat_2.jpg')
+jpeg(file=path_fig,width=1450,height=1800,res=320)
+## Creating 5 panels of plots
 plot.new()
+par(family='Times',mfrow=c(5,1),oma=c(0.4,0.1,1.3,0.1))
 
-# a) H for wind cat 1
-plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=H1)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/32),aes(color=factor(no_stability1))) + 
-  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="e)",size=7,family='Times') +
-  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
-        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
-        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
-        plot.margin=unit(c(1,1,5,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
-  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+# a) LE
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$LE[data_group_4wind$wind_category_day == 2],
+     ylab='',xlab='',type='l',ylim=c(0,200),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$H[data_group_4wind$wind_category_day == 2],lty=2,lwd=2)
+#axis(side=2,at=c(0,100,200),cex.axis=2)
+#text(-0.5,195,'a)',cex=2)
+#legend(20,80,y.intersp=1,bty='n',lty=c(1,2),lwd=c(2,2,2),
+#       c(expression('LE'),expression('H')),cex=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+title(main='\t\t\t\t\t\t\t\t\tb) Wind-class Day II',outer=TRUE,cex.main=2,font.main=1,adj=0)
 
-# b) For wind category 2 H
-plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=H2)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/32),aes(color=factor(no_stability2))) + 
-  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="f)",size=7,family='Times') +
-  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
-        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
-        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
-        plot.margin=unit(c(-10,1,15,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
-  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+# b) Vapor pressure (kPa)
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$es[data_group_4wind$wind_category_day == 2],
+     ylab='',xlab='',type='l',lwd=2,ylim=c(-0.5,5),xaxt='n',yaxt='n',cex.lab=2,lty=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$ea[data_group_4wind$wind_category_day == 2],
+      ylab=expression('e'['a']),type='l',lty=1,lwd=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$deltaE[data_group_4wind$wind_category_day == 2],
+      ylab=expression(paste(Delta,'e')),type='l',lty=3,lwd=2)
+#text(-0.5,3.40,'b)',cex=2)
+#legend(19.8,0.9,y.intersp=0.5,bty='n',lty=c(2,1,3),lwd=c(2,2,2),
+#       c(expression('e'['s']),expression('e'['a']),expression(paste(Delta,'e'))),cex=2.2)
+#axis(side=2,at=c(0,1,2,3,4),cex.axis=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
 
-# c) For wind category 3 H
-plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=H3)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/32),aes(color=factor(no_stability3))) + 
-  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="g)",size=7,family='Times') +
-  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
-        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
-        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
-        plot.margin=unit(c(-20,1,25,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
-  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+# c) zeta
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$Z.L[data_group_4wind$wind_category_day == 2],
+     ylab='',xlab='',type='l',lwd=2,ylim=c(-1.5,0.5),xaxt ='n',yaxt='n',cex.lab=2,cex.axis=2)
+#text(-0.5,0.45,'c)',cex=2)
+#axis(side=2,at=c(-1,0),cex.axis=2)
+minor.tick(ny=5,nx=5,tick.ratio=0.5)
 
-# d) For wind category 4 H
-plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=H4)) + geom_boxplot(outlier.size=0,fill="white") + 
-  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability4))) + 
-  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="h)",size=7,family='Times') +
-  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
-        axis.title.x=element_text(size=16,family='Times'),axis.title.y=element_text(size=16,family='Times',vjust=0.01),
-        axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),axis.text.y=element_text(size=16,family='Times'),
-        plot.margin=unit(c(-30,1,4,-2.5),"mm")) +
-  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
-  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
-  scale_x_discrete(labels=names_boxplot)
 
-multiplot2(plot1,plot2,plot3,plot4,
-           cols=1,labs=list("ASL stability ranges","H"))
+# d) Temperature
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$Ta[data_group_4wind$wind_category_day == 2],
+     ylab='',xlab='',type='l',ylim=c(5,30),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$water_temp[data_group_4wind$wind_category_day == 2],ylab='T',type='l',lty=2,lwd=2)
+#legend(20,32,y.intersp=1,bty='n',lty=c(1,2),lwd=c(2,2),c(expression('T'['a']),expression('T'['s'])),cex=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+#axis(side=2,at=c(10,30),cex.axis=2)
+#axis(side=2,at=c(20),cex.axis=2)
+#text(-0.5,29,'d)',cex=2)
+
+# e) Wind speed
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$WS[data_group_4wind$wind_category_day == 2],
+     ylab='',xlab='',type='l',lwd=2,ylim=c(0,10),cex.lab=2,xaxt='n',yaxt='n',cex.axis=2)
+#text(-0.5,9.5,'e)',cex=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+#axis(side=1,at=c(0,3,6,9,12,15,18,21,24),cex.axis=2)
+#title(xlab='Hour (local time)',ylab='',outer=TRUE,cex.lab=2)
+
+rm(path_fig)
+
+dev.off()
+
+## For wind category day 3 
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig1_wind_cat_3.jpg')
+jpeg(file=path_fig,width=1450,height=1800,res=320)
+## Creating 5 panels of plots
+plot.new()
+par(family='Times',mfrow=c(5,1),oma=c(5.1,0.1,1.3,0.1))
+
+# a) LE
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$LE[data_group_4wind$wind_category_day == 3],
+     ylab='LE and H',xlab='',type='l',ylim=c(0,200),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$H[data_group_4wind$wind_category_day == 3],lty=2,lwd=2)
+axis(side=2,at=c(0,100,200),cex.axis=2)
+#text(-0.5,195,'a)',cex=2)
+legend(20,80,y.intersp=1,bty='n',lty=c(1,2),lwd=c(2,2,2),
+       c(expression('LE'),expression('H')),cex=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+title(main='\t\t\t\t\t\t\t\t\tc) Wind-class Day III',outer=TRUE,cex.main=2,font.main=1,adj=0)
+
+
+# b) Vapor pressure (kPa)
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$es[data_group_4wind$wind_category_day == 3],
+     ylab='e',xlab='',type='l',lwd=2,ylim=c(-0.5,5),xaxt='n',yaxt='n',cex.lab=2,lty=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$ea[data_group_4wind$wind_category_day == 3],
+      ylab=expression('e'['a']),type='l',lty=1,lwd=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$deltaE[data_group_4wind$wind_category_day == 3],
+      ylab=expression(paste(Delta,'e')),type='l',lty=3,lwd=2)
+#text(-0.5,3.40,'b)',cex=2)
+#legend(19.8,0.9,y.intersp=0.5,bty='n',lty=c(2,1,3),lwd=c(2,2,2),
+#       c(expression('e'['s']),expression('e'['a']),expression(paste(Delta,'e'))),cex=2.2)
+axis(side=2,at=c(0,1,2,3,4),cex.axis=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+
+# c) zeta
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$Z.L[data_group_4wind$wind_category_day == 3],
+     ylab=expression(zeta),xlab='',type='l',lwd=2,ylim=c(-1.5,0.5),xaxt ='n',yaxt='n',cex.lab=2,cex.axis=2)
+#text(-0.5,0.45,'c)',cex=2)
+axis(side=2,at=c(-1,0),cex.axis=2)
+minor.tick(ny=5,nx=5,tick.ratio=0.5)
+
+
+# d) Temperature
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$Ta[data_group_4wind$wind_category_day == 3],
+     ylab='T',xlab='',type='l',ylim=c(5,30),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$water_temp[data_group_4wind$wind_category_day == 3],ylab='T',type='l',lty=2,lwd=2)
+#legend(20,32,y.intersp=1,bty='n',lty=c(1,2),lwd=c(2,2),c(expression('T'['a']),expression('T'['s'])),cex=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+axis(side=2,at=c(10,30),cex.axis=2)
+axis(side=2,at=c(20),cex.axis=2)
+#text(-0.5,29,'d)',cex=2)
+
+# e) Wind speed
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$WS[data_group_4wind$wind_category_day == 3],
+     ylab='U',xlab='',type='l',lwd=2,ylim=c(0,10),cex.lab=2,xaxt='n',cex.axis=2)
+#text(-0.5,9.5,'e)',cex=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+axis(side=1,at=c(0,3,6,9,12,15,18,21,24),cex.axis=2)
+title(xlab='Hour (local time)',ylab='',outer=TRUE,cex.lab=2)
+
+rm(path_fig)
+
+dev.off()
+
+## For wind category day 4 
+
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig1_wind_cat_4.jpg')
+jpeg(file=path_fig,width=1450,height=1800,res=320)
+## Creating 5 panels of plots
+plot.new()
+par(family='Times',mfrow=c(5,1),oma=c(5.1,0.1,1.3,0.1))
+
+# a) LE
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$LE[data_group_4wind$wind_category_day == 4],
+     ylab='',xlab='',type='l',ylim=c(0,200),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$H[data_group_4wind$wind_category_day == 4],lty=2,lwd=2)
+#axis(side=2,at=c(0,100,200),cex.axis=2)
+#text(-0.5,195,'a)',cex=2)
+#legend(20,80,y.intersp=1,bty='n',lty=c(1,2),lwd=c(2,2,2),
+#       c(expression('LE'),expression('H')),cex=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+title(main='\t\t\t\t\t\t\t\t\td) Wind-class Day IV',outer=TRUE,cex.main=2,font.main=1,adj=0)
+
+
+# b) Vapor pressure (kPa)
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$es[data_group_4wind$wind_category_day == 4],
+     ylab='',xlab='',type='l',lwd=2,ylim=c(-0.5,5),xaxt='n',yaxt='n',cex.lab=2,lty=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$ea[data_group_4wind$wind_category_day == 4],
+      ylab=expression('e'['a']),type='l',lty=1,lwd=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$deltaE[data_group_4wind$wind_category_day == 4],
+      ylab=expression(paste(Delta,'e')),type='l',lty=3,lwd=2)
+#text(-0.5,3.40,'b)',cex=2)
+#legend(19.8,0.9,y.intersp=0.5,bty='n',lty=c(2,1,3),lwd=c(2,2,2),
+#       c(expression('e'['s']),expression('e'['a']),expression(paste(Delta,'e'))),cex=2.2)
+#axis(side=2,at=c(0,1,2,3,4),cex.axis=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+
+# c) zeta
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$Z.L[data_group_4wind$wind_category_day == 4],
+     ylab='',xlab='',type='l',lwd=2,ylim=c(-1.5,0.5),xaxt ='n',yaxt='n',cex.lab=2,cex.axis=2)
+#text(-0.5,0.45,'c)',cex=2)
+#axis(side=2,at=c(-1,0),cex.axis=2)
+minor.tick(ny=5,nx=5,tick.ratio=0.5)
+
+
+# d) Temperature
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$Ta[data_group_4wind$wind_category_day == 4],
+     ylab='',xlab='',type='l',ylim=c(5,30),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$water_temp[data_group_4wind$wind_category_day == 4],ylab='T',type='l',lty=2,lwd=2)
+#legend(20,32,y.intersp=1,bty='n',lty=c(1,2),lwd=c(2,2),c(expression('T'['a']),expression('T'['s'])),cex=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+#text(-0.5,29,'d)',cex=2)
+#axis(side=2,at=c(10,30),cex.axis=2)
+#axis(side=2,at=c(20),cex.axis=2)
+
+# e) Wind speed
+par(mai=c(0,0.6,0.1,0.1))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$WS[data_group_4wind$wind_category_day == 4],
+     ylab='',xlab='',type='l',lwd=2,ylim=c(0,10),cex.lab=2,xaxt='n',yaxt='n',cex.axis=2)
+#text(-0.5,9.5,'e)',cex=2)
+minor.tick(ny=2,nx=5,tick.ratio=0.5)
+axis(side=1,at=c(0,3,6,9,12,15,18,21,24),cex.axis=2)
+title(xlab='Hour (local time)',ylab='',outer=TRUE,cex.lab=2)
+
+rm(path_fig)
 
 dev.off()
 
 #### Fig. 2: U vs ASL wind categories #######
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/wind_figs/fig_2.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_2.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -285,7 +458,7 @@ dev.off()
 
 #### Fig. 3 deltaE vs ASL wind categories #######
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/wind_figs/fig_3.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_3.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -345,7 +518,7 @@ dev.off()
 
 #### Fig. 3a deltaT vs ASL wind categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/wind_figs/fig_3a.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_3a.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -405,7 +578,7 @@ dev.off()
 
 #### Fig. 4 udeltaE vs ASL stability wind categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/wind_figs/fig_4.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_4.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -465,7 +638,7 @@ dev.off()
 
 #### Fig. 4a udeltaT vs ASL stability wind categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/wind_figs/fig_4a.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_4a.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -525,7 +698,7 @@ dev.off()
 
 #### Fig. 5 C_D stability wind categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/wind_figs/fig_5.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_5.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -585,7 +758,7 @@ dev.off()
 
 #### Fig. 6 C_E stability wind categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/wind_figs/fig_6.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_6.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -645,7 +818,7 @@ dev.off()
 
 #### Fig. 7 C_H stability wind categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/wind_figs/fig_7.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_7.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -1052,6 +1225,130 @@ boxplot(df1$deltaE1,df2$deltaE2,df3$deltaE3,df4$deltaE4)
 boxplot(df1$deltaT1,df2$deltaT2,df3$deltaT3,df4$deltaT4)
 
 boxplot(df1$U1,df2$U2,df3$U3,df4$U4)
+
+##### Fig. 1: LE vs ASL stability ranges for 4 ws categories ####
+
+# Path where the plots will be saved
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_1.jpg')
+jpeg(file=path_fig,width=5, height=10,res=360,units='in')
+plot.new()
+# a) For wind category 1 LE
+plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=LE1)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability1))) + 
+  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) + 
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="a)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(1,1,5,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# b) For wind category 2 LE
+plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=LE2)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability2))) + 
+  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) +
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="b)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(-9,1,14,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# c) For wind category 3 LE
+plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=LE3)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability3))) + 
+  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) +
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="c)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(-19,1,23,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# d) For wind category 4 LE
+plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=LE4)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/8),aes(color=factor(no_stability4))) + 
+  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) +
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="d)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.x=element_text(size=16,family='Times'),axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),axis.text.y=element_text(size=16,family='Times'),
+        plot.margin=unit(c(-28,1,4,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
+  scale_x_discrete(labels=names_boxplot)
+
+multiplot2(plot1,plot2,plot3,plot4,
+           cols=1,labs=list("","LE"))
+
+dev.off()
+
+#### Fig. 1a: H vs ASL for 4 ws categories ####
+# Path where the plots will be saved
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_1a.jpg')
+jpeg(file=path_fig,width=5, height=10,res=360,units='in')
+plot.new()
+
+# a) H for wind cat 1
+plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=H1)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/32),aes(color=factor(no_stability1))) + 
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="e)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(1,1,5,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# b) For wind category 2 H
+plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=H2)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/32),aes(color=factor(no_stability2))) + 
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="f)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(-10,1,15,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# c) For wind category 3 H
+plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=H3)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/32),aes(color=factor(no_stability3))) + 
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="g)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(-20,1,25,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# d) For wind category 4 H
+plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=H4)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability4))) + 
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="h)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.x=element_text(size=16,family='Times'),axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),axis.text.y=element_text(size=16,family='Times'),
+        plot.margin=unit(c(-30,1,4,-2.5),"mm")) +
+  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
+  scale_x_discrete(labels=names_boxplot)
+
+multiplot2(plot1,plot2,plot3,plot4,
+           cols=1,labs=list("ASL stability ranges","H"))
+
+dev.off()
 
 #### Delete temp variables #########
 rm(path_fig,names_boxplot,plot1,plot2,plot3,plot4)
