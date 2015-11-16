@@ -1,9 +1,11 @@
 ##### ABOUT: LAKE FLUX ANALYSIS ################################################
 # Title: Latent and sensible heat flux study over a lake/reservoir
 # 
-# Data provided by Heping Liu, PhD, from Washington State University (WSU) in MS Excel
-# and converted to csv format within Excel.
+# Data provided by Heping Liu, PhD, from Washington State University (WSU) in 
+# MS Excel and converted to csv format within Excel.
 # 
+# Data duration: 2007-08-24 to 2008-03-05
+#
 # Author: Yusri Yusup, PhD
 # Affiliation:  Environmental Technology, School of Industrial Technology, 
 #               Universiti Sains Malaysia (USM)
@@ -27,36 +29,34 @@ library(gridBase) # To combine ggplot2 and base graphics
 library(grid)
 library(openair) # To plot windrose
 
-source('R/convert_magic.R')
-source('R/convert_magic_num.R')
-source('R/vap_pres_Buck.R') # To calculate vapor pressure using Buck's (1981) equation
-source('R/water_vap_mix_ratio.R') # To calculate water vapor mixing ratio
-source('R/bulk_moist_coef.R') # To calculate C_E.L, bulk transfer coeffficient of moisture
-source('R/ideal_gas_eq_rho.R') # To calculate air density
-source('R/unst_stab_category.R') # To categorize atmospheric stability
-source('R/unst_stab_category2.R') # To categorize atmospheric stability to either unstable or stable
-source('R/C_E_calc.R') # To calculate bulk transfer coefficient uisng M-O
-source('R/multiplot.R')
-source("R/multiplot2.R")
-source("R/WindRose.R")
-source("R/midpoint.R")
-source("R/footprint_hsieh1.R") # Calculate footprint using Hsieh et al. (2000)
-source("R/footprint_hsieh_peak.R") # Calculate peak footprint
-source("R/footprint_schmid.R") # Calculate the peak distance using Schmid (1994)
+
+## To calculate other parameters
+source('R/tools/vap_pres_Buck.R') # To calculate vapor pressure using Buck's (1981) 
+                                  # equation
+source('R/tools/water_vap_mix_ratio.R') # To calculate water vapor mixing ratio
+source('R/tools/bulk_moist_coef.R') # To calculate C_E.L, bulk transfer 
+                                    # coeffficient of moisture
+source('R/tools/ideal_gas_eq_rho.R') # To calculate air density
+source('R/tools/unst_stab_category.R') # To categorize atmospheric stability
+source('R/tools/unst_stab_category2.R') # To categorize atmospheric stability 
+                                        # to either unstable or stable
+source('R/tools/C_E_calc.R') # To calculate bulk transfer coefficient uisng M-O
+## Footprint analysis
+source("R/tools/footprint_hsieh1.R") # Calculate footprint using Hsieh et al. (2000)
+source("R/tools/footprint_hsieh_peak.R") # Calculate peak footprint
+source("R/tools/footprint_schmid.R") # Calculate the peak distance using Schmid (1994)
+## For plotting
+source('R/tools/multiplot.R') # To plot multi-panel plots
+source("R/tools/multiplot2.R") # To another type of multi-panel plots
+## Misc tools
+source("R/tools/midpoint.R") # To plot the arrow diagrams
+source('R/tools/convert_magic.R') # To convert other data types to characters
+source('R/tools/convert_magic_num.R') # To convert characters to numerics
 
 ##### 1. Data import and clean up #################################################
 
 # Read data from original csv file
-data <- read.csv('data/lake_data_new.csv')
-
-# Read from EC processed data using Foken (2004) chapter
-# Skip to line 12 to only include data from 2007-08-24 17:45 (or 17:30)
-#temp <-read.csv('data/Reservoir_data_08242007-02162008.csv')
-#header <- names(temp)
-#dataEC <- read.csv('data/Reservoir_data_08242007-02162008.csv',skip=36)
-#dataEC <- dataEC[-c(8449:nrow(dataEC)),]
-#names(dataEC) <- header
-#rm(temp,header)
+data <- read.csv('data/lake_data_20070824_20080305.csv')
 
 # Remove the first four rows because they are empty rows or non-data rows
 data <- data[c(-1,-2,-3,-4),]
@@ -76,14 +76,6 @@ for (i in 1:length(data)){
   data[i][data[i] == -999] <- NA
 }
 rm(i)
-
-# Remove Rn_Q71_Avg to be able to be combined with the 2008 data
-data <- data[,-19]
-
-# Combine data from 2008, dataframe d_2008 will be created
-source('R/lake_analysis2008.R')
-
-data <- rbind(data,d_2008)
 
 ##### 1A. Bad data removal, cold front classification ##############################
 # This section is dataset-dependent. Rows with bad data obtained from visual
@@ -557,44 +549,6 @@ for (i in 1:nrow(data)) {
 data <- cbind(data,Peak)
 rm(zm,i,Peak)
 
-## Decided to not remove according to Foken 'quality flags' procedures
-## due to maintain generality of results
-
-# Remove all qc = 9 for LE and H (LE_U, LE_deltaE, H_U, H_deltaT, C_E, C_H)
-#data$LE[which(data$qc_LE == '9' | data$qc_LE == '-9999' | data$qc_LE == '7' |
-#                data$qc_LE == '8')] <- NA
-#data$LE[which(data$stability_no==10)] <- NA
-#data$H[which(data$qc_H == '9' | data$qc_H == '-9999' | data$qc_LE == '7' |
-#               data$qc_LE == '8')] <- NA
-#data$U.[which(data$qc_Tau == '9' | data$qc_Tau == '9999' | data$qc_LE == '7' |
-#                data$qc_LE == '8')] <- NA
-
-#data$LE_U[which(data$qc_LE == '9' | data$qc_LE == '-9999' | data$qc_LE == '7' |
-#                data$qc_LE == '8')] <- NA 
-#data$LE_U[which(data$stability_no==10)] <- NA #Remove one stability_no=10
-#data$H_U[which(data$qc_H == '9' | data$qc_H == '-9999' | data$qc_LE == '7' |
-#               data$qc_LE == '8')] <- NA
-#data$LE_deltaE[which(data$qc_LE == '9' | data$qc_LE == '-9999' | data$qc_LE == '7' |
-#                  data$qc_LE == '8')] <- NA
-
-#data$LE_deltaE[which(data$stability_no==10)] <- NA #Remove one stability_no=10
-
-#data$H_deltaT[which(data$qc_H == '9' | data$qc_H == '-9999' | data$qc_LE == '7' |
-#                 data$qc_LE == '8')] <- NA
-#data$C_E[which(data$qc_LE == '9' | data$qc_LE == '-9999' | data$qc_LE == '7' |
-#                 data$qc_LE == '8')] <- NA
-
-#data$C_E[which(data$stability_no == 10)] <- NA
-
-#data$C_H[which(data$qc_H == '9' | data$qc_H == '-9999' | data$qc_LE == '7' |
-#                 data$qc_LE == '8')] <- NA
-
-# Remove all NaN created by timeAverage function and others
-
-#data[sapply(data,is.na)] <- NA
-
-#d <- sapply(d, function(x){ x[is.nan(x)] <- NA})
-
 ##### 4. Some statistical analysis ###########################
 
 ## 1. To find the different between LE in unstable and stable conditions
@@ -673,7 +627,7 @@ lm12<-lm(pos$LE[which(pos$Z.L>=0)]~pos$u_deltaE[which(pos$Z.L>=0)])
 
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_2.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_2.jpg')
 jpeg(file=path_fig,width=3060, height=3600,res=360)
 ## Creating 6 panels of plots
 plot.new()
@@ -775,7 +729,7 @@ lm12<-lm(pos$H[which(pos$Z.L>=0)]~pos$u_deltaT[which(pos$Z.L>=0)])
 
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_3.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_3.jpg')
 jpeg(file=path_fig,width=3060, height=3600,res=360)
 ## Creating 6 panels of plots
 plot.new()
@@ -941,7 +895,7 @@ rm(d)
 #### Fig. 5 Arrows of LE with deltaE, U, UdeltaE###########
 # Path where the plots will be saved
 source("R/para_grouped_mean.R")
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_5.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_5.jpg')
 jpeg(file=path_fig,width=1346, height=3600,res=360)
 ## Creating 6 panels of plots
 plot.new()
@@ -1012,7 +966,7 @@ rm(mid1,mid2)
 ##### Fig. 6: Arrows U and u* and u* for different ASL stability ranges ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_6.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_6.jpg')
 jpeg(file=path_fig,width=5,height=10,res=360,units='in')
 
 #### First base graphic plot
@@ -1065,7 +1019,7 @@ rm(mid1,mid2,plot5,vp1,vps)
 ##### Fig. 7: r2 for LE ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_7.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_7.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 ## Creating a new plot
 plot.new()
@@ -1170,7 +1124,7 @@ dev.off()
 
 ##### Fig. 5 (prev. 9): Arrows for H #################
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_9.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_9.jpg')
 jpeg(file=path_fig,width=1346, height=3600,res=360)
 ## Creating 6 panels of plots
 plot.new()
@@ -1246,7 +1200,7 @@ rm(mid1,mid2)
 ##### Fig. 7 (prev. 10): r2 for H ############
 source("R/r_sq_H.R")
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_10.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_10.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 ## Creating a new plot
 plot.new()
@@ -1287,7 +1241,7 @@ dev.off()
 
 ##### Fig. 8 (prev. 11): Time series Sept 2007 ####
 
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_11.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_11.jpg')
 jpeg(file=path_fig,width=5,height=10,res=360,units='in')
 ## Creating 5 panels of plots
 plot.new()
@@ -1482,7 +1436,7 @@ near_neutral <- which(data$Z.L > -0.05 & data$Z.L < 0.05)
 unstable <- which(data$Z.L > -0.5 & data$Z.L < -0.1)
 # Categorize data into near stable conditions (0.1 < z/L < 0.5)
 stable <- which(data$Z.L > 0.1 & data$Z.L < 0.5)
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data analysis/lake/figs/figs_V3/fig_15.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_15.jpg')
 jpeg(file=path_fig,width=3060, height=3600,res=360)
 
 plot.new()
@@ -1546,7 +1500,9 @@ dev.off()
 #### 6. Cleaning up ####
 
 # Deleting original margin settings for plots
-rm(path_fig,plot1,plot2,plot3,plot4,plot5,plot6,names_boxplot,i)
+rm(path_fig,plot1,plot2,plot3,plot4,names_boxplot)
 rm(old.par)
-rm(d_mean,d_mean_cor,data_group,data_rsq,data_rsq2,cat_no,day,near_neutral,stable,unstable)
+rm(d_mean,d_mean_cor,data_group,data_rsq,data_rsq2,cat_no,
+   near_neutral,stable,unstable)
+rm(p_H_dT,p_H_U,p_H_UdT)
 
