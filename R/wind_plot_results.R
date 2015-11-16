@@ -526,7 +526,7 @@ plot.new()
 plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=deltaT1)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability1))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=9.8,label="a)",size=7,family='Times') +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=9.8,label="e)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -538,7 +538,7 @@ plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=deltaT1)) + geom_boxp
 plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=deltaT2)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability2))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y=expression(paste(Delta,'T'))) + theme_bw() + annotate("text",x=0.8,y=9.7,label="b)",size=7,family='Times') +
+  labs(x="",y=expression(paste(Delta,'T'))) + theme_bw() + annotate("text",x=0.8,y=9.7,label="f)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01,hjust=0.07),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -550,7 +550,7 @@ plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=deltaT2)) + geom_boxp
 plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=deltaT3)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability3))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=9.7,label="c)",size=7,family='Times') +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=9.7,label="g)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -562,7 +562,7 @@ plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=deltaT3)) + geom_boxp
 plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=deltaT4)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability4))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=9.7,label="d)",size=7,family='Times') +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=9.7,label="h)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -573,6 +573,130 @@ plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=deltaT4)) + geom_boxp
 
 multiplot2(plot1,plot2,plot3,plot4,
            cols=1,labs=list("ASL stability ranges",""))
+
+dev.off()
+
+#### Fig. 4: LE vs ASL stability ranges for 4 ws categories ####
+
+# Path where the plots will be saved
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_4.jpg')
+jpeg(file=path_fig,width=5, height=10,res=360,units='in')
+plot.new()
+# a) For wind category 1 LE
+plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=LE1)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability1))) + 
+  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) + 
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="a)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(1,1,5,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# b) For wind category 2 LE
+plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=LE2)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability2))) + 
+  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) +
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="b)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(-9,1,14,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# c) For wind category 3 LE
+plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=LE3)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability3))) + 
+  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) +
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="c)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(-19,1,23,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# d) For wind category 4 LE
+plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=LE4)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/8),aes(color=factor(no_stability4))) + 
+  #stat_summary(fun.y="median",colour='black',geom='text',label='---',size=7) +
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=440,label="d)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.x=element_text(size=16,family='Times'),axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),axis.text.y=element_text(size=16,family='Times'),
+        plot.margin=unit(c(-28,1,4,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,400,by=100),limits=c(-100,450),labels=c(paste("\u2212",100,sep=""),0,100,200,300,400)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
+  scale_x_discrete(labels=names_boxplot)
+
+multiplot2(plot1,plot2,plot3,plot4,
+           cols=1,labs=list("","LE"))
+
+dev.off()
+
+#### Fig. 4a: H vs ASL for 4 ws categories ####
+# Path where the plots will be saved
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_4a.jpg')
+jpeg(file=path_fig,width=5, height=10,res=360,units='in')
+plot.new()
+
+# a) H for wind cat 1
+plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=H1)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/32),aes(color=factor(no_stability1))) + 
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="e)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(1,1,5,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# b) For wind category 2 H
+plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=H2)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/32),aes(color=factor(no_stability2))) + 
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="f)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(-10,1,15,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# c) For wind category 3 H
+plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=H3)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/32),aes(color=factor(no_stability3))) + 
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="g)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
+        plot.margin=unit(c(-20,1,25,-2.5),"mm")) + 
+  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
+
+# d) For wind category 4 H
+plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=H4)) + geom_boxplot(outlier.size=0,fill="white") + 
+  geom_jitter(alpha=I(1/16),aes(color=factor(no_stability4))) + 
+  stat_summary(fun.y="median",geom='line',aes(group=1),size=1) +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=245,label="h)",size=7,family='Times') +
+  theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
+        axis.title.x=element_text(size=16,family='Times'),axis.title.y=element_text(size=16,family='Times',vjust=0.01),
+        axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),axis.text.y=element_text(size=16,family='Times'),
+        plot.margin=unit(c(-30,1,4,-2.5),"mm")) +
+  scale_y_continuous(breaks=seq(-100,300,by=100),limits=c(-100,250),labels=c(paste("\u2212",100,sep=""),0,100,200,300)) + 
+  scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
+  scale_x_discrete(labels=names_boxplot)
+
+multiplot2(plot1,plot2,plot3,plot4,
+           cols=1,labs=list("ASL stability ranges","H"))
 
 dev.off()
 
@@ -1290,7 +1414,7 @@ multiplot2(plot1,plot2,plot3,plot4,
 
 dev.off()
 
-#### Fig. 1a: H vs ASL for 4 ws categories ####
+#### Fig.1a: H vs ASL for 4 ws categories ####
 # Path where the plots will be saved
 path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_1a.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
@@ -1349,6 +1473,9 @@ multiplot2(plot1,plot2,plot3,plot4,
            cols=1,labs=list("ASL stability ranges","H"))
 
 dev.off()
+
+
+
 
 #### Delete temp variables #########
 rm(path_fig,names_boxplot,plot1,plot2,plot3,plot4)
