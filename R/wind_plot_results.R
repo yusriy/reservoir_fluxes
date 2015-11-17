@@ -22,6 +22,7 @@ library(ggplot2)
 library(Hmisc)
 library(dplyr)
 library(MASS)
+library(scales)
 source("R/tools/multiplot2.R")
 
 # Load and processed the data if needed
@@ -38,8 +39,9 @@ data_group_4wind <- data %>%
   summarise(LE=mean(LE,na.rm=TRUE), H= mean(H,na.rm=TRUE),Z.L = mean(Z.L,na.rm=TRUE),
             WS = mean(WS_Spd_WVT,na.rm=TRUE),water_temp=mean(Water.surface.temperature,na.rm=TRUE),
             es=mean(e_s1,na.rm=TRUE) * 0.1 ,ea=mean(e_a,na.rm=TRUE) * 0.1,deltaE=mean(deltaE,na.rm=TRUE),
-            Ta=mean(t_hmp_3_Avg,na.rm=TRUE))# need to multiply e_s1 and e_a with 0.1 because units in hPa not kPa
-data_group_4wind <- data_group_4wind[-98,]
+            Ta=mean(t_hmp_3_Avg,na.rm=TRUE),Rn=mean(Rn_Q71_Avg,na.rm=TRUE))
+            # need to multiply e_s1 and e_a with 0.1 because units in hPa not kPa
+data_group_4wind <- data_group_4wind[-c(97:120),]
 
 no_stability1 <- data$stability_no[which(data$wind_category_day==1)]
 LE1 <- data$LE[which(data$wind_category_day==1)]
@@ -134,15 +136,16 @@ jpeg(file=path_fig,width=1450,height=1800,res=320)
 plot.new()
 par(family='Times',mfrow=c(5,1),oma=c(0.4,0.1,1.3,0.1))
 
-# a) LE
+# a) LE, H, Rn and G?
 par(mai=c(0,0.6,0.1,0.1))
 plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$LE[data_group_4wind$wind_category_day == 1],
-     ylab='LE and H',xlab='',type='l',ylim=c(0,200),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
+     ylab='Energy',xlab='',type='l',ylim=c(0,200),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
 lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$H[data_group_4wind$wind_category_day == 1],lty=2,lwd=2)
+#lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$Rn[data_group_4wind$wind_category_day == 1],lty=3,lwd=2)
 axis(side=2,at=c(0,100,200),cex.axis=2)
 #text(4,180,'a) Wind-class I',cex=2)
-legend(-1,220,bty='n',lty=c(1,2),lwd=c(2,2,2),
-       c(expression('LE'),expression('H')),cex=1.5)
+legend(-1,220,bty='n',lty=c(1,2),lwd=c(2,2),
+       legend=c('LE','H'),cex=1.5)
 minor.tick(ny=2,nx=5,tick.ratio=0.5)
 title(main='\t\t\t\t\t\t\t\t\ta) Wind-class Day I',outer=TRUE,cex.main=2,font.main=1,adj=0)
 
@@ -576,7 +579,7 @@ multiplot2(plot1,plot2,plot3,plot4,
 
 dev.off()
 
-#### Fig. 4: LE vs ASL stability ranges for 4 ws categories ####
+#### Fig. 4 LE vs ASL stability ranges for 4 ws categories ####
 
 # Path where the plots will be saved
 path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_4.jpg')
@@ -636,11 +639,11 @@ plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=LE4)) + geom_boxplot(
   scale_x_discrete(labels=names_boxplot)
 
 multiplot2(plot1,plot2,plot3,plot4,
-           cols=1,labs=list("","LE"))
+           cols=1,labs=list("ASL stability ranges","LE"))
 
 dev.off()
 
-#### Fig. 4a: H vs ASL for 4 ws categories ####
+#### Fig. 4a H vs ASL for 4 ws categories ####
 # Path where the plots will be saved
 path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_4a.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
@@ -699,6 +702,88 @@ multiplot2(plot1,plot2,plot3,plot4,
            cols=1,labs=list("ASL stability ranges","H"))
 
 dev.off()
+
+#### Fig. 5 LE vs deltaE for 4 ws categories ####
+# Path where the plots will be saved
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_5.jpg')
+jpeg(file=path_fig,width=8, height=16,res=360,units='cm')
+plot.new()
+
+par(family='Times',mfrow=c(2,1),oma=c(0.4,0.1,1.3,0.1))
+
+# a) For positive deltaE
+# Linear regression lines
+lm1 <- lm(df1$LE1[which(df1$deltaE1>0)] ~ df1$deltaE1[which(df1$deltaE1>0)])
+lm2 <- lm(df2$LE2[which(df2$deltaE2>0)] ~ df2$deltaE2[which(df2$deltaE2>0)])
+lm3 <- lm(df3$LE3[which(df3$deltaE3>0)] ~ df3$deltaE3[which(df3$deltaE3>0)])
+lm4 <- lm(df4$LE4[which(df4$deltaE4>0)] ~ df4$deltaE4[which(df4$deltaE4>0)])
+
+par(mai=c(0.5,0.6,0,0.1))
+plot(df1$deltaE1[which(df1$deltaE1>0)],df1$LE1[which(df1$deltaE1>0)],
+     pch=19,col=alpha('lightblue',0.2),
+     xlab='',ylab='',cex=1,cex.axis=1,
+     cex.lab=1)
+text(x=0.1,y=348,labels='a)',cex=1.5)
+mtext(side=2,'LE',line=2,cex=1)
+points(df2$deltaE2[which(df1$deltaE1>0)],df2$LE2[which(df1$deltaE1>0)],
+       pch=19,col=alpha('blue',0.2),cex=1)
+points(df3$deltaE3[which(df1$deltaE1>0)],df3$LE3[which(df1$deltaE1>0)],
+       pch=19,col=alpha('darkblue',0.2),cex=1)
+points(df4$deltaE4[which(df1$deltaE1>0)],df4$LE4[which(df1$deltaE1>0)],
+       pch=19,col=alpha('grey40',0.2),cex=1)
+minor.tick(nx=2,ny=2)
+abline(lm1,lwd=5,lty=1,col='lightblue')
+abline(lm2,lwd=5,lty=2,col='blue')
+abline(lm3,lwd=5,lty=5,col='darkblue')
+abline(lm4,lwd=5,lty=4,col='black')
+
+# b) For negative deltaE
+# Linear regression lines
+lm1 <- lm(df1$LE1[which(df1$deltaE1<0)] ~ df1$deltaE1[which(df1$deltaE1<0)])
+lm2 <- lm(df2$LE2[which(df2$deltaE2<0)] ~ df2$deltaE2[which(df2$deltaE2<0)])
+lm3 <- lm(df3$LE3[which(df3$deltaE3<0)] ~ df3$deltaE3[which(df3$deltaE3<0)])
+lm4 <- lm(df4$LE4[which(df4$deltaE4<0)] ~ df4$deltaE4[which(df4$deltaE4<0)])
+par(mai=c(0.6,0.6,0,0.1))
+plot(df1$deltaE1[which(df1$deltaE1<0)],df1$LE1[which(df1$deltaE1<0)],
+     pch=19,col=alpha('lightblue',0.2),
+     xlab='',ylab='',cex=1,cex.axis=1,
+     cex.lab=1,xlim=c(-0.5,0))
+text(x=-0.48,y=9,labels='b)',cex=1.5)
+mtext(side=2,'LE',line=2,cex=1)
+mtext(side=1,expression(paste(Delta,'e')),line=2.2,cex=1)
+points(df2$deltaE2[which(df1$deltaE1<0)],df2$LE2[which(df1$deltaE1<0)],
+       pch=19,col=alpha('blue',0.2),cex=1)
+points(df3$deltaE3[which(df1$deltaE1<0)],df3$LE3[which(df1$deltaE1<0)],
+       pch=19,col=alpha('darkblue',0.2),cex=1)
+points(df4$deltaE4[which(df1$deltaE1<0)],df4$LE4[which(df1$deltaE1<0)],
+       pch=19,col=alpha('grey40',0.2),cex=1)
+minor.tick(nx=2,ny=2)
+abline(lm1,lwd=5,lty=1,col='lightblue')
+abline(lm2,lwd=5,lty=2,col='blue')
+abline(lm3,lwd=5,lty=5,col='darkblue')
+abline(lm4,lwd=5,lty=4,col='black')
+
+
+
+
+rm(lm1,lm2,lm3,lm4)
+dev.off()
+
+#### Fig. 5 H vs deltaE for 4 ws categories ####
+# Path where the plots will be saved
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_5a.jpg')
+jpeg(file=path_fig,width=5, height=10,res=360,units='in')
+plot.new()
+
+plot(df1$deltaT1,df1$H,pch=18,col='blue')
+points(df2$deltaT2,df2$H2,pch=19,col='red')
+points(df3$deltaT3,df3$H3,pch=20,col='orange')
+points(df4$deltaT4,df4$H4,pch=21,col='black')
+
+
+
+dev.off()
+
 
 #### Fig. 4 udeltaE vs ASL stability wind categories ####
 # Path where the plots will be saved
