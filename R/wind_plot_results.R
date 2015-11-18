@@ -130,7 +130,7 @@ names_boxplot = c('\u221210\u2264\u03B6<\u22121','\u22121\u2264\u03B6<\u22120.5'
 
 #### Fig. 1 Time series of parameters ####
 ## For wind category day 1 
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig1_wind_cat_1.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_1_wind_cat_1.jpg')
 jpeg(file=path_fig,width=1450,height=1800,res=320)
 ## Creating 5 panels of plots
 plot.new()
@@ -139,7 +139,7 @@ par(family='Times',mfrow=c(5,1),oma=c(0.4,0.1,1.3,0.1))
 # a) LE, H, Rn and G?
 par(mai=c(0,0.6,0.1,0.1))
 plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$LE[data_group_4wind$wind_category_day == 1],
-     ylab='Energy',xlab='',type='l',ylim=c(0,200),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
+     ylab='LE and H',xlab='',type='l',ylim=c(0,200),lwd=2,xaxt='n',yaxt='n',cex.lab=2,cex.axis=2)
 lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$H[data_group_4wind$wind_category_day == 1],lty=2,lwd=2)
 #lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$Rn[data_group_4wind$wind_category_day == 1],lty=3,lwd=2)
 axis(side=2,at=c(0,100,200),cex.axis=2)
@@ -168,7 +168,8 @@ par(mai=c(0,0.6,0.1,0.1))
 plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 1],data_group_4wind$Z.L[data_group_4wind$wind_category_day == 1],
      ylab=expression(zeta),xlab='',type='l',lwd=2,ylim=c(-1.5,0.5),xaxt ='n',yaxt='n',cex.lab=2,cex.axis=2)
 #text(-0.5,0.45,'c)',cex=2)
-axis(side=2,at=c(-1,0),cex.axis=2)
+axis(side=2,at=c(-1,0),labels=c(paste("\u2212",1,sep=""),0),cex.axis=2)
+
 minor.tick(ny=5,nx=5,tick.ratio=0.5)
 
 
@@ -198,7 +199,7 @@ dev.off()
 
 ## For wind category day 2 
 
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig1_wind_cat_2.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_1_wind_cat_2.jpg')
 jpeg(file=path_fig,width=1450,height=1800,res=320)
 ## Creating 5 panels of plots
 plot.new()
@@ -264,7 +265,7 @@ rm(path_fig)
 dev.off()
 
 ## For wind category day 3 
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig1_wind_cat_3.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_1_wind_cat_3.jpg')
 jpeg(file=path_fig,width=1450,height=1800,res=320)
 ## Creating 5 panels of plots
 plot.new()
@@ -302,7 +303,7 @@ par(mai=c(0,0.6,0.1,0.1))
 plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$Z.L[data_group_4wind$wind_category_day == 3],
      ylab=expression(zeta),xlab='',type='l',lwd=2,ylim=c(-1.5,0.5),xaxt ='n',yaxt='n',cex.lab=2,cex.axis=2)
 #text(-0.5,0.45,'c)',cex=2)
-axis(side=2,at=c(-1,0),cex.axis=2)
+axis(side=2,at=c(-1,0),labels=c(paste("\u2212",1,sep=""),0),cex.axis=2)
 minor.tick(ny=5,nx=5,tick.ratio=0.5)
 
 
@@ -332,7 +333,7 @@ dev.off()
 
 ## For wind category day 4 
 
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig1_wind_cat_4.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_1_wind_cat_4.jpg')
 jpeg(file=path_fig,width=1450,height=1800,res=320)
 ## Creating 5 panels of plots
 plot.new()
@@ -474,7 +475,8 @@ plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=deltaE1)) + geom_boxp
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(1,1,4,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-1,3,by=1),limits=c(-1,3)) + 
+  scale_y_continuous(breaks=seq(-1,3,by=1),limits=c(-1,3),
+                     labels=c(paste("\u2212",1,sep=""),0,1,2,3)) + 
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # b) For wind category 2 deltaE
@@ -486,7 +488,8 @@ plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=deltaE2)) + geom_boxp
         axis.title.y=element_text(size=16,family='Times',vjust=0.01,hjust=0.05),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(-10,1,15,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-1,3,by=1),limits=c(-1,3)) + 
+  scale_y_continuous(breaks=seq(-1,3,by=1),limits=c(-1,3),
+                     labels=c(paste("\u2212",1,sep=""),0,1,2,3)) + 
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # c) For wind category 3 deltaE
@@ -498,7 +501,8 @@ plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=deltaE3)) + geom_boxp
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(-20,1,25,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-1,3,by=1),limits=c(-1,3)) + 
+  scale_y_continuous(breaks=seq(-1,3,by=1),limits=c(-1,3),
+                     labels=c(paste("\u2212",1,sep=""),0,1,2,3)) + 
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # d) For wind category 4 deltaE
@@ -510,7 +514,8 @@ plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=deltaE4)) + geom_boxp
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(-30,1,4,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-1,3,by=1),limits=c(-1,3)) + 
+  scale_y_continuous(breaks=seq(-1,3,by=1),limits=c(-1,3),
+                     labels=c(paste("\u2212",1,sep=""),0,1,2,3)) + 
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
   scale_x_discrete(labels=names_boxplot)
 
@@ -705,7 +710,8 @@ dev.off()
 
 #### Fig. 5 LE vs deltaE for 4 ws categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_5.jpg')
+path_fig <- 
+  file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_5.jpg')
 jpeg(file=path_fig,width=8, height=16,res=360,units='cm')
 plot.new()
 
@@ -746,8 +752,15 @@ lm4 <- lm(df4$LE4[which(df4$deltaE4<0)] ~ df4$deltaE4[which(df4$deltaE4<0)])
 par(mai=c(0.6,0.6,0,0.1))
 plot(df1$deltaE1[which(df1$deltaE1<0)],df1$LE1[which(df1$deltaE1<0)],
      pch=19,col=alpha('lightblue',0.2),
-     xlab='',ylab='',cex=1,cex.axis=1,
+     xlab='',ylab='',cex=1,cex.axis=1,xaxt='n',yaxt='n',
      cex.lab=1,xlim=c(-0.5,0))
+axis(side=2,at=c(-30,-20,-10,0,10),
+     labels=c(paste("\u2212",30,sep=""),paste("\u2212",20,sep=""),
+              paste("\u2212",10,sep=""),0,10),cex.axis=1)
+axis(side=1,at=c(-0.5,-0.4,-0.3,-0.2,-0.1,0),
+    labels=c(paste("\u2212",0.5,sep=""),paste("\u2212",0.4,sep=""),
+             paste("\u2212",0.3,sep=""),paste("\u2212",0.2,sep=""),
+             paste("\u2212",0.1,sep=""),0),cex.axis=1)
 text(x=-0.48,y=9,labels='b)',cex=1.5)
 mtext(side=2,'LE',line=2,cex=1)
 mtext(side=1,expression(paste(Delta,'e')),line=2.2,cex=1)
@@ -763,31 +776,84 @@ abline(lm2,lwd=5,lty=2,col='blue')
 abline(lm3,lwd=5,lty=5,col='darkblue')
 abline(lm4,lwd=5,lty=4,col='black')
 
+rm(lm1,lm2,lm3,lm4)
+dev.off()
 
+#### Fig. 5 H vs deltaT for 4 ws categories ####
+# Path where the plots will be saved
+# Path where the plots will be saved
+path_fig <- 
+  file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_5a.jpg')
+jpeg(file=path_fig,width=8, height=16,res=360,units='cm')
+plot.new()
 
+par(family='Times',mfrow=c(2,1),oma=c(0.4,0.1,1.3,0.1))
+
+# c) For positive deltaT
+# Linear regression lines
+lm1 <- lm(df1$H1[which(df1$deltaT1>0)] ~ df1$deltaT1[which(df1$deltaT1>0)])
+lm2 <- lm(df2$H2[which(df2$deltaT2>0)] ~ df2$deltaT2[which(df2$deltaT2>0)])
+lm3 <- lm(df3$H3[which(df3$deltaT3>0)] ~ df3$deltaT3[which(df3$deltaT3>0)])
+lm4 <- lm(df4$H4[which(df4$deltaT4>0)] ~ df4$deltaT4[which(df4$deltaT4>0)])
+
+par(mai=c(0.5,0.6,0,0.1))
+plot(df1$deltaT1[which(df1$deltaT1>0)],df1$H1[which(df1$deltaT1>0)],
+     pch=19,col=alpha('lightblue',0.2),
+     xlab='',ylab='',cex=1,cex.axis=1,
+     cex.lab=1)
+text(x=0.2,y=105,labels='c)',cex=1.5)
+mtext(side=2,'H',line=2,cex=1)
+points(df2$deltaT2[which(df1$deltaT1>0)],df2$H2[which(df1$deltaT1>0)],
+       pch=19,col=alpha('blue',0.2),cex=1)
+points(df3$deltaT3[which(df1$deltaT1>0)],df3$H3[which(df1$deltaT1>0)],
+       pch=19,col=alpha('darkblue',0.2),cex=1)
+points(df4$deltaT4[which(df1$deltaT1>0)],df4$H4[which(df1$deltaT1>0)],
+       pch=19,col=alpha('grey40',0.2),cex=1)
+minor.tick(nx=2,ny=2)
+abline(lm1,lwd=5,lty=1,col='lightblue')
+abline(lm2,lwd=5,lty=2,col='blue')
+abline(lm3,lwd=5,lty=5,col='darkblue')
+abline(lm4,lwd=5,lty=4,col='black')
+
+# d) For negative deltaT
+# Linear regression lines
+lm1 <- lm(df1$H1[which(df1$deltaT1<0)] ~ df1$deltaT1[which(df1$deltaT1<0)])
+lm2 <- lm(df2$H2[which(df2$deltaT2<0)] ~ df2$deltaT2[which(df2$deltaT2<0)])
+lm3 <- lm(df3$H3[which(df3$deltaT3<0)] ~ df3$deltaT3[which(df3$deltaT3<0)])
+lm4 <- lm(df4$H4[which(df4$deltaT4<0)] ~ df4$deltaT4[which(df4$deltaT4<0)])
+par(mai=c(0.6,0.6,0,0.1))
+plot(df1$deltaT1[which(df1$deltaT1<0)],df1$H1[which(df1$deltaT1<0)],
+     pch=19,col=alpha('lightblue',0.2),
+     xlab='',ylab='',cex=1,cex.axis=1,
+     cex.lab=1,xlim=c(-0.5,0),xaxt='n',yaxt='n')
+axis(side=2,at=c(-40,-20,0,20),
+     labels=c(paste("\u2212",40,sep=""),paste("\u2212",20,sep=""),
+              0,20),cex.axis=1)
+axis(side=1,at=c(-0.5,-0.4,-0.3,-0.2,-0.1,0),
+     labels=c(paste("\u2212",0.5,sep=""),paste("\u2212",0.4,sep=""),
+              paste("\u2212",0.3,sep=""),paste("\u2212",0.2,sep=""),
+              paste("\u2212",0.1,sep=""),0),cex.axis=1)
+text(x=-0.48,y=35,labels='d)',cex=1.5)
+mtext(side=2,'H',line=2,cex=1)
+mtext(side=1,expression(paste(Delta,'T')),line=2.2,cex=1)
+points(df2$deltaT2[which(df1$deltaT1<0)],df2$H2[which(df1$deltaT1<0)],
+       pch=19,col=alpha('blue',0.2),cex=1)
+points(df3$deltaT3[which(df1$deltaT1<0)],df3$H3[which(df1$deltaT1<0)],
+       pch=19,col=alpha('darkblue',0.2),cex=1)
+points(df4$deltaT4[which(df1$deltaT1<0)],df4$H4[which(df1$deltaT1<0)],
+       pch=19,col=alpha('grey40',0.2),cex=1)
+minor.tick(nx=2,ny=2)
+abline(lm1,lwd=5,lty=1,col='lightblue')
+abline(lm2,lwd=5,lty=2,col='blue')
+abline(lm3,lwd=5,lty=5,col='darkblue')
+abline(lm4,lwd=5,lty=4,col='black')
 
 rm(lm1,lm2,lm3,lm4)
 dev.off()
 
-#### Fig. 5 H vs deltaE for 4 ws categories ####
+#### Fig. 6 udeltaE vs ASL stability wind categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_5a.jpg')
-jpeg(file=path_fig,width=5, height=10,res=360,units='in')
-plot.new()
-
-plot(df1$deltaT1,df1$H,pch=18,col='blue')
-points(df2$deltaT2,df2$H2,pch=19,col='red')
-points(df3$deltaT3,df3$H3,pch=20,col='orange')
-points(df4$deltaT4,df4$H4,pch=21,col='black')
-
-
-
-dev.off()
-
-
-#### Fig. 4 udeltaE vs ASL stability wind categories ####
-# Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_4.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_6.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -845,9 +911,9 @@ multiplot2(plot1,plot2,plot3,plot4,
 
 dev.off()
 
-#### Fig. 4a udeltaT vs ASL stability wind categories ####
+#### Fig. 6a udeltaT vs ASL stability wind categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_4a.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_6a.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -855,7 +921,7 @@ plot.new()
 plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=udeltaT1)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability1))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=98,label="a)",size=7,family='Times') +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=98,label="e)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -867,7 +933,7 @@ plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=udeltaT1)) + geom_box
 plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=udeltaT2)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability2))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y=expression(paste('U',Delta,'T'))) + theme_bw() + annotate("text",x=0.8,y=98,label="b)",size=7,family='Times') +
+  labs(x="",y=expression(paste('U',Delta,'T'))) + theme_bw() + annotate("text",x=0.8,y=98,label="f)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01,hjust=0.07),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -879,7 +945,7 @@ plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=udeltaT2)) + geom_box
 plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=udeltaT3)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability3))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=98,label="c)",size=7,family='Times') +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=98,label="g)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -891,7 +957,7 @@ plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=udeltaT3)) + geom_box
 plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=udeltaT4)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability4))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=98,label="d)",size=7,family='Times') +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=98,label="h)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -905,9 +971,9 @@ multiplot2(plot1,plot2,plot3,plot4,
 
 dev.off()
 
-#### Fig. 5 C_D stability wind categories ####
+#### Fig. 7 C_D stability wind categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_5.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_7.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -919,8 +985,10 @@ plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=C_D1)) + geom_boxplot
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
-        plot.margin=unit(c(1,1,4,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+        plot.margin=unit(c(1,1,4,-1.4),"mm")) + 
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # b) For wind category 2 C_D
@@ -931,8 +999,10 @@ plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=C_D2)) + geom_boxplot
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01,hjust=0.07),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
-        plot.margin=unit(c(-10,1,15,-3.5),"mm")) +
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+        plot.margin=unit(c(-10,1,15,-2),"mm")) +
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # c) For wind category 3 C_D
@@ -943,8 +1013,10 @@ plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=C_D3)) + geom_boxplot
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
-        plot.margin=unit(c(-20,1,25,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+        plot.margin=unit(c(-20,1,25,-1.4),"mm")) + 
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # d) For wind category 4 C_D
@@ -955,8 +1027,10 @@ plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=C_D4)) + geom_boxplot
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
-        plot.margin=unit(c(-30,1,4,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+        plot.margin=unit(c(-30,1,4,-1.4),"mm")) + 
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
   scale_x_discrete(labels=names_boxplot)
 
@@ -965,9 +1039,9 @@ multiplot2(plot1,plot2,plot3,plot4,
 
 dev.off()
 
-#### Fig. 6 C_E stability wind categories ####
+#### Fig. 8 C_E stability wind categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_6.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_8.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -980,7 +1054,9 @@ plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=C_E1)) + geom_boxplot
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(1,1,4,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # b) For wind category 2 C_E
@@ -992,7 +1068,9 @@ plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=C_E2)) + geom_boxplot
         axis.title.y=element_text(size=16,family='Times',vjust=0.01,hjust=0.07),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(-10,1,15,-2.5),"mm")) +
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # c) For wind category 3 C_E
@@ -1004,7 +1082,9 @@ plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=C_E3)) + geom_boxplot
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(-20,1,25,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # d) For wind category 4 C_E
@@ -1016,7 +1096,9 @@ plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=C_E4)) + geom_boxplot
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(-30,1,4,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
   scale_x_discrete(labels=names_boxplot)
 
@@ -1025,9 +1107,9 @@ multiplot2(plot1,plot2,plot3,plot4,
 
 dev.off()
 
-#### Fig. 7 C_H stability wind categories ####
+#### Fig. 9 C_H stability wind categories ####
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_7.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_9.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
@@ -1040,7 +1122,9 @@ plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=C_H1)) + geom_boxplot
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(1,1,4,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # b) For wind category 2 C_H
@@ -1052,7 +1136,9 @@ plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=C_H2)) + geom_boxplot
         axis.title.y=element_text(size=16,family='Times',vjust=0.01,hjust=0.07),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(-10,1,15,-2.5),"mm")) +
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # c) For wind category 3 C_H
@@ -1064,7 +1150,9 @@ plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=C_H3)) + geom_boxplot
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(-20,1,25,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue'))
 
 # d) For wind category 4 C_H
@@ -1076,7 +1164,9 @@ plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=C_H4)) + geom_boxplot
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(-30,1,4,-2.5),"mm")) + 
-  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005)) +
+  scale_y_continuous(breaks=seq(-0.003,0.005,by=0.002),limits=c(-0.003,0.005),
+                     labels=c(paste("\u2212",0.003,sep=""),paste("\u2212",0.001,sep=""),
+                              0.001,0.003,0.005)) +
   scale_color_manual(values=c('red','red','red','red','red','blue','blue','blue','blue','blue')) +
   scale_x_discrete(labels=names_boxplot)
 
@@ -1084,6 +1174,9 @@ multiplot2(plot1,plot2,plot3,plot4,
            cols=1,labs=list("ASL stability ranges",""))
 
 dev.off()
+
+
+
 
 #### Plotting mean LE with ASL ####
 LE1 <- c(mean(df1$LE1[which(df1$no_stability1 == 1)],na.rm=TRUE),
@@ -1441,3 +1534,5 @@ boxplot(df1$U1,df2$U2,df3$U3,df4$U4)
 
 #### Delete temp variables #########
 rm(path_fig,names_boxplot,plot1,plot2,plot3,plot4)
+rm(CD1,CD2,CD3,CD4,CE1,CE2,CE3,CE4,CH1,CH2,CH3,CH4)
+rm(udE1,udE2,udE3,udE4,udT1,udT2,udT3,udT4)
