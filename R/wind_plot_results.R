@@ -58,6 +58,7 @@ udeltaE1 <- data$u_deltaE[which(data$wind_category_day==1)]
 C_D1 <- data$C_D[which(data$wind_category_day==1)]
 C_E1 <- data$C_E[which(data$wind_category_day==1)]
 C_H1 <- data$C_H[which(data$wind_category_day==1)]
+zl1 <- data$Z.L[which(data$wind_category_day==1)]
 
 
 no_stability2 <- data$stability_no[which(data$wind_category_day==2)]
@@ -75,6 +76,7 @@ udeltaE2 <- data$u_deltaE[which(data$wind_category_day==2)]
 C_D2 <- data$C_D[which(data$wind_category_day==2)]
 C_E2 <- data$C_E[which(data$wind_category_day==2)]
 C_H2 <- data$C_H[which(data$wind_category_day==2)]
+zl2 <- data$Z.L[which(data$wind_category_day==2)]
 
 no_stability3 <- data$stability_no[which(data$wind_category_day==3)]
 LE3 <- data$LE[which(data$wind_category_day==3)]
@@ -91,6 +93,7 @@ udeltaE3 <- data$u_deltaE[which(data$wind_category_day==3)]
 C_D3 <- data$C_D[which(data$wind_category_day==3)]
 C_E3 <- data$C_E[which(data$wind_category_day==3)]
 C_H3 <- data$C_H[which(data$wind_category_day==3)]
+zl3 <- data$Z.L[which(data$wind_category_day==3)]
 
 no_stability4 <- data$stability_no[which(data$wind_category_day==4)]
 LE4 <- data$LE[which(data$wind_category_day==4)]
@@ -107,21 +110,22 @@ udeltaE4 <- data$u_deltaE[which(data$wind_category_day==4)]
 C_D4 <- data$C_D[which(data$wind_category_day==4)]
 C_E4 <- data$C_E[which(data$wind_category_day==4)]
 C_H4 <- data$C_H[which(data$wind_category_day==4)]
+zl4 <- data$Z.L[which(data$wind_category_day==4)]
 
 
 df1 <- data.frame(no_stability1,LE1,H1,U1,deltaE1,ea1,es31,es21,es1,deltaT1,udeltaT1,udeltaE1,C_D1,
-                  C_E1,C_H1)#,C_com1,C_u.1)
+                  C_E1,C_H1,zl1)
 df2 <- data.frame(no_stability2,LE2,H2,U2,deltaE2,ea2,es32,es22,es2,deltaT2,udeltaT2,udeltaE2,C_D2,
-                  C_E2,C_H2)#,C_com2,C_u.2)
+                  C_E2,C_H2,zl2)
 df3 <- data.frame(no_stability3,LE3,H3,U3,deltaE3,ea3,es33,es23,es3,deltaT3,udeltaT3,udeltaE3,C_D3,
-                  C_E3,C_H3)#,C_com3,C_u.3)
+                  C_E3,C_H3,zl3)
 df4 <- data.frame(no_stability4,LE4,H4,U4,deltaE4,ea4,es34,es24,es4,deltaT4,udeltaT4,udeltaE4,C_D4,
-                  C_E4,C_H4)#,C_com4,C_u.4)
+                  C_E4,C_H4,zl4)
 rm(no_stability1,no_stability2,no_stability3,no_stability4,LE1,LE2,LE3,LE4,H1,H2,H3,H4,
    U1,U2,U3,U4,deltaE1,deltaE2,deltaE3,deltaE4,ea1,es1,ea2,es2,ea3,es3,ea4,es4,
    es31,es21,es32,es22,es33,es23,es34,es24,deltaT1,deltaT2,deltaT3,deltaT4,
    udeltaT1,udeltaE1,udeltaT2,udeltaE2,udeltaT3,udeltaE3,udeltaT4,udeltaE4,
-   C_D1,C_D2,C_D3,C_D4,C_E1,C_E2,C_E3,C_E4,C_H1,C_H2,C_H3,C_H4)
+   C_D1,C_D2,C_D3,C_D4,C_E1,C_E2,C_E3,C_E4,C_H1,C_H2,C_H3,C_H4,zl1,zl2,zl3,zl4)
 
 ##### Names of various figures and box plots ####
 names_boxplot = c('\u221210\u2264\u03B6<\u22121','\u22121\u2264\u03B6<\u22120.5','\u22120.5\u2264\u03B6<\u22120.1','\u22120.1\u2264\u03B6<\u22120.05',
@@ -396,6 +400,115 @@ axis(side=1,at=c(0,3,6,9,12,15,18,21,24),cex.axis=2)
 title(xlab='Hour (local time)',ylab='',outer=TRUE,cex.lab=2)
 
 rm(path_fig)
+
+dev.off()
+#### Fig. 2: Prob. density plots ####
+
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_2_density_plot.jpg')
+jpeg(file=path_fig,width=1450,height=1800,res=320)
+
+## Creating 6 panels of plots
+plot.new()
+par(family='Times',mfrow=c(3,2),oma=c(0.4,0.1,1.3,0.1))
+
+dens_U1 <- density(df1$U1,na.rm=T)
+dens_U2 <- density(df2$U2,na.rm=T)
+dens_U3 <- density(df3$U3,na.rm=T)
+dens_U4 <- density(df4$U4,na.rm=T)
+
+dens_de1 <- density(df1$deltaE1,na.rm=T)
+dens_de2 <- density(df2$deltaE2,na.rm=T)
+dens_de3 <- density(df3$deltaE3,na.rm=T)
+dens_de4 <- density(df4$deltaE4,na.rm=T)
+
+dens_dT1 <- density(df1$deltaT1,na.rm=T)
+dens_dT2 <- density(df2$deltaT2,na.rm=T)
+dens_dT3 <- density(df3$deltaT3,na.rm=T)
+dens_dT4 <- density(df4$deltaT4,na.rm=T)
+
+dens_LE1 <- density(df1$LE1,na.rm=T)
+dens_LE2 <- density(df2$LE2,na.rm=T)
+dens_LE3 <- density(df3$LE3,na.rm=T)
+dens_LE4 <- density(df4$LE4,na.rm=T)
+
+dens_H1 <- density(df1$H1,na.rm=T)
+dens_H2 <- density(df2$H2,na.rm=T)
+dens_H3 <- density(df3$H3,na.rm=T)
+dens_H4 <- density(df4$H4,na.rm=T)
+
+dens_zl1 <- density(df1$zl1,na.rm=T)
+dens_zl2 <- density(df2$zl2,na.rm=T)
+dens_zl3 <- density(df3$zl3,na.rm=T)
+dens_zl4 <- density(df4$zl4,na.rm=T)
+
+# To plot density of U
+par(mai=c(0.5,0.6,0,0))
+plot(dens_U1,xlim=c(0,12),ylim=c(0,0.5),main='',xlab='',ylab='',cex.axis=1.2)
+mtext(side = 1,'U',lty=1,line=2.5)
+mtext(side=2,'Density',line=2.5)
+text(0.3,0.47,'a)',cex = 1.5)
+lines(dens_U2,lty=2,lwd=2)
+lines(dens_U3,lty=3,lwd=2)
+lines(dens_U4,lty=4,lwd=2)
+
+# To plot density of z/L
+par(mai=c(0.5,0.5,0,0.1))
+plot(dens_zl1,xlim=c(-1,1),ylim=c(0,3),main='',xlab='',ylab='',cex.axis=1.2)
+mtext(side = 1,expression(zeta),lty=1,line=2.5)
+text(-0.95,2.85,'d)',cex = 1.5)
+#mtext(side=2,'Density',line=2)
+lines(dens_zl2,lty=2,lwd=2)
+lines(dens_zl3,lty=3,lwd=2)
+lines(dens_zl4,lty=4,lwd=2)
+
+# To plot density of deltaE
+par(mai=c(0.5,0.6,0,0.1))
+plot(dens_de1,xlim=c(-1,2.5),ylim=c(0,1.5),main='',xlab='',ylab='',cex.axis=1.2)
+mtext(side = 1,expression(paste(Delta,'e')),line=2.5,lty=1)
+mtext(side=2,'Density',line=2.5)
+text(-0.9,1.4,'b)',cex = 1.5)
+lines(dens_de2,lty=2,lwd=2)
+lines(dens_de3,lty=3,lwd=2)
+lines(dens_de4,lty=4,lwd=2)
+
+# To plot density of deltaT
+par(mai=c(0.5,0.5,0,0.1))
+plot(dens_dT1,xlim=c(-10,12),ylim=c(0,0.2),main='',xlab='',ylab='',cex.axis=1.2)
+mtext(side = 1,expression(paste(Delta,'T')),line=2.5,lty=1)
+text(-9.7,0.19,'e)',cex = 1.5)
+#mtext(side=2,'Density',line=2)
+lines(dens_dT2,lty=2,lwd=2)
+lines(dens_dT3,lty=3,lwd=2)
+lines(dens_dT4,lty=4,lwd=2)
+
+# To plot density of LE
+par(mai=c(0.5,0.6,0,0.1))
+plot(dens_LE1,xlim=c(-100,300),ylim=c(0,0.012),main='',xlab='',ylab='',cex.axis=1.2)
+mtext(side = 1,'LE',lty=1,line=2.5)
+mtext(side=2,'Density',line=2.5)
+text(-93,0.0114,'c)',cex = 1.5)
+lines(dens_LE2,lty=2,lwd=2)
+lines(dens_LE3,lty=3,lwd=2)
+lines(dens_LE4,lty=4,lwd=2)
+
+# To plot density of H
+par(mai=c(0.5,0.5,0,0.1))
+plot(dens_H1,xlim=c(-100,200),ylim=c(0,0.04),main='',xlab='',ylab='',cex.axis=1.2)
+mtext(side = 1,'H',line=2.5,lty=1)
+text(-95,0.038,'f)',cex = 1.5)
+#mtext(side=2,'Density',line=2)
+lines(dens_H2,lty=2,lwd=2)
+lines(dens_H3,lty=3,lwd=2)
+lines(dens_H4,lty=4,lwd=2)
+
+
+# Cleanup
+rm(dens_U1,dens_U2,dens_U3,dens_U4,
+   dens_de1,dens_de2,dens_de3,dens_de4,
+   dens_dT1,dens_dT2,dens_dT3,dens_dT4,
+   dens_LE1,dens_LE2,dens_LE3,dens_LE4,
+   dens_H1,dens_H2,dens_H3,dens_H4,
+   dens_zl1,dens_zl2,dens_zl3,dens_zl4)
 
 dev.off()
 
