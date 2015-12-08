@@ -842,7 +842,7 @@ plot(df1$deltaE1[which(df1$deltaE1>0)],df1$LE1[which(df1$deltaE1>0)],
      pch=19,col=alpha('lightblue',0.2),
      xlab='',ylab='',cex=1,cex.axis=1,
      cex.lab=1)
-text(x=0.1,y=348,labels='a)',cex=1.5)
+text(x=0.1,y=348,labels='a)',cex=1.2)
 mtext(side=2,'LE',line=2,cex=1)
 points(df2$deltaE2[which(df1$deltaE1>0)],df2$LE2[which(df1$deltaE1>0)],
        pch=19,col=alpha('blue',0.2),cex=1)
@@ -851,10 +851,10 @@ points(df3$deltaE3[which(df1$deltaE1>0)],df3$LE3[which(df1$deltaE1>0)],
 points(df4$deltaE4[which(df1$deltaE1>0)],df4$LE4[which(df1$deltaE1>0)],
        pch=19,col=alpha('grey40',0.2),cex=1)
 minor.tick(nx=2,ny=2)
-abline(lm1,lwd=5,lty=1,col='lightblue')
-abline(lm2,lwd=5,lty=2,col='blue')
-abline(lm3,lwd=5,lty=5,col='darkblue')
-abline(lm4,lwd=5,lty=4,col='black')
+abline(lm1,lwd=3,lty=1,col='lightblue')
+abline(lm2,lwd=3,lty=2,col='blue')
+abline(lm3,lwd=3,lty=5,col='darkblue')
+abline(lm4,lwd=3,lty=4,col='black')
 
 # b) For negative deltaE
 # Linear regression lines
@@ -874,7 +874,7 @@ axis(side=1,at=c(-0.5,-0.4,-0.3,-0.2,-0.1,0),
     labels=c(paste("\u2212",0.5,sep=""),paste("\u2212",0.4,sep=""),
              paste("\u2212",0.3,sep=""),paste("\u2212",0.2,sep=""),
              paste("\u2212",0.1,sep=""),0),cex.axis=1)
-text(x=-0.48,y=9,labels='b)',cex=1.5)
+text(x=-0.48,y=9,labels='b)',cex=1.2)
 mtext(side=2,'LE',line=2,cex=1)
 mtext(side=1,expression(paste(Delta,'e')),line=2.2,cex=1)
 points(df2$deltaE2[which(df1$deltaE1<0)],df2$LE2[which(df1$deltaE1<0)],
@@ -884,10 +884,10 @@ points(df3$deltaE3[which(df1$deltaE1<0)],df3$LE3[which(df1$deltaE1<0)],
 points(df4$deltaE4[which(df1$deltaE1<0)],df4$LE4[which(df1$deltaE1<0)],
        pch=19,col=alpha('grey40',0.2),cex=1)
 minor.tick(nx=2,ny=2)
-abline(lm1,lwd=5,lty=1,col='lightblue')
-abline(lm2,lwd=5,lty=2,col='blue')
-abline(lm3,lwd=5,lty=5,col='darkblue')
-abline(lm4,lwd=5,lty=4,col='black')
+abline(lm1,lwd=3,lty=1,col='lightblue')
+abline(lm2,lwd=3,lty=2,col='blue')
+abline(lm3,lwd=3,lty=5,col='darkblue')
+abline(lm4,lwd=3,lty=4,col='black')
 
 rm(lm1,lm2,lm3,lm4)
 dev.off()
@@ -914,7 +914,7 @@ plot(df1$deltaT1[which(df1$deltaT1>0)],df1$H1[which(df1$deltaT1>0)],
      pch=19,col=alpha('lightblue',0.2),
      xlab='',ylab='',cex=1,cex.axis=1,
      cex.lab=1)
-text(x=0.2,y=105,labels='c)',cex=1.5)
+text(x=0.2,y=105,labels='c)',cex=1.2)
 mtext(side=2,'H',line=2,cex=1)
 points(df2$deltaT2[which(df1$deltaT1>0)],df2$H2[which(df1$deltaT1>0)],
        pch=19,col=alpha('blue',0.2),cex=1)
@@ -923,10 +923,10 @@ points(df3$deltaT3[which(df1$deltaT1>0)],df3$H3[which(df1$deltaT1>0)],
 points(df4$deltaT4[which(df1$deltaT1>0)],df4$H4[which(df1$deltaT1>0)],
        pch=19,col=alpha('grey40',0.2),cex=1)
 minor.tick(nx=2,ny=2)
-abline(lm1,lwd=5,lty=1,col='lightblue')
-abline(lm2,lwd=5,lty=2,col='blue')
-abline(lm3,lwd=5,lty=5,col='darkblue')
-abline(lm4,lwd=5,lty=4,col='black')
+abline(lm1,lwd=3,lty=1,col='lightblue')
+abline(lm2,lwd=3,lty=2,col='blue')
+abline(lm3,lwd=3,lty=5,col='darkblue')
+abline(lm4,lwd=3,lty=4,col='black')
 
 # d) For negative deltaT
 # Linear regression lines
@@ -946,7 +946,7 @@ axis(side=1,at=c(-0.5,-0.4,-0.3,-0.2,-0.1,0),
      labels=c(paste("\u2212",0.5,sep=""),paste("\u2212",0.4,sep=""),
               paste("\u2212",0.3,sep=""),paste("\u2212",0.2,sep=""),
               paste("\u2212",0.1,sep=""),0),cex.axis=1)
-text(x=-0.48,y=35,labels='d)',cex=1.5)
+text(x=-0.48,y=35,labels='d)',cex=1.2)
 mtext(side=2,'H',line=2,cex=1)
 mtext(side=1,expression(paste(Delta,'T')),line=2.2,cex=1)
 points(df2$deltaT2[which(df1$deltaT1<0)],df2$H2[which(df1$deltaT1<0)],
@@ -956,10 +956,10 @@ points(df3$deltaT3[which(df1$deltaT1<0)],df3$H3[which(df1$deltaT1<0)],
 points(df4$deltaT4[which(df1$deltaT1<0)],df4$H4[which(df1$deltaT1<0)],
        pch=19,col=alpha('grey40',0.2),cex=1)
 minor.tick(nx=2,ny=2)
-abline(lm1,lwd=5,lty=1,col='lightblue')
-abline(lm2,lwd=5,lty=2,col='blue')
-abline(lm3,lwd=5,lty=5,col='darkblue')
-abline(lm4,lwd=5,lty=4,col='black')
+abline(lm1,lwd=3,lty=1,col='lightblue')
+abline(lm2,lwd=3,lty=2,col='blue')
+abline(lm3,lwd=3,lty=5,col='darkblue')
+abline(lm4,lwd=3,lty=4,col='black')
 
 rm(lm1,lm2,lm3,lm4)
 dev.off()
@@ -1230,7 +1230,7 @@ plot.new()
 plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=C_H1)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability1))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=0.005,label="a)",size=7,family='Times') +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=0.0047,label="e)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -1244,7 +1244,7 @@ plot1 <- ggplot(na.omit(df1),aes(x=factor(no_stability1),y=C_H1)) + geom_boxplot
 plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=C_H2)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability2))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y=expression('C'['H'])) + theme_bw() + annotate("text",x=0.8,y=0.005,label="b)",size=7,family='Times') +
+  labs(x="",y=expression('C'['H'])) + theme_bw() + annotate("text",x=0.8,y=0.0047,label="f)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01,hjust=0.07),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -1258,7 +1258,7 @@ plot2 <- ggplot(na.omit(df2),aes(x=factor(no_stability2),y=C_H2)) + geom_boxplot
 plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=C_H3)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability3))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=0.005,label="c)",size=7,family='Times') +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=0.0047,label="g)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -1272,7 +1272,7 @@ plot3 <- ggplot(na.omit(df3),aes(x=factor(no_stability3),y=C_H3)) + geom_boxplot
 plot4 <- ggplot(na.omit(df4),aes(x=factor(no_stability4),y=C_H4)) + geom_boxplot(outlier.size=0,fill="white") + 
   geom_jitter(alpha=I(1/16),aes(color=factor(no_stability4))) + 
   stat_summary(fun.y="median",geom='line',aes(group=1),size=1) + 
-  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=0.005,label="d)",size=7,family='Times') +
+  labs(x="",y="") + theme_bw() + annotate("text",x=0.8,y=0.0047,label="h)",size=7,family='Times') +
   theme(legend.position='none',panel.grid.major=element_line(size=0),panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),axis.text.x=element_text(angle=90,size=16,hjust=1,family='Times',vjust=0.5),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
@@ -1288,6 +1288,53 @@ multiplot2(plot1,plot2,plot3,plot4,
 
 dev.off()
 
+#### Fig. 10 Slope plots #####
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_10.jpg')
+jpeg(file=path_fig,width=5, height=10,res=360,units='in')
+plot.new()
+
+par(family='Times',mfrow=c(2,1),oma=c(0.4,0.1,1.3,0.1))
+
+
+
+# Slope data for regressions between LE (H) and deltaE (deltaT)
+x <- 1:4 # Wind-class days
+
+# Overall slope values for unstable and stable conditions
+slope_LEdE <- c(64.901,78.076,100.584,166.4871)
+slope_HdT <- c(7.02,9.7742,9.8642,14.5791)
+
+slope_LEunst <- c(65.108,74.168,99.447,170.423)
+slope_LEsta <- c(59.208,79.849,93.708,88.050)
+slope_Hunst <- c(7.1339,9.716,9.9419,14.9332)
+slope_Hstapos <- c(4.0402,-13.487,-1.2638,6.418) # positive deltaT
+slope_Hstaneg <- c(1.2715,1.0684,1.3850,6.7102) # negative deltaT
+
+
+# Plots
+# a) Regression slope of LE and deltaE for unstable and stable conditions
+par(mai=c(0.7,1,0,0.1))
+plot(x,slope_LEunst,pch=19,ylim=c(50,180),xlab='',
+     ylab=expression(paste('Slope of LE and ',Delta,'e')),
+     xaxt='n',cex.axis=2,cex=2,cex.lab=2)
+text(1.05,178,'a)',cex=2)
+axis(side=1,at=c(1,2,3,4),labels = c('','','',''))
+lines(x,slope_LEunst,lty=1,lwd=2)
+points(x,slope_LEsta,pch=21,cex=2)
+lines(x,slope_LEsta,lty=2,lwd=2)
+
+# b) Regression slope of H and deltaT for unstable and stable conditions
+par(mai=c(1,1,0,0.1))
+plot(x,slope_Hunst,pch=19,ylim = c(0,15),xlab='Wind-class Day',
+     ylab=expression(paste('Slope of H and ',Delta,'T')),
+     xaxt='n',cex=2,cex.axis=2,cex.lab=2)
+text(1.05,14.5,'b)',cex=2)
+axis(side=1,at=c(1,2,3,4),labels=c('I','II','III','IV'),cex.axis=2)
+lines(x,slope_Hunst,lty=1,lwd=2)
+points(x,slope_Hstaneg,pch=21,cex=2)
+lines(x,slope_Hstaneg,lty=2,lwd=2)
+
+dev.off()
 
 
 
