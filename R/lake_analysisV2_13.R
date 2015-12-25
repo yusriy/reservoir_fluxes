@@ -549,6 +549,28 @@ for (i in 1:nrow(data)) {
 data <- cbind(data,Peak)
 rm(zm,i,Peak)
 
+#### Import wind direction data ####
+# Need to import detailed EC results to import wind direction data
+detailed_EC <- read.csv('data/old_data/Reservoir_data_08242007-02162008.csv')
+detailed_EC <- detailed_EC[-1,]
+detailed_EC$WD <- as.character(detailed_EC$WD)
+detailed_EC$WD <- as.numeric(detailed_EC$WD)
+detailed_EC$WD[which(detailed_EC$WD > 360 | detailed_EC$WD < 0)] <- NA
+# Remove unwanted data, up till row 35
+detailed_EC <- detailed_EC[-c(1:35),]
+# Remove unwated data, from row 8449 till 8461
+detailed_EC <- detailed_EC[-c(8449:8461),]
+timestamp <- paste(detailed_EC$date,detailed_EC$time)
+timestamp <- strptime(timestamp,format = '%Y%m%d %H:%M', tz = 'GMT')
+df_wd <- data.frame(timestamp,detailed_EC$WD)
+df_wd$timestamp <- as.POSIXlt(df_wd$timestamp)
+colnames(df_wd) <- c('time_stamp','wd')
+rm(detailed_EC,timestamp)
+
+data <- cbind(data,df_wd$wd)
+rm(df_wd)
+names(data)[63] <- 'wd'
+
 ##### 4. Some statistical analysis ###########################
 
 ## 1. To find the different between LE in unstable and stable conditions
