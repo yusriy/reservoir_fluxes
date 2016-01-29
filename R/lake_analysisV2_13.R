@@ -570,6 +570,10 @@ rm(detailed_EC,timestamp)
 data <- cbind(data,df_wd$wd)
 rm(df_wd)
 names(data)[63] <- 'wd'
+# Note that results from visual inspection of sigW/u* and WD
+# showed that there are flow obstruction from 75 deg to 105 deg due to tower.
+# Need to remove data between this angles.
+data[which(data$wd > 75 & data$wd < 105),] <- NA
 
 ##### 4. Some statistical analysis ###########################
 
@@ -758,8 +762,10 @@ plot.new()
 par(mfrow=c(3,2),mar=c(4.1,4.5,2.1,1.1),family='Times')
 
 ## Plotting H against deltaT for negative deltaT values
-plot(neg$deltaT[which(neg$Z.L<0)],neg$H[which(neg$Z.L<0)],pch=17,col='red',
-     xlab=expression(paste(Delta,'T')),ylab='H',xlim=c(-12,0),ylim=c(-150,55),cex.lab=2.1,cex.axis=2.1,xaxt='n',yaxt='n')
+# Note that we removed the unstable portion by changing it to blue.
+plot(neg$deltaT[which(neg$Z.L<0)],neg$H[which(neg$Z.L<0)],pch=19,col='blue',
+     xlab=expression(paste(Delta,'T')),ylab='H',xlim=c(-12,0),ylim=c(-150,55),
+     cex.lab=2.1,cex.axis=2.1,xaxt='n',yaxt='n')
 axis(at=seq(-12,-2,2),side=1,labels=paste("\U2212",seq(12,2,-2),sep=""),cex.axis=2.1)
 axis(at=0,side=1,labels=0,cex.axis=2.1)
 axis(at=c(-150,-50),side=2,labels=paste("\U2212",c(150,50),sep=""),cex.axis=2.1)
@@ -767,7 +773,7 @@ axis(at=c(0,50),side=2,labels=c(0,50),cex.axis=2.1)
 text(-12,52,'a)',cex=2.1)
 minor.tick(ny=2,nx=2,tick.ratio=0.5)
 points(neg$deltaT[which(neg$Z.L>0)],neg$H[which(neg$Z.L>0)],pch=19, col='blue')
-abline(lm1,col='red',lwd=3)
+#abline(lm1,col='red',lwd=3)
 abline(lm2,col='blue',lty=2,lwd=3)
 axis(side=2,at=c(-100),labels=paste("\U2212",100,sep=""),cex.axis=2.1)
 
@@ -780,20 +786,20 @@ axis(side=2,at=150,labels=150,cex.axis=2.1)
 axis(side=2,at=50,labels=50,cex.axis=2.1)
 text(0,245,'d)',cex=2.1)
 minor.tick(ny=2,nx=2,tick.ratio=0.5)
-points(pos$deltaT[which(pos$Z.L>0)],pos$H[which(pos$Z.L>0)],pch=19, col='blue')
+points(pos$deltaT[which(pos$Z.L>0)],pos$H[which(pos$Z.L>0)],pch=19, col='red')
 abline(lm3,col='red',lwd=3)
-abline(lm4,col='blue',lty=2,lwd=3)
+#abline(lm4,col='blue',lty=2,lwd=3)
 axis(side=2,at=c(0),cex.axis=2.1)
 
 ## Plotting H against U for negative deltaT values
-plot(neg$WS_Spd_WVT[which(neg$Z.L<0)],neg$H[which(neg$Z.L<0)],pch=17,col='red',
+plot(neg$WS_Spd_WVT[which(neg$Z.L<0)],neg$H[which(neg$Z.L<0)],pch=19,col='blue',
      xlab='U',ylab='H',xlim=c(0,14),ylim=c(-150,55),cex.lab=2.1,cex.axis=2.1,yaxt='n')
 axis(at=c(-150,-50),side=2,labels=paste("\U2212",c(150,50),sep=""),cex.axis=2.1)
 axis(at=c(0,50),side=2,labels=c(0,50),cex.axis=2.1)
 text(0,52,'b)',cex=2.1)
 minor.tick(ny=2,nx=2,tick.ratio=0.5)
 points(neg$WS_Spd_WVT[which(neg$Z.L>=0)],neg$H[which(neg$Z.L>=0)],pch=19, col='blue')
-abline(lm5,col='red',lwd=3)
+#abline(lm5,col='red',lwd=3)
 abline(lm6,col='blue',lty=2,lwd=3)
 axis(side=2,at=c(-100),labels=paste("\U2212",100,sep=""),cex.axis=2.1)
 
@@ -806,13 +812,13 @@ axis(side=2,at=150,labels=150,cex.axis=2.1)
 axis(side=2,at=50,labels=50,cex.axis=2.1)
 text(0,245,'e)',cex=2.1)
 minor.tick(ny=2,nx=2,tick.ratio=0.5)
-points(pos$WS_Spd_WVT[which(pos$Z.L>=0)],pos$H[which(pos$Z.L>=0)],pch=19,col='blue')
+points(pos$WS_Spd_WVT[which(pos$Z.L>=0)],pos$H[which(pos$Z.L>=0)],pch=17,col='red')
 abline(lm7,col='red',lwd=3)
-abline(lm8,col='blue',lty=2,lwd=3)
+#abline(lm8,col='blue',lty=2,lwd=3)
 axis(side=2,at=c(0),cex.axis=2.1)
 
 ## Plotting H against u_deltaT for negative deltaT values
-plot(neg$u_deltaT[which(neg$Z.L<0)],neg$H[which(neg$Z.L<0)],pch=17,col='red',
+plot(neg$u_deltaT[which(neg$Z.L<0)],neg$H[which(neg$Z.L<0)],pch=19,col='blue',
      xlab=expression(paste('U',Delta,'T')),ylab='H',xlim=c(-100,0),ylim=c(-150,55),cex.lab=2.1,cex.axis=2.1,
      xaxt='n',yaxt='n')
 axis(at=seq(-100,-20,20),side=1,labels=paste("\U2212",seq(100,20,-20),sep=""),cex.axis=2.1)
@@ -821,8 +827,8 @@ axis(at=c(-150,-50),side=2,labels=paste("\U2212",c(150,50),sep=""),cex.axis=2.1)
 axis(at=c(0,50),side=2,labels=c(0,50),cex.axis=2.1)
 text(-100,52,'c)',cex=2.1)
 minor.tick(ny=2,nx=2,tick.ratio=0.5)
-points(neg$u_deltaT[which(neg$Z.L>=0)],neg$H[which(neg$Z.L>=0)],pch=19, col='blue')
-abline(lm9,col='red',lwd=3)
+points(neg$u_deltaT[which(neg$Z.L>=0)],neg$H[which(neg$Z.L>=0)],pch=17, col='blue')
+#abline(lm9,col='red',lwd=3)
 abline(lm10,col='blue',lty=2,lwd=3)
 axis(side=2,at=c(-100),labels=paste("\U2212",100,sep=""),cex.axis=2.1)
 
@@ -835,9 +841,9 @@ axis(side=2,at=150,labels=150,cex.axis=2.1)
 axis(side=2,at=50,labels=50,cex.axis=2.1)
 text(0,245,'f)',cex=2.1)
 minor.tick(ny=2,nx=2,tick.ratio=0.5)
-points(pos$u_deltaT[which(pos$Z.L>=0)],pos$H[which(pos$Z.L>=0)],pch=19, col='blue')
+points(pos$u_deltaT[which(pos$Z.L>=0)],pos$H[which(pos$Z.L>=0)],pch=17, col='red')
 abline(lm11,col='red',lwd=3)
-abline(lm12,col='blue',lty=2,lwd=3)
+#abline(lm12,col='blue',lty=2,lwd=3)
 axis(side=2,at=c(0),cex.axis=2.1)
 axis(side=1,at=c(120),cex.axis=2.1)
 
@@ -849,7 +855,7 @@ rm(neg,pos,lm1,lm2,lm3,lm4,lm5,lm6,lm7,lm8,lm9,lm10,lm11,lm12)
 ##### Fig. 4: LE, deltaE, u, u_deltaE vs. atmospheric stability category ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V4/fig_4.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_4.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 ## Creating a new plot
 plot.new()
@@ -1053,7 +1059,7 @@ plot1 <- ggplot(data=data_rsq,aes(x=cat_no,y=r_LE_U)) +
         axis.text.x=element_blank(), axis.text.y=element_text(color='black',size=16,family='Times'),
         panel.background=element_rect(fill='white',color='black'),
         plot.margin=unit(c(1,2,8,0),"mm")) +
-  annotate('text', x = 0.8, y = 1, label='a)',family='Times',size=7) # LE and U')
+  annotate('text', x = 2, y = 0.98, label='a) LE and U',family='Times',size=7) # LE and U')
 
 #regression R^2 results plot between LE and deltaE
 plot2 <- ggplot(data=data_rsq,aes(x=cat_no,y=r_LE_dE)) +
@@ -1063,7 +1069,8 @@ plot2 <- ggplot(data=data_rsq,aes(x=cat_no,y=r_LE_dE)) +
         axis.text.x=element_blank(), axis.text.y=element_text(size=16,color='black',family='Times'),
         panel.background=element_rect(fill='white',color='black'),
         plot.margin=unit(c(-14,2,22,0),"mm")) +
-  annotate('text', x = 0.8, y = 1, label= 'b)',family='Times',size=7) #expression(paste('b) LE and ',Delta,'e')))
+  annotate('text', x = 2.1, y = 0.98, label = "'b)'~LE~and~Delta*e",
+           size=7,family='Times',parse = TRUE)
 
 #regression R^2 results plot between LE and deltaE
 plot3 <- ggplot(data=data_rsq,aes(x=cat_no,y=r_LE_UdE)) +
@@ -1074,7 +1081,8 @@ plot3 <- ggplot(data=data_rsq,aes(x=cat_no,y=r_LE_UdE)) +
         panel.background=element_rect(fill='white',color='black'),
         plot.margin=unit(c(-28,2,10,0),"mm")) +
   scale_x_discrete(labels = names_boxplot) +
-  annotate('text',x=0.8,y=1,label= 'c)',family='Times',size=7) #expression(paste('c) LE and ','U',Delta,'e')))
+  annotate('text',x=2.3,y=0.98,label="'c)'~LE~and~U*Delta*e",
+           family='Times',size=7,parse = TRUE)
 
 #Plotting all three above together in one plot
 multiplot2(plot1,plot2,plot3,cols=1,labs=list('             ASL stability ranges',''))
@@ -1083,7 +1091,7 @@ dev.off()
 ##### Fig. 4 (prev. 8): H, deltaT, u, u_deltaT versus atmospheric stability category ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V4/fig_8.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_8.jpg')
 jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 
 ## Creating a new plot
@@ -1234,7 +1242,7 @@ plot1 <- ggplot(data=data_rsq2,aes(x=cat_no,y=r_H_U)) +
         axis.text.x=element_blank(), axis.text.y=element_text(color='black',size=16,family='Times'),
         panel.background=element_rect(fill='white',color='black'),
         plot.margin=unit(c(1,2,8,0),"mm")) +
-  annotate('text', x = 0.8, y = 1, label='d)',family='Times',size=7) # LE and U')
+  annotate('text', x = 2, y = 0.99, label='d) H and U',family='Times',size=7) # LE and U')
 
 #regression R^2 results plot between LE and deltaE
 plot2 <- ggplot(data=data_rsq2,aes(x=cat_no,y=r_H_dT)) +
@@ -1244,7 +1252,8 @@ plot2 <- ggplot(data=data_rsq2,aes(x=cat_no,y=r_H_dT)) +
         axis.text.x=element_blank(), axis.text.y=element_text(size=16,color='black',family='Times'),
         panel.background=element_rect(fill='white',color='black'),
         plot.margin=unit(c(-14,2,22,0),"mm")) +
-  annotate('text', x = 0.8, y = 1, label= 'e)',family='Times',size=7) #expression(paste('b) LE and ',Delta,'e')))
+  annotate('text', x = 2.2, y = 0.98, label= "'e)'~H~and~Delta*T",
+           family='Times',size=7, parse = TRUE) 
 
 #regression R^2 results plot between LE and deltaE
 plot3 <- ggplot(data=data_rsq2,aes(x=cat_no,y=r_H_UdT)) +
@@ -1255,7 +1264,8 @@ plot3 <- ggplot(data=data_rsq2,aes(x=cat_no,y=r_H_UdT)) +
         panel.background=element_rect(fill='white',color='black'),
         plot.margin=unit(c(-28,2,10,0),"mm")) +
   scale_x_discrete(labels = names_boxplot) +
-  annotate('text',x=0.8,y=1,label= 'f)',family='Times',size=7) #expression(paste('c) LE and ','U',Delta,'e')))
+  annotate('text',x=2.4,y=0.98,label= "'f)'~H~and~U*Delta*T",
+           family='Times',size=7, parse = TRUE)
 
 #Plotting all three above together in one plot
 multiplot2(plot1,plot2,plot3,cols=1,labs=list('              ASL stability ranges',''))
@@ -1339,7 +1349,7 @@ dev.off()
 ##### Fig. 9 (prev. 12): LE/U and LE/deltaE for different ASL stability ranges ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V4/fig_8a.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_8a.jpg')
 jpeg(file=path_fig,width=5,height=10,res=360,units='in')
 ## Creating a new plot
 plot.new()
@@ -1377,7 +1387,7 @@ dev.off()
 ##### Fig. 9 (prev. 13): H/U and H/deltaE for different ASL stability ranges ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V4/fig_8b.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_8b.jpg')
 jpeg(file=path_fig,width=5,height=10,res=360,units='in')
 ## Creating a new plot
 plot.new()
@@ -1415,7 +1425,7 @@ dev.off()
 ##### Fig. 10 (prev. 14): CE and CH under different ASL stability ranges ####
 
 # Path where the plots will be saved
-path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V4/fig_9.jpg')
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/figs_V3/fig_9.jpg')
 jpeg(file=path_fig,width=5,height=10,res=360,units='in')
 ## Creating a new plot
 plot.new()
