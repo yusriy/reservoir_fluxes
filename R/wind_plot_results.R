@@ -1753,7 +1753,11 @@ plot3 <- ggplot(data = df1, aes(x = no_stability1, y = deltaT1)) +
         axis.text.y=element_text(size=16,family='Times'),
         axis.text.x=element_blank(),
         plot.margin=unit(c(-7,1,9,2),"mm")) +
-  scale_y_continuous(breaks = seq(-6, 6, by = 2)) +
+  scale_y_continuous(breaks = seq(-6, 6, by = 2),
+                     labels=c(paste("\u2212",6,sep=""),
+                              paste("\u2212",4,sep=""),
+                              paste("\u2212",2,sep=""),
+                              0,2,4,6)) +
   scale_x_continuous(breaks=seq(1, 10, by = 1),
                      limits = c(1, 10))
 
@@ -1774,8 +1778,10 @@ plot4 <- ggplot(data = df1, aes(x = no_stability1, y = udeltaE1)) +
         axis.title.y=element_text(size=16,family='Times',margin=margin(0,10,0,0)),
         axis.text.y=element_text(size=16,family='Times'),
         axis.text.x=element_blank(),
-        plot.margin=unit(c(-11,1,15,3),"mm")) +
-  scale_y_continuous(breaks = seq(-1, 6, by = 1)) +
+        plot.margin=unit(c(-11,1,15,1.8),"mm")) +
+  scale_y_continuous(breaks = seq(-1, 6, by = 1),
+                     labels = c(paste("\u2212",1,sep=""),
+                                0,1,2,3,4,5,6)) +
   scale_x_continuous(breaks=seq(1, 10, by = 1),
                      limits = c(1, 10))
 
@@ -1796,7 +1802,12 @@ plot5 <- ggplot(data = df1, aes(x = no_stability1, y = udeltaT1)) +
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),axis.text.x=element_blank(),
         plot.margin=unit(c(-11,1,15,0),"mm")) +
-  scale_y_continuous(breaks = seq(-40, 40, by = 10)) +
+  scale_y_continuous(breaks = seq(-40, 40, by = 10),
+                     labels = c(paste("\u2212",40,sep=""),
+                                paste("\u2212",30,sep=""),
+                                paste("\u2212",20,sep=""),
+                                paste("\u2212",10,sep=""),
+                                0,10,20,30,40)) +
   scale_x_continuous(breaks=seq(1, 10, by = 1),
                      limits = c(1, 10))
 
@@ -1841,8 +1852,11 @@ plot7 <- ggplot(data = df1, aes(x = no_stability1, y = H1)) +
         axis.text.y=element_text(size=16,family='Times'),
         axis.text.x=element_text(angle=90,size=12,hjust=1,family='Times',vjust=0.5),
         plot.margin=unit(c(-17,1,0,0),"mm")) +
-  scale_y_continuous(breaks = seq(-60, 100, by = 20)) + #,
-  #limits = c(-50,100)) +
+  scale_y_continuous(breaks = seq(-60, 100, by = 20),
+                     labels = c(paste("\u2212",60,sep=""),
+                                paste("\u2212",40,sep=""),
+                                paste("\u2212",20,sep=""),
+                                0,20,40,60,80,100)) +
   scale_x_continuous(breaks=seq(1, 10, by = 1),
                      labels = names_boxplot)
 
@@ -1853,7 +1867,80 @@ multiplot2(plot1,plot2,plot4,plot6,plot_empty,plot3,plot5,plot7,
 rm(plot1,plot2,plot3,plot4,plot5,plot6,plot7,plot_empty)
 dev.off()
 
+#### Smoothed coefficient plots ####
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig6_smoothed.jpg')
+jpeg(file=path_fig,width=5, height=10,res=360,units='in')
+plot.new()
 
+## a) CD with ASL ranges
+plot8 <- ggplot(data = df1, aes(x = no_stability1, y = C_D1)) +
+  stat_smooth(colour = 'black', lwd = 1.5, lty = 1, alpha = 0.2) +
+  stat_smooth(data = df2, aes(x = no_stability2, y = C_D2), 
+              lty = 2, colour = 'black', lwd = 1.5, alpha = 0.2) +
+  stat_smooth(data = df3, aes(x = no_stability3, y = C_D3), 
+              lty = 5, colour = 'black', lwd = 1.5, alpha = 0.2) + 
+  stat_smooth(data = df4, aes(x = no_stability4, y = C_D4), 
+              lty = 4, colour = 'black', lwd = 1.5, alpha = 0.2) +
+  theme_bw() + 
+  xlab('') + ylab(expression('C'['D'])) +
+  annotate("text",x=1,y=0.03,label="a)",size=7,family='Times') +
+  theme(panel.grid.major=element_line(size=0),
+        panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times'),
+        axis.text.y=element_text(size=16,family='Times'),
+        axis.text.x=element_blank(),
+        plot.margin=unit(c(1,1,12,2),"mm")) +
+  scale_y_continuous(breaks = seq(-0.01, 0.03, by = 0.01))
+
+## b) CE with ASL ranges
+plot9 <- ggplot(data = df1, aes(x = no_stability1, y = C_E1)) +
+  stat_smooth(colour = 'black', lwd = 1.5, lty = 1, alpha = 0.2) +
+  stat_smooth(data = df2, aes(x = no_stability2, y = C_E2), 
+              lty = 2, colour = 'black', lwd = 1.5, alpha = 0.2) +
+  stat_smooth(data = df3, aes(x = no_stability3, y = C_E3), 
+              lty = 5, colour = 'black', lwd = 1.5, alpha = 0.2) + 
+  stat_smooth(data = df4, aes(x = no_stability4, y = C_E4), 
+              lty = 4, colour = 'black', lwd = 1.5, alpha = 0.2) +
+  theme_bw() +
+  xlab('') + ylab(expression('C'['E'])) +
+  annotate("text",x=1,y=0.003,label="b)",size=7,family='Times') +
+  theme(panel.grid.major=element_line(size=0),
+        panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',margin=margin(0,-1,0,0)),
+        axis.text.y=element_text(size=16,family='Times'),
+        axis.text.x=element_blank(),
+        plot.margin=unit(c(-10,1,22,2),"mm")) +
+  scale_y_continuous(breaks = seq(0, 0.003, by = 0.001),
+                     limits = c(0,0.003))
+
+## c) CH with ASL ranges
+plot10 <- ggplot(data = df1, aes(x = no_stability1, y = C_H1)) +
+  stat_smooth(colour = 'black', lwd = 1.5, lty = 1, alpha = 0.2) +
+  stat_smooth(data = df2, aes(x = no_stability2, y = C_H2), 
+              lty = 2, colour = 'black', lwd = 1.5, alpha = 0.2) +
+  stat_smooth(data = df3, aes(x = no_stability3, y = C_H3), 
+              lty = 5, colour = 'black', lwd = 1.5, alpha = 0.2) + 
+  stat_smooth(data = df4, aes(x = no_stability4, y = C_H4), 
+              lty = 4, colour = 'black', lwd = 1.5, alpha = 0.2) +
+  theme_bw() + 
+  xlab('') + ylab(expression('C'['H'])) +
+  annotate("text",x=1,y=0.003,label="c)",size=7,family='Times') +
+  theme(panel.grid.major=element_line(size=0),
+        panel.grid.minor=element_line(size=0),
+        axis.title.y=element_text(size=16,family='Times',margin=margin(0,-1,0,0)),
+        axis.text.y=element_text(size=16,family='Times'),
+        axis.text.x=element_text(angle=90,size=14,hjust=1,family='Times',vjust=0.5),
+        plot.margin=unit(c(-20,1,7,2),"mm")) +
+  scale_y_continuous(breaks = seq(0, 0.003, by = 0.001),
+                     limits = c(0,0.003)) +
+  scale_x_continuous(breaks=seq(1, 10, by = 1),
+                     labels = names_boxplot)
+
+
+multiplot2(plot8,plot9,plot10,
+           cols=1,labs=list("ASL stability ranges"," "))
+rm(plot8,plot9,plot10)
+dev.off()
 
 
 #### Delete temp variables #########
