@@ -59,6 +59,7 @@ C_D1 <- data$C_D[which(data$wind_category_day==1)]
 C_E1 <- data$C_E[which(data$wind_category_day==1)]
 C_H1 <- data$C_H[which(data$wind_category_day==1)]
 zl1 <- data$Z.L[which(data$wind_category_day==1)]
+ustar1 <- data$U.[which(data$wind_category_day==1)]
 
 
 no_stability2 <- data$stability_no[which(data$wind_category_day==2)]
@@ -77,6 +78,7 @@ C_D2 <- data$C_D[which(data$wind_category_day==2)]
 C_E2 <- data$C_E[which(data$wind_category_day==2)]
 C_H2 <- data$C_H[which(data$wind_category_day==2)]
 zl2 <- data$Z.L[which(data$wind_category_day==2)]
+ustar2 <- data$U.[which(data$wind_category_day==2)]
 
 no_stability3 <- data$stability_no[which(data$wind_category_day==3)]
 LE3 <- data$LE[which(data$wind_category_day==3)]
@@ -94,6 +96,7 @@ C_D3 <- data$C_D[which(data$wind_category_day==3)]
 C_E3 <- data$C_E[which(data$wind_category_day==3)]
 C_H3 <- data$C_H[which(data$wind_category_day==3)]
 zl3 <- data$Z.L[which(data$wind_category_day==3)]
+ustar3 <- data$U.[which(data$wind_category_day==3)]
 
 no_stability4 <- data$stability_no[which(data$wind_category_day==4)]
 LE4 <- data$LE[which(data$wind_category_day==4)]
@@ -111,21 +114,22 @@ C_D4 <- data$C_D[which(data$wind_category_day==4)]
 C_E4 <- data$C_E[which(data$wind_category_day==4)]
 C_H4 <- data$C_H[which(data$wind_category_day==4)]
 zl4 <- data$Z.L[which(data$wind_category_day==4)]
+ustar4 <- data$U.[which(data$wind_category_day==4)]
 
 
 df1 <- data.frame(no_stability1,LE1,H1,U1,deltaE1,ea1,es31,es21,es1,deltaT1,udeltaT1,udeltaE1,C_D1,
-                  C_E1,C_H1,zl1)
+                  C_E1,C_H1,zl1,ustar1)
 df2 <- data.frame(no_stability2,LE2,H2,U2,deltaE2,ea2,es32,es22,es2,deltaT2,udeltaT2,udeltaE2,C_D2,
-                  C_E2,C_H2,zl2)
+                  C_E2,C_H2,zl2,ustar2)
 df3 <- data.frame(no_stability3,LE3,H3,U3,deltaE3,ea3,es33,es23,es3,deltaT3,udeltaT3,udeltaE3,C_D3,
-                  C_E3,C_H3,zl3)
+                  C_E3,C_H3,zl3,ustar3)
 df4 <- data.frame(no_stability4,LE4,H4,U4,deltaE4,ea4,es34,es24,es4,deltaT4,udeltaT4,udeltaE4,C_D4,
-                  C_E4,C_H4,zl4)
+                  C_E4,C_H4,zl4,ustar4)
 rm(no_stability1,no_stability2,no_stability3,no_stability4,LE1,LE2,LE3,LE4,H1,H2,H3,H4,
    U1,U2,U3,U4,deltaE1,deltaE2,deltaE3,deltaE4,ea1,es1,ea2,es2,ea3,es3,ea4,es4,
    es31,es21,es32,es22,es33,es23,es34,es24,deltaT1,deltaT2,deltaT3,deltaT4,
    udeltaT1,udeltaE1,udeltaT2,udeltaE2,udeltaT3,udeltaE3,udeltaT4,udeltaE4,
-   C_D1,C_D2,C_D3,C_D4,C_E1,C_E2,C_E3,C_E4,C_H1,C_H2,C_H3,C_H4,zl1,zl2,zl3,zl4)
+   C_D1,C_D2,C_D3,C_D4,C_E1,C_E2,C_E3,C_E4,C_H1,C_H2,C_H3,C_H4,zl1,zl2,zl3,zl4,ustar1,ustar2,ustar3,ustar4)
 
 ##### Names of various figures and box plots ####
 names_boxplot = c('\u221210\u2264\u03B6<\u22121','\u22121\u2264\u03B6<\u22120.5','\u22120.5\u2264\u03B6<\u22120.1','\u22120.1\u2264\u03B6<\u22120.05',
@@ -838,23 +842,26 @@ lm3 <- lm(df3$LE3[which(df3$deltaE3>0)] ~ df3$deltaE3[which(df3$deltaE3>0)])
 lm4 <- lm(df4$LE4[which(df4$deltaE4>0)] ~ df4$deltaE4[which(df4$deltaE4>0)])
 
 par(mai=c(0.5,0.6,0,0.1))
+library(RColorBrewer)
+cols <- brewer.pal(4,"Set1")
 plot(df1$deltaE1[which(df1$deltaE1>0)],df1$LE1[which(df1$deltaE1>0)],
-     pch=19,col=alpha('lightblue',0.2),
-     xlab='',ylab='',cex=1,cex.axis=1,
+     pch=19,col=cols[1],
+     xlab='',ylab='',cex=0.2,cex.axis=1,
      cex.lab=1)
 text(x=0.1,y=348,labels='a)',cex=1.2)
 mtext(side=2,'LE',line=2,cex=1)
 points(df2$deltaE2[which(df1$deltaE1>0)],df2$LE2[which(df1$deltaE1>0)],
-       pch=19,col=alpha('blue',0.2),cex=1)
+       pch=19,col = cols[2],cex=0.2)
 points(df3$deltaE3[which(df1$deltaE1>0)],df3$LE3[which(df1$deltaE1>0)],
-       pch=19,col=alpha('darkblue',0.2),cex=1)
+       pch=19,col = cols[3],cex=0.2)
 points(df4$deltaE4[which(df1$deltaE1>0)],df4$LE4[which(df1$deltaE1>0)],
-       pch=19,col=alpha('grey40',0.2),cex=1)
+       pch=19,col = cols[4],cex=0.2)
 minor.tick(nx=2,ny=2)
-abline(lm1,lwd=3,lty=1,col='lightblue')
-abline(lm2,lwd=3,lty=2,col='blue')
-abline(lm3,lwd=3,lty=5,col='darkblue')
-abline(lm4,lwd=3,lty=4,col='black')
+
+abline(lm1,lwd=4,lty=1,col=cols[1])
+abline(lm2,lwd=4,lty=2,col=cols[2])
+abline(lm3,lwd=4,lty=5,col=cols[3])
+abline(lm4,lwd=4,lty=4,col=cols[4])
 
 # b) For negative deltaE
 # Linear regression lines
@@ -864,8 +871,8 @@ lm3 <- lm(df3$LE3[which(df3$deltaE3<0)] ~ df3$deltaE3[which(df3$deltaE3<0)])
 lm4 <- lm(df4$LE4[which(df4$deltaE4<0)] ~ df4$deltaE4[which(df4$deltaE4<0)])
 par(mai=c(0.6,0.6,0,0.1))
 plot(df1$deltaE1[which(df1$deltaE1<0)],df1$LE1[which(df1$deltaE1<0)],
-     pch=19,col=alpha('lightblue',0.2),
-     xlab='',ylab='',cex=1,cex.axis=1,xaxt='n',yaxt='n',
+     pch=19,col=cols[1],
+     xlab='',ylab='',cex=0.2,cex.axis=1,xaxt='n',yaxt='n',
      cex.lab=1,xlim=c(-0.5,0))
 axis(side=2,at=c(-30,-20,-10,0,10),
      labels=c(paste("\u2212",30,sep=""),paste("\u2212",20,sep=""),
@@ -878,16 +885,16 @@ text(x=-0.48,y=9,labels='b)',cex=1.2)
 mtext(side=2,'LE',line=2,cex=1)
 mtext(side=1,expression(paste(Delta,'e')),line=2.2,cex=1)
 points(df2$deltaE2[which(df1$deltaE1<0)],df2$LE2[which(df1$deltaE1<0)],
-       pch=19,col=alpha('blue',0.2),cex=1)
+       pch=19,col=cols[2],cex=0.2)
 points(df3$deltaE3[which(df1$deltaE1<0)],df3$LE3[which(df1$deltaE1<0)],
-       pch=19,col=alpha('darkblue',0.2),cex=1)
+       pch=19,col=cols[3],cex=0.2)
 points(df4$deltaE4[which(df1$deltaE1<0)],df4$LE4[which(df1$deltaE1<0)],
-       pch=19,col=alpha('grey40',0.2),cex=1)
+       pch=19,col=cols[4],cex=0.2)
 minor.tick(nx=2,ny=2)
-abline(lm1,lwd=3,lty=1,col='lightblue')
-abline(lm2,lwd=3,lty=2,col='blue')
-abline(lm3,lwd=3,lty=5,col='darkblue')
-abline(lm4,lwd=3,lty=4,col='black')
+abline(lm1,lwd=4,lty=1,col=cols[1])
+abline(lm2,lwd=4,lty=2,col=cols[2])
+abline(lm3,lwd=4,lty=5,col=cols[3])
+abline(lm4,lwd=4,lty=4,col=cols[4])
 
 rm(lm1,lm2,lm3,lm4)
 dev.off()
@@ -897,6 +904,8 @@ dev.off()
 # Path where the plots will be saved
 path_fig <- 
   file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_5a.jpg')
+library(RColorBrewer)
+cols <- brewer.pal(4,"Set1")
 jpeg(file=path_fig,width=8, height=16,res=360,units='cm')
 plot.new()
 
@@ -911,22 +920,22 @@ lm4 <- lm(df4$H4[which(df4$deltaT4>0)] ~ df4$deltaT4[which(df4$deltaT4>0)])
 
 par(mai=c(0.5,0.6,0,0.1))
 plot(df1$deltaT1[which(df1$deltaT1>0)],df1$H1[which(df1$deltaT1>0)],
-     pch=19,col=alpha('lightblue',0.2),
-     xlab='',ylab='',cex=1,cex.axis=1,
+     pch=19,col=cols[1],
+     xlab='',ylab='',cex=0.2,cex.axis=1,
      cex.lab=1)
 text(x=0.2,y=105,labels='c)',cex=1.2)
 mtext(side=2,'H',line=2,cex=1)
 points(df2$deltaT2[which(df1$deltaT1>0)],df2$H2[which(df1$deltaT1>0)],
-       pch=19,col=alpha('blue',0.2),cex=1)
+       pch=19,col=cols[2],cex=0.2)
 points(df3$deltaT3[which(df1$deltaT1>0)],df3$H3[which(df1$deltaT1>0)],
-       pch=19,col=alpha('darkblue',0.2),cex=1)
+       pch=19,col=cols[3],cex=0.2)
 points(df4$deltaT4[which(df1$deltaT1>0)],df4$H4[which(df1$deltaT1>0)],
-       pch=19,col=alpha('grey40',0.2),cex=1)
+       pch=19,col=cols[4],cex=0.2)
 minor.tick(nx=2,ny=2)
-abline(lm1,lwd=3,lty=1,col='lightblue')
-abline(lm2,lwd=3,lty=2,col='blue')
-abline(lm3,lwd=3,lty=5,col='darkblue')
-abline(lm4,lwd=3,lty=4,col='black')
+abline(lm1,lwd=4,lty=1,col=cols[1])
+abline(lm2,lwd=4,lty=2,col=cols[2])
+abline(lm3,lwd=4,lty=5,col=cols[3])
+abline(lm4,lwd=4,lty=4,col=cols[4])
 
 # d) For negative deltaT
 # Linear regression lines
@@ -936,8 +945,8 @@ lm3 <- lm(df3$H3[which(df3$deltaT3<0)] ~ df3$deltaT3[which(df3$deltaT3<0)])
 lm4 <- lm(df4$H4[which(df4$deltaT4<0)] ~ df4$deltaT4[which(df4$deltaT4<0)])
 par(mai=c(0.6,0.6,0,0.1))
 plot(df1$deltaT1[which(df1$deltaT1<0)],df1$H1[which(df1$deltaT1<0)],
-     pch=19,col=alpha('lightblue',0.2),
-     xlab='',ylab='',cex=1,cex.axis=1,
+     pch=19,col=cols[1],
+     xlab='',ylab='',cex=0.2,cex.axis=1,
      cex.lab=1,xlim=c(-0.5,0),xaxt='n',yaxt='n')
 axis(side=2,at=c(-40,-20,0,20),
      labels=c(paste("\u2212",40,sep=""),paste("\u2212",20,sep=""),
@@ -950,16 +959,16 @@ text(x=-0.48,y=35,labels='d)',cex=1.2)
 mtext(side=2,'H',line=2,cex=1)
 mtext(side=1,expression(paste(Delta,'T')),line=2.2,cex=1)
 points(df2$deltaT2[which(df1$deltaT1<0)],df2$H2[which(df1$deltaT1<0)],
-       pch=19,col=alpha('blue',0.2),cex=1)
+       pch=19,col=cols[2],cex=0.2)
 points(df3$deltaT3[which(df1$deltaT1<0)],df3$H3[which(df1$deltaT1<0)],
-       pch=19,col=alpha('darkblue',0.2),cex=1)
+       pch=19,col=cols[3],cex=0.2)
 points(df4$deltaT4[which(df1$deltaT1<0)],df4$H4[which(df1$deltaT1<0)],
-       pch=19,col=alpha('grey40',0.2),cex=1)
+       pch=19,col=cols[4],cex=0.2)
 minor.tick(nx=2,ny=2)
-abline(lm1,lwd=3,lty=1,col='lightblue')
-abline(lm2,lwd=3,lty=2,col='blue')
-abline(lm3,lwd=3,lty=5,col='darkblue')
-abline(lm4,lwd=3,lty=4,col='black')
+abline(lm1,lwd=4,lty=1,col=cols[1])
+abline(lm2,lwd=4,lty=2,col=cols[2])
+abline(lm3,lwd=4,lty=5,col=cols[3])
+abline(lm4,lwd=4,lty=4,col=cols[4])
 
 rm(lm1,lm2,lm3,lm4)
 dev.off()
@@ -1942,6 +1951,45 @@ multiplot2(plot8,plot9,plot10,
 rm(plot8,plot9,plot10)
 dev.off()
 
+#### ustar with u under different wind-class ####
+# Path where the plots will be saved
+path_fig <- 
+  file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_ustar.jpg')
+jpeg(file=path_fig,width=8, height = 8,res=360,units='cm')
+plot.new()
+
+par(family='Times',oma=c(0.5,0.4,0.1,0.1))
+
+# a) For positive deltaE
+# Linear regression lines
+lm1 <- lm(df1$ustar1 ~ df1$U1)
+lm2 <- lm(df2$ustar2 ~ df2$U2)
+lm3 <- lm(df3$ustar3 ~ df3$U3)
+lm4 <- lm(df4$ustar4 ~ df4$U4)
+
+par(mai=c(0.5,0.6,0,0.1))
+library(RColorBrewer)
+cols <- brewer.pal(4,"Set1")
+plot(df1$U1,df1$ustar1,pch=19,col=cols[1],
+     xlab='', ylab='',cex=0.2,cex.axis=1,
+     cex.lab=1)
+
+mtext(side=2,expression(paste('u'['*'])),line=2,cex=1)
+mtext(side = 1, 'U', line = 2, cex = 1)
+points(df2$U2,df2$ustar2,
+       pch=19,col = cols[2],cex=0.2)
+points(df3$U3,df3$ustar3,
+       pch=19,col = cols[3],cex=0.2)
+points(df4$U4,df4$ustar4,
+       pch=19,col = cols[4],cex=0.2)
+minor.tick(nx=2,ny=2)
+
+abline(lm1,lwd=4,lty=1,col=cols[1])
+abline(lm2,lwd=4,lty=2,col=cols[2])
+abline(lm3,lwd=4,lty=5,col=cols[3])
+abline(lm4,lwd=4,lty=4,col=cols[4])
+
+dev.off()
 
 #### Delete temp variables #########
 rm(path_fig,names_boxplot,plot1,plot2,plot3,plot4)
