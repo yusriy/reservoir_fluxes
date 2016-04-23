@@ -455,7 +455,11 @@ lines(dens_U4,lty=4,lwd=2)
 
 # To plot density of z/L
 par(mai=c(0.5,0.5,0,0.1))
-plot(dens_zl1,xlim=c(-1,1),ylim=c(0,3),main='',xlab='',ylab='',cex.axis=1.2)
+
+plot(dens_zl1,xlim=c(-1,1),ylim=c(0,3),main='',xlab='',ylab='',cex.axis=1.2, xaxt = 'n')
+axis(side = 1, at = c(-1,-0.5,0,0.5,1), labels = c(paste("\u2212",1.0,sep=""),
+                                                   c(paste("\u2212",0.5,sep="")),
+                                                   0.0, 0.5, 1.0))
 mtext(side = 1,expression(zeta),lty=1,line=2.5)
 text(-0.95,2.85,'d)',cex = 1.5)
 #mtext(side=2,'Density',line=2)
@@ -465,7 +469,9 @@ lines(dens_zl4,lty=4,lwd=2)
 
 # To plot density of deltaE
 par(mai=c(0.5,0.6,0,0.1))
-plot(dens_de1,xlim=c(-1,2.5),ylim=c(0,1.5),main='',xlab='',ylab='',cex.axis=1.2)
+plot(dens_de1,xlim=c(-1,2.5),ylim=c(0,1.5),main='',xlab='',ylab='',cex.axis=1.2, xaxt = 'n')
+axis(side = 1, at = c(-1,0,1,2), labels = c(paste("\u2212",1.0,sep=""),
+                                                   0.0, 1.0, 2.0))
 mtext(side = 1,expression(paste(Delta,'e')),line=2.5,lty=1)
 mtext(side=2,'Density',line=2.5)
 text(-0.9,1.4,'b)',cex = 1.5)
@@ -475,7 +481,10 @@ lines(dens_de4,lty=4,lwd=2)
 
 # To plot density of deltaT
 par(mai=c(0.5,0.5,0,0.1))
-plot(dens_dT1,xlim=c(-10,12),ylim=c(0,0.2),main='',xlab='',ylab='',cex.axis=1.2)
+plot(dens_dT1,xlim=c(-10,12),ylim=c(0,0.2),main='',xlab='',ylab='',cex.axis=1.2, xaxt = 'n')
+axis(side = 1, at = c(-10,-5,0,5,10), labels = c(paste("\u2212",10,sep=""),
+                                                   c(paste("\u2212",5,sep="")),
+                                                   0, 5, 10))
 mtext(side = 1,expression(paste(Delta,'T')),line=2.5,lty=1)
 text(-9.7,0.19,'e)',cex = 1.5)
 #mtext(side=2,'Density',line=2)
@@ -485,7 +494,9 @@ lines(dens_dT4,lty=4,lwd=2)
 
 # To plot density of LE
 par(mai=c(0.5,0.6,0,0.1))
-plot(dens_LE1,xlim=c(-100,300),ylim=c(0,0.012),main='',xlab='',ylab='',cex.axis=1.2)
+plot(dens_LE1,xlim=c(-100,300),ylim=c(0,0.012),main='',xlab='',ylab='',cex.axis=1.2,xaxt = 'n')
+axis(side = 1, at = c(-100,0,100,200,300), labels = c(paste("\u2212",100,sep=""),
+                                                      0, 100, 200, 300))
 mtext(side = 1,'LE',lty=1,line=2.5)
 mtext(side=2,'Density',line=2.5)
 text(-93,0.0114,'c)',cex = 1.5)
@@ -495,7 +506,8 @@ lines(dens_LE4,lty=4,lwd=2)
 
 # To plot density of H
 par(mai=c(0.5,0.5,0,0.1))
-plot(dens_H1,xlim=c(-100,200),ylim=c(0,0.04),main='',xlab='',ylab='',cex.axis=1.2)
+plot(dens_H1,xlim=c(-100,200),ylim=c(0,0.04),main='',xlab='',ylab='',cex.axis=1.2, xaxt = 'n')
+axis(side = 1, at = c(-100,0,100,200), labels = c(paste("\u2212",100,sep=""),0,100,200))
 mtext(side = 1,'H',line=2.5,lty=1)
 text(-95,0.038,'f)',cex = 1.5)
 #mtext(side=2,'Density',line=2)
@@ -1332,7 +1344,7 @@ lines(x,slope_LEsta,lty=2,lwd=2)
 
 # b) Regression slope of H and deltaT for unstable and stable conditions
 par(mai=c(1,1,0,0.1))
-plot(x,slope_Hunst,pch=19,ylim = c(0,15),xlab='Wind-class Day',
+plot(x,slope_Hunst,pch=19,ylim = c(0,15),xlab='Wind-class',
      ylab=expression(paste('Slope of H and ',Delta,'T')),
      xaxt='n',cex=2,cex.axis=2,cex.lab=2)
 text(1.05,14.5,'b)',cex=2)
