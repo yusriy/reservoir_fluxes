@@ -19,8 +19,8 @@
 # R squared between H and U
 
 names_boxplot = c('-10\u2264\u03B6<-1','-1\u2264\u03B6<-0.5','-0.5\u2264\u03B6<-0.1','-0.1\u2264\u03B6<-0.05',
-                  '-0.05\u2264\u03B6<0','0\u2264\u03B6<0.05','0.05\u2264\u03B6<0.1','0.1\u2264\u03B6<0.5','0.5\u2264\u03B6<1')#,'1\u2264\u03B6<10')
-cat_no <- as.factor(1:9)
+                  '-0.05\u2264\u03B6<0','0\u2264\u03B6<0.05','0.05\u2264\u03B6<0.1','0.1\u2264\u03B6<0.5','0.5\u2264\u03B6<1','1\u2264\u03B6<10')
+cat_no <- as.factor(1:10)
 
 # Stability no 1
 lmLE_U_1 <- lm(data$LE[which(data$stability_no==1)]~data$WS_Spd_WVT[which(data$stability_no==1)])
@@ -41,20 +41,20 @@ lmLE_U_8 <- lm(data$LE[which(data$stability_no==8)]~data$WS_Spd_WVT[which(data$s
 # Stability no 9
 lmLE_U_9 <- lm(data$LE[which(data$stability_no==9)]~data$WS_Spd_WVT[which(data$stability_no==9)])
 # Stability no 10
-#lmLE_U_10 <- NA #lm(data$LE[which(data$stability_no==10)]~data$WS_Spd_WVT[which(data$stability_no==10)])
+lmLE_U_10 <- lm(data$LE[which(data$stability_no==10)]~data$WS_Spd_WVT[which(data$stability_no==10)])
 
 r_LE_U <- c(summary(lmLE_U_1)$adj.r.squared,summary(lmLE_U_2)$adj.r.squared,
-           summary(lmLE_U_3)$adj.r.squared,summary(lmLE_U_4)$adj.r.squared,
-           summary(lmLE_U_5)$adj.r.squared,summary(lmLE_U_6)$adj.r.squared,
-           summary(lmLE_U_7)$adj.r.squared,summary(lmLE_U_8)$adj.r.squared,
-           summary(lmLE_U_9)$adj.r.squared)#,lmLE_U_10)
+            summary(lmLE_U_3)$adj.r.squared,summary(lmLE_U_4)$adj.r.squared,
+            summary(lmLE_U_5)$adj.r.squared,summary(lmLE_U_6)$adj.r.squared,
+            summary(lmLE_U_7)$adj.r.squared,summary(lmLE_U_8)$adj.r.squared,
+            summary(lmLE_U_9)$adj.r.squared,summary(lmLE_U_10)$adj.r.squared)
 p_LE_U <- c(summary(lmLE_U_1)$coefficients[8],summary(lmLE_U_2)$coefficients[8],
             summary(lmLE_U_3)$coefficients[8],summary(lmLE_U_4)$coefficients[8],
             summary(lmLE_U_5)$coefficients[8],summary(lmLE_U_6)$coefficients[8],
             summary(lmLE_U_7)$coefficients[8],summary(lmLE_U_8)$coefficients[8],
-            summary(lmLE_U_9)$coefficients[8])#,lmLE_U_10)
+            summary(lmLE_U_9)$coefficients[8],summary(lmLE_U_10)$coefficients[8])
 
-rm(lmLE_U_1,lmLE_U_2,lmLE_U_3,lmLE_U_4,lmLE_U_5,lmLE_U_6,lmLE_U_7,lmLE_U_8,lmLE_U_9)#,lmLE_U_10)
+rm(lmLE_U_1,lmLE_U_2,lmLE_U_3,lmLE_U_4,lmLE_U_5,lmLE_U_6,lmLE_U_7,lmLE_U_8,lmLE_U_9,lmLE_U_10)
 
 # R squared between LE and deltaE
 
@@ -77,20 +77,20 @@ lmLE_dE_8 <- lm(data$LE[which(data$stability_no==8)]~data$deltaE[which(data$stab
 # Stability no 9
 lmLE_dE_9 <- lm(data$LE[which(data$stability_no==9)]~data$deltaE[which(data$stability_no==9)])
 # Stability no 10
-#lmLE_dE_10 <- NA #lm(data$LE[which(data$stability_no==10)]~data$deltaE[which(data$stability_no==10)])
+lmLE_dE_10 <- lm(data$LE[which(data$stability_no==10)]~data$deltaE[which(data$stability_no==10)])
 
 r_LE_dE <- c(summary(lmLE_dE_1)$adj.r.squared,summary(lmLE_dE_2)$adj.r.squared,
             summary(lmLE_dE_3)$adj.r.squared,summary(lmLE_dE_4)$adj.r.squared,
             summary(lmLE_dE_5)$adj.r.squared,summary(lmLE_dE_6)$adj.r.squared,
             summary(lmLE_dE_7)$adj.r.squared,summary(lmLE_dE_8)$adj.r.squared,
-            summary(lmLE_dE_9)$adj.r.squared)#,lmLE_dE_10)
+            summary(lmLE_dE_9)$adj.r.squared,summary(lmLE_dE_10)$adj.r.squared)
 p_LE_dE <- c(summary(lmLE_dE_1)$coefficients[8],summary(lmLE_dE_2)$coefficients[8],
              summary(lmLE_dE_3)$coefficients[8],summary(lmLE_dE_4)$coefficients[8],
              summary(lmLE_dE_5)$coefficients[8],summary(lmLE_dE_6)$coefficients[8],
              summary(lmLE_dE_7)$coefficients[8],summary(lmLE_dE_8)$coefficients[8],
-             summary(lmLE_dE_9)$coefficients[8])#,lmLE_dE_10)
+             summary(lmLE_dE_9)$coefficients[8],summary(lmLE_dE_10)$coefficients[8])
 
-rm(lmLE_dE_1,lmLE_dE_2,lmLE_dE_3,lmLE_dE_4,lmLE_dE_5,lmLE_dE_6,lmLE_dE_7,lmLE_dE_8,lmLE_dE_9)#,lmLE_dE_10)
+rm(lmLE_dE_1,lmLE_dE_2,lmLE_dE_3,lmLE_dE_4,lmLE_dE_5,lmLE_dE_6,lmLE_dE_7,lmLE_dE_8,lmLE_dE_9,lmLE_dE_10)
 
 # R squared between LE and udeltaE
 
@@ -113,21 +113,24 @@ lmLE_UdE8 <- lm(data$LE[which(data$stability_no==8)]~data$u_deltaE[which(data$st
 # Stability no 9
 lmLE_UdE9 <- lm(data$LE[which(data$stability_no==9)]~data$u_deltaE[which(data$stability_no==9)])
 # Stability no 10
-#lmLE_UdE10 <- NA #lm(data$LE[which(data$stability_no==10)]~data$u_deltaE[which(data$stability_no==10)])
+lmLE_UdE10 <- lm(data$LE[which(data$stability_no==10)]~data$u_deltaE[which(data$stability_no==10)])
 
 r_LE_UdE <- c(summary(lmLE_UdE1)$adj.r.squared,summary(lmLE_UdE2)$adj.r.squared,
              summary(lmLE_UdE3)$adj.r.squared,summary(lmLE_UdE4)$adj.r.squared,
              summary(lmLE_UdE5)$adj.r.squared,summary(lmLE_UdE6)$adj.r.squared,
              summary(lmLE_UdE7)$adj.r.squared,summary(lmLE_UdE8)$adj.r.squared,
-             summary(lmLE_UdE9)$adj.r.squared)#,lmLE_UdE10)
+             summary(lmLE_UdE9)$adj.r.squared,summary(lmLE_UdE10)$adj.r.squared)
 p_LE_UdE <- c(summary(lmLE_UdE1)$coefficients[8],summary(lmLE_UdE2)$coefficients[8],
               summary(lmLE_UdE3)$coefficients[8],summary(lmLE_UdE4)$coefficients[8],
               summary(lmLE_UdE5)$coefficients[8],summary(lmLE_UdE6)$coefficients[8],
               summary(lmLE_UdE7)$coefficients[8],summary(lmLE_UdE8)$coefficients[8],
-              summary(lmLE_UdE9)$coefficients[8])#,lmLE_UdE10)
-rm(lmLE_UdE1,lmLE_UdE2,lmLE_UdE3,lmLE_UdE4,lmLE_UdE5,lmLE_UdE6,lmLE_UdE7,lmLE_UdE8,lmLE_UdE9)#,lmLE_UdE10)
+              summary(lmLE_UdE9)$coefficients[8],summary(lmLE_UdE10)$coefficients[8])
+rm(lmLE_UdE1,lmLE_UdE2,lmLE_UdE3,lmLE_UdE4,lmLE_UdE5,lmLE_UdE6,lmLE_UdE7,lmLE_UdE8,lmLE_UdE9,lmLE_UdE10)
 
-data_rsq <-data.frame(cat_no,names_boxplot,r_LE_U,p_LE_U,r_LE_dE,p_LE_dE,r_LE_UdE,p_LE_UdE)
+data_rsq <-data.frame(cat_no,names_boxplot,
+                      r_LE_U,p_LE_U,
+                      r_LE_dE,p_LE_dE,
+                      r_LE_UdE,p_LE_UdE)
 rm(r_LE_U,r_LE_dE,r_LE_UdE,p_LE_U,p_LE_dE,p_LE_UdE)
 
 

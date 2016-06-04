@@ -114,5 +114,5 @@ rm(lmH_UdT1,lmH_UdT2,lmH_UdT3,lmH_UdT4,lmH_UdT5,lmH_UdT6,lmH_UdT7,lmH_UdT8,lmH_U
    lmH_UdT10)
 
 data_rsq2<-data.frame(cat_no,names_boxplot,r_H_U,p_H_U,r_H_dT,p_H_dT,r_H_UdT,p_H_UdT)
-rm(r_H_U,r_H_dT,r_H_UdT)
+rm(r_H_U,r_H_dT,r_H_UdT,p_H_UdT,p_H_U,p_H_dT)
 
