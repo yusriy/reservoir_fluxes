@@ -43,6 +43,7 @@ data_group_4wind <- data %>%
             # need to multiply e_s1 and e_a with 0.1 because units in hPa not kPa
 data_group_4wind <- data_group_4wind[-c(97:120),]
 
+wc_1 <- rep('wc1',length(data$stability_no[which(data$wind_category_day == 1)]))
 no_stability1 <- data$stability_no[which(data$wind_category_day==1)]
 LE1 <- data$LE[which(data$wind_category_day==1)]
 H1 <- data$H[which(data$wind_category_day==1)]
@@ -61,7 +62,7 @@ C_H1 <- data$C_H[which(data$wind_category_day==1)]
 zl1 <- data$Z.L[which(data$wind_category_day==1)]
 ustar1 <- data$U.[which(data$wind_category_day==1)]
 
-
+wc_2 <- rep('wc2',length(data$stability_no[which(data$wind_category_day == 2)]))
 no_stability2 <- data$stability_no[which(data$wind_category_day==2)]
 LE2 <- data$LE[which(data$wind_category_day==2)]
 H2 <- data$H[which(data$wind_category_day==2)]
@@ -80,6 +81,7 @@ C_H2 <- data$C_H[which(data$wind_category_day==2)]
 zl2 <- data$Z.L[which(data$wind_category_day==2)]
 ustar2 <- data$U.[which(data$wind_category_day==2)]
 
+wc_3 <- rep('wc3',length(data$stability_no[which(data$wind_category_day == 3)]))
 no_stability3 <- data$stability_no[which(data$wind_category_day==3)]
 LE3 <- data$LE[which(data$wind_category_day==3)]
 H3 <- data$H[which(data$wind_category_day==3)]
@@ -98,6 +100,7 @@ C_H3 <- data$C_H[which(data$wind_category_day==3)]
 zl3 <- data$Z.L[which(data$wind_category_day==3)]
 ustar3 <- data$U.[which(data$wind_category_day==3)]
 
+wc_4 <- rep('wc4',length(data$stability_no[which(data$wind_category_day == 4)]))
 no_stability4 <- data$stability_no[which(data$wind_category_day==4)]
 LE4 <- data$LE[which(data$wind_category_day==4)]
 H4 <- data$H[which(data$wind_category_day==4)]
@@ -117,15 +120,15 @@ zl4 <- data$Z.L[which(data$wind_category_day==4)]
 ustar4 <- data$U.[which(data$wind_category_day==4)]
 
 
-df1 <- data.frame(no_stability1,LE1,H1,U1,deltaE1,ea1,es31,es21,es1,deltaT1,udeltaT1,udeltaE1,C_D1,
+df1 <- data.frame(wc_1,no_stability1,LE1,H1,U1,deltaE1,ea1,es31,es21,es1,deltaT1,udeltaT1,udeltaE1,C_D1,
                   C_E1,C_H1,zl1,ustar1)
-df2 <- data.frame(no_stability2,LE2,H2,U2,deltaE2,ea2,es32,es22,es2,deltaT2,udeltaT2,udeltaE2,C_D2,
+df2 <- data.frame(wc_2,no_stability2,LE2,H2,U2,deltaE2,ea2,es32,es22,es2,deltaT2,udeltaT2,udeltaE2,C_D2,
                   C_E2,C_H2,zl2,ustar2)
-df3 <- data.frame(no_stability3,LE3,H3,U3,deltaE3,ea3,es33,es23,es3,deltaT3,udeltaT3,udeltaE3,C_D3,
+df3 <- data.frame(wc_3,no_stability3,LE3,H3,U3,deltaE3,ea3,es33,es23,es3,deltaT3,udeltaT3,udeltaE3,C_D3,
                   C_E3,C_H3,zl3,ustar3)
-df4 <- data.frame(no_stability4,LE4,H4,U4,deltaE4,ea4,es34,es24,es4,deltaT4,udeltaT4,udeltaE4,C_D4,
+df4 <- data.frame(wc_4,no_stability4,LE4,H4,U4,deltaE4,ea4,es34,es24,es4,deltaT4,udeltaT4,udeltaE4,C_D4,
                   C_E4,C_H4,zl4,ustar4)
-rm(no_stability1,no_stability2,no_stability3,no_stability4,LE1,LE2,LE3,LE4,H1,H2,H3,H4,
+rm(wc_1,wc_2,wc_3,wc_4,no_stability1,no_stability2,no_stability3,no_stability4,LE1,LE2,LE3,LE4,H1,H2,H3,H4,
    U1,U2,U3,U4,deltaE1,deltaE2,deltaE3,deltaE4,ea1,es1,ea2,es2,ea3,es3,ea4,es4,
    es31,es21,es32,es22,es33,es23,es34,es24,deltaT1,deltaT2,deltaT3,deltaT4,
    udeltaT1,udeltaE1,udeltaT2,udeltaE2,udeltaT3,udeltaE3,udeltaT4,udeltaE4,
@@ -1867,24 +1870,33 @@ plot6 <- ggplot(data = df1, aes(x = no_stability1, y = LE1)) +
                      labels = names_boxplot)
 
 ## g) H with ASL ranges
-plot7 <- ggplot(data = df1, aes(x = no_stability1, y = H1, colour = 'Wind-class I', lty = 1)) +
-  stat_smooth(lwd = 1.5, lty = 1, alpha = 0.2, show.legend = TRUE) +
-  stat_smooth(data = df2, aes(x = no_stability2, y = H2, colour = 'Wind-class II', lty = 2),
-              lwd = 1.5, alpha = 0.2, lty = 2, show.legend = TRUE) +
-  stat_smooth(data = df3, aes(x = no_stability3, y = H3, colour = 'Wind-class III', lty = 5),
-                              #linetype = 'Wind-class III'), 
-              lwd = 1.5, alpha = 0.2, lty = 5, show.legend = TRUE) + 
-  stat_smooth(data = df4, aes(x = no_stability4, y = H4, colour = 'Wind-class IV', lty = 4),
-                              #linetype = 'Wind-class IV'), 
-              lwd = 1.5, alpha = 0.2, lty = 4, show.legend = TRUE) +
+plot7 <- ggplot() +
+  stat_smooth(data = df1, aes(x = no_stability1, y = H1, 
+                              linetype = wc_1, colour = wc_1),
+              lwd = 1.5, alpha = 0.2) +
+  stat_smooth(data = df2, aes(x = no_stability2, y = H2, 
+                              linetype = wc_2, colour = wc_2),
+              lwd = 1.5, alpha = 0.2) +
+  stat_smooth(data = df3, aes(x = no_stability3, y = H3, 
+                              linetype = wc_3, colour = wc_3),
+              lwd = 1.5, alpha = 0.2) + 
+  stat_smooth(data = df4, aes(x = no_stability4, y = H4, 
+                              linetype = wc_4, colour = wc_4),
+              lwd = 1.5, alpha = 0.2) +
   theme_bw() +
   # LEGEND #
-  scale_colour_manual('', breaks = c('Wind-class I','Wind-class II',
-                                     'Wind-class III','Wind-class IV'),
+  scale_linetype_manual(labels = c('Wind-class I',
+                                   'Wind-class II',
+                                   'Wind-class III',
+                                   'Wind-class IV'),
+                        values = c('solid','dashed',
+                                   'longdash','twodash')) +
+  scale_colour_manual(labels = c('Wind-class I',
+                                 'Wind-class II',
+                                 'Wind-class III',
+                                 'Wind-class IV'),
                       values = c('black','green','blue','red')) +
-  #scale_linetype_manual(breaks = c('Wind-class I','Wind-class II',
-  #                                 'Wind-class III','Wind-class IV'),
-  #                      values = c('solid','dashed','longdash','twodash')) +
+  
   # END LEGEND #
   xlab('') + ylab('H') +
   annotate("text",x=1,y=77,label="g)",size=7,family='Times') +
@@ -1900,9 +1912,10 @@ plot7 <- ggplot(data = df1, aes(x = no_stability1, y = H1, colour = 'Wind-class 
         legend.justification=c(1,0), legend.position=c(1,0.30),
         legend.title = element_blank(),
         legend.key = element_rect(colour = 'white'),
-        legend.text = element_text(size = 12, family = 'Times'),
-        legend.key.width=unit(2,"line")) +
-  guides(color=guide_legend(override.aes=list(fill=NA))) + # Remove grey background
+        legend.text = element_text(size = 10, family = 'Times'),
+        legend.key.width=unit(2.7,"line"),
+        legend.title = element_blank()) +
+  guides(linetype = guide_legend(override.aes = list(fill=NA))) + # Remove grey background
         # END LEGEND #
   
   scale_y_continuous(breaks = seq(-60, 100, by = 20),
@@ -1929,11 +1942,11 @@ plot.new()
 plot8 <- ggplot(data = df1, aes(x = no_stability1, y = C_D1)) +
   stat_smooth(colour = 'black', lwd = 1.5, lty = 1, alpha = 0.2) +
   stat_smooth(data = df2, aes(x = no_stability2, y = C_D2), 
-              lty = 2, colour = 'black', lwd = 1.5, alpha = 0.2) +
+              lty = 2, colour = 'green', lwd = 1.5, alpha = 0.2) +
   stat_smooth(data = df3, aes(x = no_stability3, y = C_D3), 
-              lty = 5, colour = 'black', lwd = 1.5, alpha = 0.2) + 
+              lty = 5, colour = 'blue', lwd = 1.5, alpha = 0.2) + 
   stat_smooth(data = df4, aes(x = no_stability4, y = C_D4), 
-              lty = 4, colour = 'black', lwd = 1.5, alpha = 0.2) +
+              lty = 4, colour = 'red', lwd = 1.5, alpha = 0.2) +
   theme_bw() + 
   xlab('') + ylab(expression('C'['D'])) +
   annotate("text",x=1,y=0.03,label="a)",size=7,family='Times') +
@@ -1949,11 +1962,11 @@ plot8 <- ggplot(data = df1, aes(x = no_stability1, y = C_D1)) +
 plot9 <- ggplot(data = df1, aes(x = no_stability1, y = C_E1)) +
   stat_smooth(colour = 'black', lwd = 1.5, lty = 1, alpha = 0.2) +
   stat_smooth(data = df2, aes(x = no_stability2, y = C_E2), 
-              lty = 2, colour = 'black', lwd = 1.5, alpha = 0.2) +
+              lty = 2, colour = 'green', lwd = 1.5, alpha = 0.2) +
   stat_smooth(data = df3, aes(x = no_stability3, y = C_E3), 
-              lty = 5, colour = 'black', lwd = 1.5, alpha = 0.2) + 
+              lty = 5, colour = 'blue', lwd = 1.5, alpha = 0.2) + 
   stat_smooth(data = df4, aes(x = no_stability4, y = C_E4), 
-              lty = 4, colour = 'black', lwd = 1.5, alpha = 0.2) +
+              lty = 4, colour = 'red', lwd = 1.5, alpha = 0.2) +
   theme_bw() +
   xlab('') + ylab(expression('C'['E'])) +
   annotate("text",x=1,y=0.003,label="b)",size=7,family='Times') +
@@ -1967,15 +1980,34 @@ plot9 <- ggplot(data = df1, aes(x = no_stability1, y = C_E1)) +
                      limits = c(0,0.003))
 
 ## c) CH with ASL ranges
-plot10 <- ggplot(data = df1, aes(x = no_stability1, y = C_H1)) +
-  stat_smooth(colour = 'black', lwd = 1.5, lty = 1, alpha = 0.2) +
-  stat_smooth(data = df2, aes(x = no_stability2, y = C_H2), 
-              lty = 2, colour = 'black', lwd = 1.5, alpha = 0.2) +
-  stat_smooth(data = df3, aes(x = no_stability3, y = C_H3), 
-              lty = 5, colour = 'black', lwd = 1.5, alpha = 0.2) + 
-  stat_smooth(data = df4, aes(x = no_stability4, y = C_H4), 
-              lty = 4, colour = 'black', lwd = 1.5, alpha = 0.2) +
-  theme_bw() + 
+plot10 <- ggplot() +
+  stat_smooth(data = df1, aes(x = no_stability1, y = C_H1, 
+                              colour = wc_1, linetype = wc_1),
+              lwd = 1.5, alpha = 0.2) +
+  stat_smooth(data = df2, aes(x = no_stability2, y = C_H2,
+                              colour = wc_2, linetype = wc_2), 
+              lwd = 1.5, alpha = 0.2) +
+  stat_smooth(data = df3, aes(x = no_stability3, y = C_H3,
+                              colour = wc_3, linetype = wc_3), 
+              lwd = 1.5, alpha = 0.2) + 
+  stat_smooth(data = df4, aes(x = no_stability4, y = C_H4,
+                              colour = wc_4, linetype = wc_4), 
+              lwd = 1.5, alpha = 0.2) +
+  theme_bw() +
+  # LEGEND #
+  scale_linetype_manual(labels = c('Wind-class I',
+                                   'Wind-class II',
+                                   'Wind-class III',
+                                   'Wind-class IV'),
+                        values = c('solid','dashed',
+                                   'longdash','twodash')) +
+  scale_colour_manual(labels = c('Wind-class I',
+                                 'Wind-class II',
+                                 'Wind-class III',
+                                 'Wind-class IV'),
+                      values = c('black','green','blue','red')) +
+  
+  # END LEGEND #
   xlab('') + ylab(expression('C'['H'])) +
   annotate("text",x=1,y=0.003,label="c)",size=7,family='Times') +
   theme(panel.grid.major=element_line(size=0),
@@ -1983,7 +2015,16 @@ plot10 <- ggplot(data = df1, aes(x = no_stability1, y = C_H1)) +
         axis.title.y=element_text(size=16,family='Times',margin=margin(0,-1,0,0)),
         axis.text.y=element_text(size=16,family='Times'),
         axis.text.x=element_text(angle=90,size=14,hjust=1,family='Times',vjust=0.5),
-        plot.margin=unit(c(-20,1,7,2),"mm")) +
+        plot.margin=unit(c(-20,1,7,2),"mm"),
+        # LEGEND #
+        legend.justification=c(1,0), legend.position=c(1,0.40),
+        legend.title = element_blank(),
+        legend.key = element_rect(colour = 'white'),
+        legend.text = element_text(size = 10, family = 'Times'),
+        legend.key.width=unit(2.7,"line"),
+        legend.title = element_blank()) +
+  guides(linetype = guide_legend(override.aes = list(fill=NA))) + # Remove grey background
+  # END LEGEND #
   scale_y_continuous(breaks = seq(0, 0.003, by = 0.001),
                      limits = c(0,0.003)) +
   scale_x_continuous(breaks=seq(1, 10, by = 1),
@@ -2036,7 +2077,7 @@ legend('topleft',
        legend=c('Wind-class I','Wind-class II',
                 'Wind-class III','Wind-class IV'),
        lty=c(1,2,3,4), lwd = c(2,2,2,2),cex = 0.6,
-       col=c('black','green','blue','red'))
+       col=c('black','green','blue','red'), bty = 'n')
 dev.off()
 
 #### Correlational analysis ####
