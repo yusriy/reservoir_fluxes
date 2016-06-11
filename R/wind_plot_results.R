@@ -445,75 +445,84 @@ dens_zl4 <- density(df4$zl4,na.rm=T)
 
 # To plot density of U
 par(mai=c(0.5,0.6,0,0))
-plot(dens_U1,xlim=c(0,12),ylim=c(0,0.5),main='',xlab='',ylab='',cex.axis=1.2)
+plot(dens_U1,xlim=c(0,12),ylim=c(0,0.5),main='',xlab='',ylab='',cex.axis=1.2,
+     col = 'black')
 mtext(side = 1,'U',lty=1,line=2.5)
 mtext(side=2,'Density',line=2.5)
 text(0.3,0.47,'a)',cex = 1.5)
-lines(dens_U2,lty=2,lwd=2)
-lines(dens_U3,lty=3,lwd=2)
-lines(dens_U4,lty=4,lwd=2)
+lines(dens_U2,lty=2,lwd=2, col = 'green')
+lines(dens_U3,lty=3,lwd=2, col = 'blue')
+lines(dens_U4,lty=4,lwd=2, col = 'red')
 
 # To plot density of z/L
 par(mai=c(0.5,0.5,0,0.1))
 
-plot(dens_zl1,xlim=c(-1,1),ylim=c(0,3),main='',xlab='',ylab='',cex.axis=1.2, xaxt = 'n')
+plot(dens_zl1,xlim=c(-1,1),ylim=c(0,3),main='',xlab='',ylab='',cex.axis=1.2, 
+     xaxt = 'n', col = 'black')
 axis(side = 1, at = c(-1,-0.5,0,0.5,1), labels = c(paste("\u2212",1.0,sep=""),
                                                    c(paste("\u2212",0.5,sep="")),
                                                    0.0, 0.5, 1.0))
 mtext(side = 1,expression(zeta),lty=1,line=2.5)
 text(-0.95,2.85,'d)',cex = 1.5)
 #mtext(side=2,'Density',line=2)
-lines(dens_zl2,lty=2,lwd=2)
-lines(dens_zl3,lty=3,lwd=2)
-lines(dens_zl4,lty=4,lwd=2)
+lines(dens_zl2,lty=2,lwd=2, col = 'green')
+lines(dens_zl3,lty=3,lwd=2, col = 'blue')
+lines(dens_zl4,lty=4,lwd=2, col = 'red')
 
 # To plot density of deltaE
 par(mai=c(0.5,0.6,0,0.1))
-plot(dens_de1,xlim=c(-1,2.5),ylim=c(0,1.5),main='',xlab='',ylab='',cex.axis=1.2, xaxt = 'n')
+plot(dens_de1,xlim=c(-1,2.5),ylim=c(0,1.5),main='',xlab='',ylab='',cex.axis=1.2, 
+     xaxt = 'n', col = 'black')
 axis(side = 1, at = c(-1,0,1,2), labels = c(paste("\u2212",1.0,sep=""),
                                                    0.0, 1.0, 2.0))
 mtext(side = 1,expression(paste(Delta,'e')),line=2.5,lty=1)
 mtext(side=2,'Density',line=2.5)
 text(-0.9,1.4,'b)',cex = 1.5)
-lines(dens_de2,lty=2,lwd=2)
-lines(dens_de3,lty=3,lwd=2)
-lines(dens_de4,lty=4,lwd=2)
+lines(dens_de2,lty=2,lwd=2, col = 'green')
+lines(dens_de3,lty=3,lwd=2, col = 'blue')
+lines(dens_de4,lty=4,lwd=2, col = 'red')
 
 # To plot density of deltaT
 par(mai=c(0.5,0.5,0,0.1))
-plot(dens_dT1,xlim=c(-10,12),ylim=c(0,0.2),main='',xlab='',ylab='',cex.axis=1.2, xaxt = 'n')
+plot(dens_dT1,xlim=c(-10,12),ylim=c(0,0.2),main='',xlab='',ylab='',cex.axis=1.2, 
+     xaxt = 'n', col = 'black')
 axis(side = 1, at = c(-10,-5,0,5,10), labels = c(paste("\u2212",10,sep=""),
                                                    c(paste("\u2212",5,sep="")),
                                                    0, 5, 10))
 mtext(side = 1,expression(paste(Delta,'T')),line=2.5,lty=1)
 text(-9.7,0.19,'e)',cex = 1.5)
 #mtext(side=2,'Density',line=2)
-lines(dens_dT2,lty=2,lwd=2)
-lines(dens_dT3,lty=3,lwd=2)
-lines(dens_dT4,lty=4,lwd=2)
+lines(dens_dT2,lty=2,lwd=2, col = 'green')
+lines(dens_dT3,lty=3,lwd=2, col = 'blue')
+lines(dens_dT4,lty=4,lwd=2, col = 'red')
 
 # To plot density of LE
 par(mai=c(0.5,0.6,0,0.1))
-plot(dens_LE1,xlim=c(-100,300),ylim=c(0,0.012),main='',xlab='',ylab='',cex.axis=1.2,xaxt = 'n')
+plot(dens_LE1,xlim=c(-100,300),ylim=c(0,0.012),main='',xlab='',ylab='',cex.axis=1.2,
+     xaxt = 'n', col = 'black')
 axis(side = 1, at = c(-100,0,100,200,300), labels = c(paste("\u2212",100,sep=""),
                                                       0, 100, 200, 300))
 mtext(side = 1,'LE',lty=1,line=2.5)
 mtext(side=2,'Density',line=2.5)
 text(-93,0.0114,'c)',cex = 1.5)
-lines(dens_LE2,lty=2,lwd=2)
-lines(dens_LE3,lty=3,lwd=2)
-lines(dens_LE4,lty=4,lwd=2)
+lines(dens_LE2,lty=2,lwd=2, col = 'green')
+lines(dens_LE3,lty=3,lwd=2, col = 'blue')
+lines(dens_LE4,lty=4,lwd=2, col = 'red')
 
 # To plot density of H
 par(mai=c(0.5,0.5,0,0.1))
-plot(dens_H1,xlim=c(-100,200),ylim=c(0,0.04),main='',xlab='',ylab='',cex.axis=1.2, xaxt = 'n')
+plot(dens_H1,xlim=c(-100,200),ylim=c(0,0.04),main='',xlab='',ylab='',cex.axis=1.2, 
+     xaxt = 'n', col = 'black')
 axis(side = 1, at = c(-100,0,100,200), labels = c(paste("\u2212",100,sep=""),0,100,200))
 mtext(side = 1,'H',line=2.5,lty=1)
 text(-95,0.038,'f)',cex = 1.5)
+legend('topright',bty='n',lty=c(1,2,3,4),lwd=c(2,2,2,2),
+       legend=c('Wind-class I','Wind-class II','Wind-class III','Wind-class IV'),
+       col = c('black','green','blue','red'), cex=0.8)
 #mtext(side=2,'Density',line=2)
-lines(dens_H2,lty=2,lwd=2)
-lines(dens_H3,lty=3,lwd=2)
-lines(dens_H4,lty=4,lwd=2)
+lines(dens_H2,lty=2,lwd=2, col = 'green')
+lines(dens_H3,lty=3,lwd=2, col = 'blue')
+lines(dens_H4,lty=4,lwd=2, col = 'red')
 
 
 # Cleanup
@@ -855,23 +864,23 @@ par(mai=c(0.5,0.6,0,0.1))
 library(RColorBrewer)
 cols <- brewer.pal(4,"Set1")
 plot(df1$deltaE1[which(df1$deltaE1>0)],df1$LE1[which(df1$deltaE1>0)],
-     pch=19,col=cols[1],
+     pch=19,col='black',
      xlab='',ylab='',cex=0.2,cex.axis=1,
      cex.lab=1)
 text(x=0.1,y=348,labels='a)',cex=1.2)
 mtext(side=2,'LE',line=2,cex=1)
 points(df2$deltaE2[which(df1$deltaE1>0)],df2$LE2[which(df1$deltaE1>0)],
-       pch=19,col = cols[2],cex=0.2)
+       pch=19,col = 'green',cex=0.2)
 points(df3$deltaE3[which(df1$deltaE1>0)],df3$LE3[which(df1$deltaE1>0)],
-       pch=19,col = cols[3],cex=0.2)
+       pch=19,col = 'blue',cex=0.2)
 points(df4$deltaE4[which(df1$deltaE1>0)],df4$LE4[which(df1$deltaE1>0)],
-       pch=19,col = cols[4],cex=0.2)
+       pch=19,col = 'red',cex=0.2)
 minor.tick(nx=2,ny=2)
 
-abline(lm1,lwd=4,lty=1,col=cols[1])
-abline(lm2,lwd=4,lty=2,col=cols[2])
-abline(lm3,lwd=4,lty=5,col=cols[3])
-abline(lm4,lwd=4,lty=4,col=cols[4])
+abline(lm1,lwd=4,lty=1,col='black')
+abline(lm2,lwd=4,lty=2,col='green')
+abline(lm3,lwd=4,lty=5,col='blue')
+abline(lm4,lwd=4,lty=4,col='red')
 
 # b) For negative deltaE
 # Linear regression lines
@@ -881,7 +890,7 @@ lm3 <- lm(df3$LE3[which(df3$deltaE3<0)] ~ df3$deltaE3[which(df3$deltaE3<0)])
 lm4 <- lm(df4$LE4[which(df4$deltaE4<0)] ~ df4$deltaE4[which(df4$deltaE4<0)])
 par(mai=c(0.6,0.6,0,0.1))
 plot(df1$deltaE1[which(df1$deltaE1<0)],df1$LE1[which(df1$deltaE1<0)],
-     pch=19,col=cols[1],
+     pch=19,col='black',
      xlab='',ylab='',cex=0.2,cex.axis=1,xaxt='n',yaxt='n',
      cex.lab=1,xlim=c(-0.5,0))
 axis(side=2,at=c(-30,-20,-10,0,10),
@@ -895,16 +904,16 @@ text(x=-0.48,y=9,labels='b)',cex=1.2)
 mtext(side=2,'LE',line=2,cex=1)
 mtext(side=1,expression(paste(Delta,'e')),line=2.2,cex=1)
 points(df2$deltaE2[which(df1$deltaE1<0)],df2$LE2[which(df1$deltaE1<0)],
-       pch=19,col=cols[2],cex=0.2)
+       pch=19,col='green',cex=0.2)
 points(df3$deltaE3[which(df1$deltaE1<0)],df3$LE3[which(df1$deltaE1<0)],
-       pch=19,col=cols[3],cex=0.2)
+       pch=19,col='blue',cex=0.2)
 points(df4$deltaE4[which(df1$deltaE1<0)],df4$LE4[which(df1$deltaE1<0)],
-       pch=19,col=cols[4],cex=0.2)
+       pch=19,col='red',cex=0.2)
 minor.tick(nx=2,ny=2)
-abline(lm1,lwd=4,lty=1,col=cols[1])
-abline(lm2,lwd=4,lty=2,col=cols[2])
-abline(lm3,lwd=4,lty=5,col=cols[3])
-abline(lm4,lwd=4,lty=4,col=cols[4])
+abline(lm1,lwd=4,lty=1,col='black')
+abline(lm2,lwd=4,lty=2,col='green')
+abline(lm3,lwd=4,lty=5,col='blue')
+abline(lm4,lwd=4,lty=4,col='red')
 
 rm(lm1,lm2,lm3,lm4)
 dev.off()
@@ -930,22 +939,22 @@ lm4 <- lm(df4$H4[which(df4$deltaT4>0)] ~ df4$deltaT4[which(df4$deltaT4>0)])
 
 par(mai=c(0.5,0.6,0,0.1))
 plot(df1$deltaT1[which(df1$deltaT1>0)],df1$H1[which(df1$deltaT1>0)],
-     pch=19,col=cols[1],
+     pch=19,col='black',
      xlab='',ylab='',cex=0.2,cex.axis=1,
      cex.lab=1)
 text(x=0.2,y=105,labels='c)',cex=1.2)
 mtext(side=2,'H',line=2,cex=1)
 points(df2$deltaT2[which(df1$deltaT1>0)],df2$H2[which(df1$deltaT1>0)],
-       pch=19,col=cols[2],cex=0.2)
+       pch=19,col='green',cex=0.2)
 points(df3$deltaT3[which(df1$deltaT1>0)],df3$H3[which(df1$deltaT1>0)],
-       pch=19,col=cols[3],cex=0.2)
+       pch=19,col='blue',cex=0.2)
 points(df4$deltaT4[which(df1$deltaT1>0)],df4$H4[which(df1$deltaT1>0)],
-       pch=19,col=cols[4],cex=0.2)
+       pch=19,col='red',cex=0.2)
 minor.tick(nx=2,ny=2)
-abline(lm1,lwd=4,lty=1,col=cols[1])
-abline(lm2,lwd=4,lty=2,col=cols[2])
-abline(lm3,lwd=4,lty=5,col=cols[3])
-abline(lm4,lwd=4,lty=4,col=cols[4])
+abline(lm1,lwd=4,lty=1,col='black')
+abline(lm2,lwd=4,lty=2,col='green')
+abline(lm3,lwd=4,lty=5,col='blue')
+abline(lm4,lwd=4,lty=4,col='red')
 
 # d) For negative deltaT
 # Linear regression lines
@@ -955,7 +964,7 @@ lm3 <- lm(df3$H3[which(df3$deltaT3<0)] ~ df3$deltaT3[which(df3$deltaT3<0)])
 lm4 <- lm(df4$H4[which(df4$deltaT4<0)] ~ df4$deltaT4[which(df4$deltaT4<0)])
 par(mai=c(0.6,0.6,0,0.1))
 plot(df1$deltaT1[which(df1$deltaT1<0)],df1$H1[which(df1$deltaT1<0)],
-     pch=19,col=cols[1],
+     pch=19,col='black',
      xlab='',ylab='',cex=0.2,cex.axis=1,
      cex.lab=1,xlim=c(-0.5,0),xaxt='n',yaxt='n')
 axis(side=2,at=c(-40,-20,0,20),
@@ -969,16 +978,20 @@ text(x=-0.48,y=35,labels='d)',cex=1.2)
 mtext(side=2,'H',line=2,cex=1)
 mtext(side=1,expression(paste(Delta,'T')),line=2.2,cex=1)
 points(df2$deltaT2[which(df1$deltaT1<0)],df2$H2[which(df1$deltaT1<0)],
-       pch=19,col=cols[2],cex=0.2)
+       pch=19,col='green',cex=0.2)
 points(df3$deltaT3[which(df1$deltaT1<0)],df3$H3[which(df1$deltaT1<0)],
-       pch=19,col=cols[3],cex=0.2)
+       pch=19,col='blue',cex=0.2)
 points(df4$deltaT4[which(df1$deltaT1<0)],df4$H4[which(df1$deltaT1<0)],
-       pch=19,col=cols[4],cex=0.2)
+       pch=19,col='red',cex=0.2)
 minor.tick(nx=2,ny=2)
-abline(lm1,lwd=4,lty=1,col=cols[1])
-abline(lm2,lwd=4,lty=2,col=cols[2])
-abline(lm3,lwd=4,lty=5,col=cols[3])
-abline(lm4,lwd=4,lty=4,col=cols[4])
+abline(lm1,lwd=4,lty=1,col='black')
+abline(lm2,lwd=4,lty=2,col='green')
+abline(lm3,lwd=4,lty=5,col='blue')
+abline(lm4,lwd=4,lty=4,col='red')
+legend('bottomright',legend=c('Wind-class I','Wind-class II',
+                              'Wind-class III','Wind-class IV'),
+       lty=c(1,2,3,4), bty = 'n', lwd = c(2,2,2,2), cex = 0.8,
+       col=c('black','green','blue','red'))
 
 rm(lm1,lm2,lm3,lm4)
 dev.off()
@@ -1715,9 +1728,9 @@ plot.new()
 ## a) U with ASL ranges 
 plot1 <- ggplot(data = df1, aes(x = no_stability1, y = U1)) +
   stat_smooth(colour = 'black', lwd = 1.5, lty = 1) +
-  stat_smooth(data = df2, aes(x = no_stability2, y = U2), lty = 2, colour = 'black', lwd = 1.5) +
-  stat_smooth(data = df3, aes(x = no_stability3, y = U3), lty = 5, colour = 'black', lwd = 1.5) + 
-  stat_smooth(data = df4, aes(x = no_stability4, y = U4), lty = 4, colour = 'black', lwd = 1.5) +
+  stat_smooth(data = df2, aes(x = no_stability2, y = U2), lty = 2, colour = 'green', lwd = 1.5) +
+  stat_smooth(data = df3, aes(x = no_stability3, y = U3), lty = 5, colour = 'blue', lwd = 1.5) + 
+  stat_smooth(data = df4, aes(x = no_stability4, y = U4), lty = 4, colour = 'red', lwd = 1.5) +
   theme_bw() + 
   labs(x = '', y = 'U',vjust = 10) +
   annotate("text",x=1,y=7.8,label="a)",size=7,family='Times') +
@@ -1736,11 +1749,11 @@ plot1 <- ggplot(data = df1, aes(x = no_stability1, y = U1)) +
 plot2 <- ggplot(data = df1, aes(x = no_stability1, y = deltaE1)) +
   stat_smooth(colour = 'black', lwd = 1.5, lty = 1, alpha = 0.2) +
   stat_smooth(data = df2, aes(x = no_stability2, y = deltaE2), 
-              lty = 2, colour = 'black', lwd = 1.5, alpha = 0.2) +
+              lty = 2, colour = 'green', lwd = 1.5, alpha = 0.2) +
   stat_smooth(data = df3, aes(x = no_stability3, y = deltaE3), 
-              lty = 5, colour = 'black', lwd = 1.5, alpha = 0.2) + 
+              lty = 5, colour = 'blue', lwd = 1.5, alpha = 0.2) + 
   stat_smooth(data = df4, aes(x = no_stability4, y = deltaE4), 
-              lty = 4, colour = 'black', lwd = 1.5, alpha = 0.2) +
+              lty = 4, colour = 'red', lwd = 1.5, alpha = 0.2) +
   theme_bw() +
   xlab('') + ylab(expression(paste(Delta,'e'))) +
   annotate("text",x=1,y=1.08,label="b)",size=7,family='Times') +
@@ -1758,11 +1771,11 @@ plot2 <- ggplot(data = df1, aes(x = no_stability1, y = deltaE1)) +
 plot3 <- ggplot(data = df1, aes(x = no_stability1, y = deltaT1)) +
   stat_smooth(colour = 'black', lwd = 1.5, lty = 1) +
   stat_smooth(data = df2, aes(x = no_stability2, y = deltaT2), 
-              lty = 2, colour = 'black', lwd = 1.5) +
+              lty = 2, colour = 'green', lwd = 1.5) +
   stat_smooth(data = df3, aes(x = no_stability3, y = deltaT3), 
-              lty = 5, colour = 'black', lwd = 1.5) + 
+              lty = 5, colour = 'blue', lwd = 1.5) + 
   stat_smooth(data = df4, aes(x = no_stability4, y = deltaT4), 
-              lty = 4, colour = 'black', lwd = 1.5) +
+              lty = 4, colour = 'red', lwd = 1.5) +
   theme_bw() +
   xlab('') + ylab(expression(paste(Delta,'T'))) +
   annotate("text",x=1,y=5.8,label="e)",size=7,family='Times') +
@@ -1784,11 +1797,11 @@ plot3 <- ggplot(data = df1, aes(x = no_stability1, y = deltaT1)) +
 plot4 <- ggplot(data = df1, aes(x = no_stability1, y = udeltaE1)) +
   stat_smooth(colour = 'black', lwd = 1.5, lty = 1, alpha = 0.2) +
   stat_smooth(data = df2, aes(x = no_stability2, y = udeltaE2), 
-              lty = 2, colour = 'black', lwd = 1.5, alpha = 0.2) +
+              lty = 2, colour = 'green', lwd = 1.5, alpha = 0.2) +
   stat_smooth(data = df3, aes(x = no_stability3, y = udeltaE3), 
-              lty = 5, colour = 'black', lwd = 1.5, alpha = 0.2) + 
+              lty = 5, colour = 'blue', lwd = 1.5, alpha = 0.2) + 
   stat_smooth(data = df4, aes(x = no_stability4, y = udeltaE4), 
-              lty = 4, colour = 'black', lwd = 1.5, alpha = 0.2) +
+              lty = 4, colour = 'red', lwd = 1.5, alpha = 0.2) +
   theme_bw() +
   xlab('') + ylab(expression(paste('U',Delta,'e'))) +
   annotate("text",x=1,y=5.7,label="c)",size=7,family='Times') +
@@ -1808,11 +1821,11 @@ plot4 <- ggplot(data = df1, aes(x = no_stability1, y = udeltaE1)) +
 plot5 <- ggplot(data = df1, aes(x = no_stability1, y = udeltaT1)) +
   stat_smooth(colour = 'black', lwd = 1.5, lty = 1) +
   stat_smooth(data = df2, aes(x = no_stability2, y = udeltaT2), 
-              lty = 2, colour = 'black', lwd = 1.5) +
+              lty = 2, colour = 'green', lwd = 1.5) +
   stat_smooth(data = df3, aes(x = no_stability3, y = udeltaT3), 
-              lty = 5, colour = 'black', lwd = 1.5) + 
+              lty = 5, colour = 'blue', lwd = 1.5) + 
   stat_smooth(data = df4, aes(x = no_stability4, y = udeltaT4), 
-              lty = 4, colour = 'black', lwd = 1.5) +
+              lty = 4, colour = 'red', lwd = 1.5) +
   theme_bw() + 
   xlab('') + ylab(expression(paste('U',Delta,'T'))) +
   annotate("text",x=1,y=32,label="f)",size=7,family='Times') +
@@ -1835,11 +1848,11 @@ plot5 <- ggplot(data = df1, aes(x = no_stability1, y = udeltaT1)) +
 plot6 <- ggplot(data = df1, aes(x = no_stability1, y = LE1)) +
   stat_smooth(colour = 'black', lwd = 1.5, lty = 1, alpha = 0.2) +
   stat_smooth(data = df2, aes(x = no_stability2, y = LE2), 
-              lty = 2, colour = 'black', lwd = 1.5, alpha = 0.2) +
+              lty = 2, colour = 'green', lwd = 1.5, alpha = 0.2) +
   stat_smooth(data = df3, aes(x = no_stability3, y = LE3), 
-              lty = 5, colour = 'black', lwd = 1.5, alpha = 0.2) + 
+              lty = 5, colour = 'blue', lwd = 1.5, alpha = 0.2) + 
   stat_smooth(data = df4, aes(x = no_stability4, y = LE4), 
-              lty = 4, colour = 'black', lwd = 1.5, alpha = 0.2) +
+              lty = 4, colour = 'red', lwd = 1.5, alpha = 0.2) +
   theme_bw() + 
   xlab('') + ylab('LE') +
   annotate("text",x=1,y=170,label="d)",size=7,family='Times') +
@@ -1854,30 +1867,51 @@ plot6 <- ggplot(data = df1, aes(x = no_stability1, y = LE1)) +
                      labels = names_boxplot)
 
 ## g) H with ASL ranges
-plot7 <- ggplot(data = df1, aes(x = no_stability1, y = H1)) +
-  stat_smooth(colour = 'black', lwd = 1.5, lty = 1, alpha = 0.2) +
-  stat_smooth(data = df2, aes(x = no_stability2, y = H2), 
-              lty = 2, colour = 'black', lwd = 1.5, alpha = 0.2) +
-  stat_smooth(data = df3, aes(x = no_stability3, y = H3), 
-              lty = 5, colour = 'black', lwd = 1.5, alpha = 0.2) + 
-  stat_smooth(data = df4, aes(x = no_stability4, y = H4), 
-              lty = 4, colour = 'black', lwd = 1.5, alpha = 0.2) +
+plot7 <- ggplot(data = df1, aes(x = no_stability1, y = H1, colour = 'Wind-class I', lty = 1)) +
+  stat_smooth(lwd = 1.5, lty = 1, alpha = 0.2, show.legend = TRUE) +
+  stat_smooth(data = df2, aes(x = no_stability2, y = H2, colour = 'Wind-class II', lty = 2),
+              lwd = 1.5, alpha = 0.2, lty = 2, show.legend = TRUE) +
+  stat_smooth(data = df3, aes(x = no_stability3, y = H3, colour = 'Wind-class III', lty = 5),
+                              #linetype = 'Wind-class III'), 
+              lwd = 1.5, alpha = 0.2, lty = 5, show.legend = TRUE) + 
+  stat_smooth(data = df4, aes(x = no_stability4, y = H4, colour = 'Wind-class IV', lty = 4),
+                              #linetype = 'Wind-class IV'), 
+              lwd = 1.5, alpha = 0.2, lty = 4, show.legend = TRUE) +
   theme_bw() +
+  # LEGEND #
+  scale_colour_manual('', breaks = c('Wind-class I','Wind-class II',
+                                     'Wind-class III','Wind-class IV'),
+                      values = c('black','green','blue','red')) +
+  #scale_linetype_manual(breaks = c('Wind-class I','Wind-class II',
+  #                                 'Wind-class III','Wind-class IV'),
+  #                      values = c('solid','dashed','longdash','twodash')) +
+  # END LEGEND #
   xlab('') + ylab('H') +
   annotate("text",x=1,y=77,label="g)",size=7,family='Times') +
   theme(panel.grid.major=element_line(size=0),
         panel.grid.minor=element_line(size=0),
         axis.title.y=element_text(size=16,family='Times',vjust=0.01),
         axis.text.y=element_text(size=16,family='Times'),
-        axis.text.x=element_text(angle=90,size=12,hjust=1,family='Times',vjust=0.5),
-        plot.margin=unit(c(-17,1,0,0),"mm")) +
+        axis.text.x=element_text(angle=90,size=12,hjust=1,
+                                 family='Times',vjust=0.5),
+        plot.margin=unit(c(-17,1,0,0),"mm"),
+        
+        # LEGEND #
+        legend.justification=c(1,0), legend.position=c(1,0.30),
+        legend.title = element_blank(),
+        legend.key = element_rect(colour = 'white'),
+        legend.text = element_text(size = 12, family = 'Times'),
+        legend.key.width=unit(2,"line")) +
+  guides(color=guide_legend(override.aes=list(fill=NA))) + # Remove grey background
+        # END LEGEND #
+  
   scale_y_continuous(breaks = seq(-60, 100, by = 20),
                      labels = c(paste("\u2212",60,sep=""),
                                 paste("\u2212",40,sep=""),
                                 paste("\u2212",20,sep=""),
                                 0,20,40,60,80,100)) +
   scale_x_continuous(breaks=seq(1, 10, by = 1),
-                     labels = names_boxplot)
+                     labels = names_boxplot) 
 
 plot_empty <- ggplot() + theme_bw() + theme(panel.border = element_blank())
 
@@ -1980,26 +2014,63 @@ lm4 <- lm(df4$ustar4 ~ df4$U4)
 par(mai=c(0.5,0.6,0,0.1))
 library(RColorBrewer)
 cols <- brewer.pal(4,"Set1")
-plot(df1$U1,df1$ustar1,pch=19,col=cols[1],
+plot(df1$U1,df1$ustar1,pch=19,col='black',
      xlab='', ylab='',cex=0.2,cex.axis=1,
      cex.lab=1)
 
 mtext(side=2,expression(paste('u'['*'])),line=2,cex=1)
 mtext(side = 1, 'U', line = 2, cex = 1)
 points(df2$U2,df2$ustar2,
-       pch=19,col = cols[2],cex=0.2)
+       pch=19,col = 'green',cex=0.2)
 points(df3$U3,df3$ustar3,
-       pch=19,col = cols[3],cex=0.2)
+       pch=19,col = 'blue',cex=0.2)
 points(df4$U4,df4$ustar4,
-       pch=19,col = cols[4],cex=0.2)
+       pch=19,col = 'black',cex=0.2)
 minor.tick(nx=2,ny=2)
 
-abline(lm1,lwd=4,lty=1,col=cols[1])
-abline(lm2,lwd=4,lty=2,col=cols[2])
-abline(lm3,lwd=4,lty=5,col=cols[3])
-abline(lm4,lwd=4,lty=4,col=cols[4])
-
+abline(lm1,lwd=4,lty=1,col='black')
+abline(lm2,lwd=4,lty=2,col='green')
+abline(lm3,lwd=4,lty=5,col='blue')
+abline(lm4,lwd=4,lty=4,col='red')
+legend('topleft',
+       legend=c('Wind-class I','Wind-class II',
+                'Wind-class III','Wind-class IV'),
+       lty=c(1,2,3,4), lwd = c(2,2,2,2),cex = 0.6,
+       col=c('black','green','blue','red'))
 dev.off()
+
+#### Correlational analysis ####
+# For wind-class I
+wc1_cor_df <- data.frame(df1$LE1, df1$H1, df1$U1, 
+                         df1$deltaE1, df1$deltaT1)
+wc1_cor_df <- as.matrix(wc1_cor_df)
+rcorr(wc1_cor_df, type = 'pearson')
+write.table(as.matrix(rcorr(wc1_cor_df, type = 'pearson')$r), 
+            file = 'wc1_cor.csv',
+            sep = ',')
+# For wind-class II
+wc2_cor_df <- data.frame(df2$LE2, df2$H2, df2$U2, 
+                         df2$deltaE2, df2$deltaT2)
+wc2_cor_df <- as.matrix(wc2_cor_df)
+rcorr(wc2_cor_df, type = 'pearson')
+write.table(as.matrix(rcorr(wc2_cor_df, type = 'pearson')$r), 
+            file = 'wc2_cor.csv',
+            sep = ',')
+# For wind-class III
+wc3_cor_df <- data.frame(df3$LE3, df3$H3, df3$U3, 
+                         df3$deltaE3, df3$deltaT3)
+wc3_cor_df <- as.matrix(wc3_cor_df)
+rcorr(wc3_cor_df, type = 'pearson')
+write.table(as.matrix(rcorr(wc3_cor_df, type = 'pearson')$r), 
+            file = 'wc3_cor.csv',
+            sep = ',')
+# For wind-class IV
+wc4_cor_df <- data.frame(df4$LE4, df4$H4, df4$U4, 
+                         df4$deltaE4, df4$deltaT4)
+wc4_cor_df <- as.matrix(wc4_cor_df)
+write.table(as.matrix(rcorr(wc4_cor_df, type = 'pearson')$r), 
+            file = 'wc4_cor.csv',
+            sep = ',')
 
 #### Delete temp variables #########
 rm(path_fig,names_boxplot,plot1,plot2,plot3,plot4)
