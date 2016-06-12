@@ -2083,7 +2083,7 @@ dev.off()
 #### Correlational analysis ####
 # For wind-class I
 wc1_cor_df <- data.frame(df1$LE1, df1$H1, df1$U1, 
-                         df1$deltaE1, df1$deltaT1)
+                         df1$deltaE1, df1$deltaT1,df1$C_E1,df1$C_H1)
 wc1_cor_df <- as.matrix(wc1_cor_df)
 rcorr(wc1_cor_df, type = 'pearson')
 write.table(as.matrix(rcorr(wc1_cor_df, type = 'pearson')$r), 
@@ -2091,7 +2091,7 @@ write.table(as.matrix(rcorr(wc1_cor_df, type = 'pearson')$r),
             sep = ',')
 # For wind-class II
 wc2_cor_df <- data.frame(df2$LE2, df2$H2, df2$U2, 
-                         df2$deltaE2, df2$deltaT2)
+                         df2$deltaE2, df2$deltaT2,df2$C_E2,df2$C_H2)
 wc2_cor_df <- as.matrix(wc2_cor_df)
 rcorr(wc2_cor_df, type = 'pearson')
 write.table(as.matrix(rcorr(wc2_cor_df, type = 'pearson')$r), 
@@ -2099,7 +2099,7 @@ write.table(as.matrix(rcorr(wc2_cor_df, type = 'pearson')$r),
             sep = ',')
 # For wind-class III
 wc3_cor_df <- data.frame(df3$LE3, df3$H3, df3$U3, 
-                         df3$deltaE3, df3$deltaT3)
+                         df3$deltaE3, df3$deltaT3,df3$C_E3,df3$C_H3)
 wc3_cor_df <- as.matrix(wc3_cor_df)
 rcorr(wc3_cor_df, type = 'pearson')
 write.table(as.matrix(rcorr(wc3_cor_df, type = 'pearson')$r), 
@@ -2107,7 +2107,7 @@ write.table(as.matrix(rcorr(wc3_cor_df, type = 'pearson')$r),
             sep = ',')
 # For wind-class IV
 wc4_cor_df <- data.frame(df4$LE4, df4$H4, df4$U4, 
-                         df4$deltaE4, df4$deltaT4)
+                         df4$deltaE4, df4$deltaT4,df4$C_E4,df4$C_H4)
 wc4_cor_df <- as.matrix(wc4_cor_df)
 write.table(as.matrix(rcorr(wc4_cor_df, type = 'pearson')$r), 
             file = 'wc4_cor.csv',
