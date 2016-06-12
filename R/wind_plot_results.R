@@ -2109,6 +2109,7 @@ write.table(as.matrix(rcorr(wc3_cor_df, type = 'pearson')$r),
 wc4_cor_df <- data.frame(df4$LE4, df4$H4, df4$U4, 
                          df4$deltaE4, df4$deltaT4,df4$C_E4,df4$C_H4)
 wc4_cor_df <- as.matrix(wc4_cor_df)
+rcorr(wc4_cor_df, type = 'pearson')
 write.table(as.matrix(rcorr(wc4_cor_df, type = 'pearson')$r), 
             file = 'wc4_cor.csv',
             sep = ',')
