@@ -969,14 +969,14 @@ par(mai=c(0.6,0.6,0,0.1))
 plot(df1$deltaT1[which(df1$deltaT1<0)],df1$H1[which(df1$deltaT1<0)],
      pch=19,col='black',
      xlab='',ylab='',cex=0.2,cex.axis=1,
-     cex.lab=1,xlim=c(-0.5,0),xaxt='n',yaxt='n')
+     cex.lab=1,xlim=c(-10,0),xaxt='n',yaxt='n')
 axis(side=2,at=c(-40,-20,0,20),
      labels=c(paste("\u2212",40,sep=""),paste("\u2212",20,sep=""),
               0,20),cex.axis=1)
-axis(side=1,at=c(-0.5,-0.4,-0.3,-0.2,-0.1,0),
-     labels=c(paste("\u2212",0.5,sep=""),paste("\u2212",0.4,sep=""),
-              paste("\u2212",0.3,sep=""),paste("\u2212",0.2,sep=""),
-              paste("\u2212",0.1,sep=""),0),cex.axis=1)
+axis(side=1,at=c(-10,-8,-6,-4,-2,0),
+     labels=c(paste("\u2212",10,sep=""),paste("\u2212",8,sep=""),
+              paste("\u2212",6,sep=""),paste("\u2212",4,sep=""),
+              paste("\u2212",2,sep=""),0),cex.axis=1)
 text(x=-0.48,y=35,labels='d)',cex=1.2)
 mtext(side=2,'H',line=2,cex=1)
 mtext(side=1,expression(paste(Delta,'T')),line=2.2,cex=1)
@@ -991,7 +991,7 @@ abline(lm1,lwd=4,lty=1,col='black')
 abline(lm2,lwd=4,lty=2,col='green')
 abline(lm3,lwd=4,lty=5,col='blue')
 abline(lm4,lwd=4,lty=4,col='red')
-legend('bottomright',legend=c('Wind-class I','Wind-class II',
+legend('topleft',legend=c('Wind-class I','Wind-class II',
                               'Wind-class III','Wind-class IV'),
        lty=c(1,2,3,4), bty = 'n', lwd = c(2,2,2,2), cex = 0.8,
        col=c('black','green','blue','red'))
