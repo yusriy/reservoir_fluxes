@@ -2066,7 +2066,7 @@ points(df2$U2,df2$ustar2,
 points(df3$U3,df3$ustar3,
        pch=19,col = 'blue',cex=0.2)
 points(df4$U4,df4$ustar4,
-       pch=19,col = 'black',cex=0.2)
+       pch=19,col = 'red',cex=0.2)
 minor.tick(nx=2,ny=2)
 
 abline(lm1,lwd=4,lty=1,col='black')
