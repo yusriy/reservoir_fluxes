@@ -263,62 +263,90 @@ path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_
 jpeg(file=path_fig,width=1450,height=1800,res=320)
 ## Creating 5 panels of plots
 plot.new()
-par(family='Times',mfrow=c(5,1),oma=c(0.4,0.1,1.3,0.1))
+par(family='Times',mfrow=c(4,1),oma=c(0.4,0.1,1.3,0.1))
+# a) LE and H
+par(mai=c(0.05,0.6,0.05, 0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],
+     data_group_4wind$LE[data_group_4wind$wind_category_day == 2],
+     type = 'l', lwd = 2, axes = FALSE, ylim = c(40,80),
+     xlab = '', ylab = '')
+axis(2, ylim=c(40,80), cex.axis = 1.5)
 
-# a) LE
-par(mai=c(0,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$LE[data_group_4wind$wind_category_day == 2],
-     ylab='',xlab='',type='l',ylim=c(-10,80),lwd=2,cex.lab=2,cex.axis=1.8,xaxt ='n')
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$H[data_group_4wind$wind_category_day == 2],lty=2,lwd=2)
-#axis(side=2,at=c(0,100,200),cex.axis=2)
-#text(-0.5,195,'a)',cex=2)
-#legend(20,80,y.intersp=1,bty='n',lty=c(1,2),lwd=c(2,2,2),
-#       c(expression('LE'),expression('H')),cex=2)
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
-title(main='\t\t\t\t\t\t\t\t\tb) Wind-class II',outer=TRUE,cex.main=2,font.main=1,adj=0)
+box()
+
+par(new = TRUE)
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],
+     data_group_4wind$H[data_group_4wind$wind_category_day == 2],
+     type = 'l', lty = 2, lwd = 2, axes = FALSE, ylim = c(-2, 30),
+     xlab = '', ylab = '', col = 'red', cex.lab = 2)
+mtext("", side = 4, line = 2.5, col = 'red')
+axis(4, ylim=c(-5,30), at = c(0, 30),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(4, ylim=c(-5,30), at = c(10, 20),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(1, xlim = c(0,24), xlab = '', xaxt = 'n')
+minor.tick(ny = 1, nx = 5, tick.ratio = 0.5)
+title(main='\t\t\t\t\t\t\t\t\tb) Wind-class II', outer = TRUE,
+      cex.main = 2, font.main = 1, adj = 0)
 
 # b) Vapor pressure (kPa)
-par(mai=c(0,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$es[data_group_4wind$wind_category_day == 2],
-     ylab='',xlab='',type='l',lwd=2,ylim=c(0,3),cex.lab=2,lty=2,xaxt='n',yaxt='n')
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$ea[data_group_4wind$wind_category_day == 2],
-      ylab=expression('e'['a']),type='l',lty=1,lwd=2)
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$deltaE[data_group_4wind$wind_category_day == 2],
-      ylab=expression(paste(Delta,'e')),type='l',lty=3,lwd=2)
-#text(-0.5,3.40,'b)',cex=2)
-#legend(19.8,0.9,y.intersp=0.5,bty='n',lty=c(2,1,3),lwd=c(2,2,2),
-#       c(expression('e'['s']),expression('e'['a']),expression(paste(Delta,'e'))),cex=2.2)
-axis(side=2,at=c(0,1,2,3),cex.axis=1.8)
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
+par(mai=c(0.05,0.6,0.05,0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],
+     data_group_4wind$es[data_group_4wind$wind_category_day == 2],
+     type = 'l', lwd = 2, axes = FALSE, ylim = c(1, 3),
+     xlab = '', ylab = '')
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],
+      data_group_4wind$ea[data_group_4wind$wind_category_day == 2],
+      type='l',lty = 2, lwd = 2)
+axis(2, ylim=c(1, 3), cex.axis = 1.5, at = c(1, 2, 3), 
+     labels = c('1', '2', '3'))
 
-# c) zeta
-par(mai=c(0.1,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$Z.L[data_group_4wind$wind_category_day == 2],
-     ylab='',xlab='',type='l',lwd=2,ylim=c(-1,0.5),cex.lab=2,xaxt='n',yaxt='n')
-#text(-0.5,0.45,'c)',cex=2)
-axis(side=2,at=c(-1,0),labels=c(paste("\u2212",1,sep=""),0),cex.axis=1.8)
-minor.tick(ny=5,nx=5,tick.ratio=0.5)
+box()
 
+par(new = TRUE)
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],
+     data_group_4wind$deltaE[data_group_4wind$wind_category_day == 2],
+     type = 'l', lty = 3, lwd = 3, axes = FALSE, ylim = c(0.5, 1.07),
+     xlab = '', ylab = '', col = 'red', cex.lab = 2)
+mtext(expression(paste(Delta,'e')), side = 4, line = 2.5, col = 'red')
+axis(4, ylim=c(0.5, 1), at = c(0.5, 0.75, 1),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(1, xlim = c(0,24), xlab = '', xaxt = 'n')
+minor.tick(ny=1, nx=5, tick.ratio=0.5)
 
-# d) Temperature
-par(mai=c(0.05,0.6,0.15,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$Ta[data_group_4wind$wind_category_day == 2],
-     ylab='',xlab='',type='l',ylim=c(15,25),lwd=2,cex.lab=2,xaxt='n',yaxt='n')
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$water_temp[data_group_4wind$wind_category_day == 2],ylab='T',type='l',lty=2,lwd=2)
-#legend(20,32,y.intersp=1,bty='n',lty=c(1,2),lwd=c(2,2),c(expression('T'['a']),expression('T'['s'])),cex=2)
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
-axis(side=2,at=c(15,20,25),cex.axis=1.8)
-#axis(side=2,at=c(20),cex.axis=2)
-#text(-0.5,29,'d)',cex=2)
+# c) zeta and temperature
+par(mai=c(0.05,0.6,0.05,0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],
+     data_group_4wind$Z.L[data_group_4wind$wind_category_day == 2],
+     type = 'l', lwd = 2, axes = FALSE, ylim = c(-1, 0.5),
+     xlab = '', ylab = '')
+axis(2, ylim=c(-1, 0.5), cex.axis = 1.5, at = c(-1, -0.5, 0, 0.5), 
+     labels = c(paste("\u2212",1,sep=""), paste("\u2212",0.5,sep=""), 
+                '0', '0.5'))
+box()
+
+par(new = TRUE)
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],
+     data_group_4wind$Ta[data_group_4wind$wind_category_day == 2],
+     type = 'l', lty = 2, lwd = 2, axes = FALSE, ylim = c(15, 27),
+     xlab = '', ylab = '', col = 'red', cex.lab = 2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],
+      data_group_4wind$water_temp[data_group_4wind$wind_category_day == 2],
+      lty=3, lwd = 2, col = 'red')
+axis(4, ylim=c(10, 25), at = c(15, 20, 25),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(1, xlim = c(0,24), xlab = '', xaxt = 'n')
+minor.tick(ny=1, nx=5, tick.ratio=0.5)
 
 # e) Wind speed
-par(mai=c(0,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],data_group_4wind$WS[data_group_4wind$wind_category_day == 2],
-     ylab='',xlab='',type='l',lwd=2,ylim=c(2,4),cex.lab=2,xaxt='n',yaxt='n')
-#text(-0.5,9.5,'e)',cex=2)
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
-axis(side=2,at=c(2,3,4),cex.axis=1.8)
-#title(xlab='Hour (local time)',ylab='',outer=TRUE,cex.lab=2)
+par(mai=c(0.05,0.6,0.05,0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 2],
+     data_group_4wind$WS[data_group_4wind$wind_category_day == 2],
+     ylab='U',xlab='',type='l',lwd=2, ylim=c(2.5,3.7),
+     cex.lab=2, xaxt='n', yaxt = 'n')
+axis(2, at = c(2.5, 3, 3.5), labels = c('2.5','3.0','3.5'), cex.axis = 1.5)
+minor.tick(ny=1,nx=5,tick.ratio=0.5)
+
 
 rm(path_fig)
 
@@ -329,61 +357,96 @@ path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_
 jpeg(file=path_fig,width=1450,height=1800,res=320)
 ## Creating 5 panels of plots
 plot.new()
-par(family='Times',mfrow=c(5,1),oma=c(5.1,0.1,1.3,0.1))
+par(family='Times',mfrow=c(4,1),oma=c(5.1,0.1,1.3,0.1))
 
-# a) LE
-par(mai=c(0,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$LE[data_group_4wind$wind_category_day == 3],
-     ylab='LE and H',xlab='',type='l',ylim=c(-10,100),lwd=2,xaxt='n',yaxt='n',cex.lab=2)
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$H[data_group_4wind$wind_category_day == 3],lty=2,lwd=2)
-axis(side=2,at=c(0,50),cex.axis=1.8)
-axis(side=2,at=100,cex.axis=1.8)
-#text(-0.5,195,'a)',cex=2)
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
-title(main='\t\t\t\t\t\t\t\t\tc) Wind-class III',outer=TRUE,cex.main=2,font.main=1,adj=0)
+# a) LE and H
+par(mai=c(0.05,0.6,0.05, 0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],
+     data_group_4wind$LE[data_group_4wind$wind_category_day == 3],
+     type = 'l', lwd = 2, axes = FALSE, ylim = c(60,100),
+     xlab = '', ylab = '')
+axis(2, ylim=c(40,80), cex.axis = 1.5)
+mtext("LE and H", side = 2, line = 2.5, cex = 1.2)
+box()
 
+par(new = TRUE)
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],
+     data_group_4wind$H[data_group_4wind$wind_category_day == 3],
+     type = 'l', lty = 2, lwd = 2, axes = FALSE, ylim = c(-5, 40),
+     xlab = '', ylab = '', col = 'red', cex.lab = 2)
+mtext("", side = 4, line = 2.5, col = 'red')
+axis(4, ylim=c(-10,40), at = c(0, 20, 40),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(4, ylim=c(-10,40), at = c(10, 30),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(1, xlim = c(0,24), xlab = '', xaxt = 'n')
+minor.tick(ny = 1, nx = 5, tick.ratio = 0.5)
+title(main='\t\t\t\t\t\t\t\t\tc) Wind-class III', outer = TRUE,
+      cex.main = 2, font.main = 1, adj = 0)
 
 # b) Vapor pressure (kPa)
-par(mai=c(0,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$es[data_group_4wind$wind_category_day == 3],
-     ylab='e',xlab='',type='l',lwd=2,ylim=c(0,3),xaxt='n',yaxt='n',cex.lab=2,lty=2)
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$ea[data_group_4wind$wind_category_day == 3],
-      ylab=expression('e'['a']),type='l',lty=1,lwd=2)
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$deltaE[data_group_4wind$wind_category_day == 3],
-      ylab=expression(paste(Delta,'e')),type='l',lty=3,lwd=2)
-#text(-0.5,3.40,'b)',cex=2)
-#legend(19.8,0.9,y.intersp=0.5,bty='n',lty=c(2,1,3),lwd=c(2,2,2),
-#       c(expression('e'['s']),expression('e'['a']),expression(paste(Delta,'e'))),cex=2.2)
-axis(side=2,at=c(0,1,2,3),cex.axis=1.8)
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
+par(mai=c(0.05,0.6,0.05,0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],
+     data_group_4wind$es[data_group_4wind$wind_category_day == 3],
+     type = 'l', lwd = 2, axes = FALSE, ylim = c(1, 2.5),
+     xlab = '', ylab = '')
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],
+      data_group_4wind$ea[data_group_4wind$wind_category_day == 3],
+      ylab=expression('e'['a']), type='l',lty = 2, lwd = 2)
+axis(2, ylim=c(1, 3), cex.axis = 1.5, at = c(1, 2, 3), 
+     labels = c('1', '2', '3'))
+mtext(expression(paste('e'['s'], ', ', 'e'['a'], ', and ', 
+                       Delta,'e')), side = 2, line = 2.5, cex = 1.2)
+box()
 
-# c) zeta
-par(mai=c(0,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$Z.L[data_group_4wind$wind_category_day == 3],
-     ylab=expression(zeta),xlab='',type='l',lwd=2,ylim=c(-1,0.5),xaxt ='n',yaxt='n',cex.lab=2)
-#text(-0.5,0.45,'c)',cex=2)
-axis(side=2,at=c(-1,0),labels=c(paste("\u2212",1,sep=""),0),cex.axis=1.8)
-minor.tick(ny=5,nx=5,tick.ratio=0.5)
+par(new = TRUE)
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],
+     data_group_4wind$deltaE[data_group_4wind$wind_category_day == 3],
+     type = 'l', lty = 3, lwd = 3, axes = FALSE, ylim = c(0.5, 1),
+     xlab = '', ylab = '', col = 'red', cex.lab = 2)
+mtext(expression(paste(Delta,'e')), side = 4, line = 2.5, col = 'red')
+axis(4, ylim=c(0.5, 1.5), at = c(0.6, 0.8, 1.0),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(1, xlim = c(0,24), xlab = '', xaxt = 'n')
+minor.tick(ny=1, nx=5, tick.ratio=0.5)
 
+# c) zeta and temperature
+par(mai=c(0.05,0.6,0.05,0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],
+     data_group_4wind$Z.L[data_group_4wind$wind_category_day == 3],
+     type = 'l', lwd = 2, axes = FALSE, ylim = c(-0.4, 0.2),
+     xlab = '', ylab = '')
+axis(2, ylim=c(-1, 0.5), cex.axis = 1.5, at = c(-0.2, 0, 0.2, 0.4), 
+     labels = c(paste("\u2212",0.2,sep=""), 
+                '0', '0.2', '0.4'))
+axis(2, cex.axis = 1.5, ylim = c(-1,0.5), at = c(-0.4), 
+     labels = c(paste("\u2212",0.4,sep="")))
+mtext(expression(paste(zeta, ', T'['a'], ', and T'['s'])), 
+      side = 2, line = 2.5, cex = 1.2)
+box()
 
-# d) Temperature
-par(mai=c(0.05,0.6,0.15,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$Ta[data_group_4wind$wind_category_day == 3],
-     ylab='T',xlab='',type='l',ylim=c(10,25),lwd=2,xaxt='n',yaxt='n',cex.lab=2)
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$water_temp[data_group_4wind$wind_category_day == 3],ylab='T',type='l',lty=2,lwd=2)
-#legend(20,32,y.intersp=1,bty='n',lty=c(1,2),lwd=c(2,2),c(expression('T'['a']),expression('T'['s'])),cex=2)
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
-axis(side=2,at=c(10,30),cex.axis=1.8)
-axis(side=2,at=c(20),cex.axis=1.8)
-#text(-0.5,29,'d)',cex=2)
+par(new = TRUE)
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],
+     data_group_4wind$Ta[data_group_4wind$wind_category_day == 3],
+     type = 'l', lty = 2, lwd = 2, axes = FALSE, ylim = c(13, 22),
+     xlab = '', ylab = '', col = 'red', cex.lab = 2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],
+      data_group_4wind$water_temp[data_group_4wind$wind_category_day == 3],
+      lty=3, lwd = 2, col = 'red')
+axis(4, ylim=c(10, 25), at = c(15, 20, 30),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(1, xlim = c(0,24), xlab = '', xaxt = 'n')
+minor.tick(ny=1, nx=5, tick.ratio=0.5)
 
 # e) Wind speed
-par(mai=c(0,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],data_group_4wind$WS[data_group_4wind$wind_category_day == 3],
-     ylab='U',xlab='',type='l',lwd=2,ylim=c(3,5),cex.lab=2,xaxt='n',yaxt='n')
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
+par(mai=c(0.05,0.6,0.05,0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 3],
+     data_group_4wind$WS[data_group_4wind$wind_category_day == 3],
+     ylab='U',xlab='',type='l',lwd=2, ylim=c(3.5,4.7),
+     cex.lab=2, xaxt='n', yaxt = 'n')
+axis(2, at = c(3.5, 4, 4.5), labels = c('3.5','4','4.5'), cex.axis = 1.5)
+minor.tick(ny=1,nx=5,tick.ratio=0.5)
 axis(side=1,at=c(0,3,6,9,12,15,18,21,24),cex.axis=2)
-axis(side=2,at=c(3,4,5),cex.axis=1.8)
 title(xlab='Hour (local time)',ylab='',outer=TRUE,cex.lab=2)
 
 rm(path_fig)
@@ -396,65 +459,101 @@ path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_
 jpeg(file=path_fig,width=1450,height=1800,res=320)
 ## Creating 5 panels of plots
 plot.new()
-par(family='Times',mfrow=c(5,1),oma=c(5.1,0.1,1.3,0.1))
+par(family='Times',mfrow=c(4,1),oma=c(5.1,0.1,1.3,0.1))
 
-# a) LE
-par(mai=c(0,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$LE[data_group_4wind$wind_category_day == 4],
-     ylab='',xlab='',type='l',ylim=c(0,150),lwd=2,xaxt='n',cex.lab=2,cex.axis=1.8)
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$H[data_group_4wind$wind_category_day == 4],lty=2,lwd=2)
-#axis(side=2,at=c(0,100,200),cex.axis=2)
-#text(-0.5,195,'a)',cex=2)
-#legend(20,80,y.intersp=1,bty='n',lty=c(1,2),lwd=c(2,2,2),
-#       c(expression('LE'),expression('H')),cex=2)
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
-title(main='\t\t\t\t\t\t\t\t\td) Wind-class IV',outer=TRUE,cex.main=2,font.main=1,adj=0)
+# a) LE and H
+par(mai=c(0.05,0.6,0.05, 0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],
+     data_group_4wind$LE[data_group_4wind$wind_category_day == 4],
+     type = 'l', lwd = 2, axes = FALSE, ylim = c(80,120),
+     xlab = '', ylab = '')
+axis(2, ylim=c(80,140), cex.axis = 1.5)
 
+box()
+
+par(new = TRUE)
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],
+     data_group_4wind$H[data_group_4wind$wind_category_day == 4],
+     type = 'l', lty = 2, lwd = 2, axes = FALSE, ylim = c(10, 60),
+     xlab = '', ylab = '', col = 'red', cex.lab = 2)
+mtext("", side = 4, line = 2.5, col = 'red')
+axis(4, ylim=c(10,60), at = c(40),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(4, ylim=c(10,60), at = c(20, 60),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(1, xlim = c(0,24), xlab = '', xaxt = 'n')
+minor.tick(ny = 1, nx = 5, tick.ratio = 0.5)
+title(main='\t\t\t\t\t\t\t\t\td) Wind-class IV', outer = TRUE,
+      cex.main = 2, font.main = 1, adj = 0)
 
 # b) Vapor pressure (kPa)
-par(mai=c(0,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$es[data_group_4wind$wind_category_day == 4],
-     ylab='',xlab='',type='l',lwd=2,ylim=c(0,2),xaxt='n',yaxt='n',cex.lab=2,lty=2,cex.axis=2)
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$ea[data_group_4wind$wind_category_day == 4],
-      ylab=expression('e'['a']),type='l',lty=1,lwd=2)
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$deltaE[data_group_4wind$wind_category_day == 4],
-      ylab=expression(paste(Delta,'e')),type='l',lty=3,lwd=2)
-axis(side=2,at=c(0,1,2),cex.axis=1.8)
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
+par(mai=c(0.05,0.6,0.05,0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],
+     data_group_4wind$es[data_group_4wind$wind_category_day == 4],
+     type = 'l', lwd = 2, axes = FALSE, ylim = c(1, 2),
+     xlab = '', ylab = '')
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],
+      data_group_4wind$ea[data_group_4wind$wind_category_day == 4],
+      type='l',lty = 2, lwd = 2)
+axis(2, ylim=c(1, 2), cex.axis = 1.5, at = c(1, 1.5, 2), 
+     labels = c('1', '1.5', '2'))
 
-# c) zeta
-par(mai=c(0,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$Z.L[data_group_4wind$wind_category_day == 4],
-     ylab='',xlab='',type='l',lwd=2,ylim=c(-0.5,0.1),xaxt ='n',yaxt='n',cex.lab=2)
-#text(-0.5,0.45,'c)',cex=2)
-axis(side=2,at=c(-0.5,0),labels=c(paste("\u2212",0.5,sep=""),0),cex.axis=1.8)
-minor.tick(ny=5,nx=5,tick.ratio=0.5)
+box()
 
+par(new = TRUE)
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],
+     data_group_4wind$deltaE[data_group_4wind$wind_category_day == 4],
+     type = 'l', lty = 3, lwd = 3, axes = FALSE, ylim = c(0.45, 0.8),
+     xlab = '', ylab = '', col = 'red', cex.lab = 2)
+mtext(expression(paste(Delta,'e')), side = 4, line = 2.5, col = 'red')
+axis(4, ylim=c(0.45, 0.8), at = c(0.5, 0.7),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(4, ylim=c(0.45, 0.8), at = c(0.6, 0.8),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(1, xlim = c(0,24), xlab = '', xaxt = 'n')
+minor.tick(ny=1, nx=5, tick.ratio=0.5)
 
-# d) Temperature
-par(mai=c(0,0.6,0.2,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$Ta[data_group_4wind$wind_category_day == 4],
-     ylab='',xlab='',type='l',ylim=c(10,16),lwd=2,xaxt='n',yaxt='n',cex.lab=2)
-lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$water_temp[data_group_4wind$wind_category_day == 4],ylab='T',type='l',lty=2,lwd=2)
-#legend(20,32,y.intersp=1,bty='n',lty=c(1,2),lwd=c(2,2),c(expression('T'['a']),expression('T'['s'])),cex=2)
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
-#text(-0.5,29,'d)',cex=2)
-axis(side=2,at=c(10,15),cex.axis=1.8)
-#axis(side=2,at=c(20),cex.axis=2)
+# c) zeta and temperature
+par(mai=c(0.05,0.6,0.05,0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],
+     data_group_4wind$Z.L[data_group_4wind$wind_category_day == 4],
+     type = 'l', lwd = 2, axes = FALSE, ylim = c(-0.5, 0.1),
+     xlab = '', ylab = '')
+axis(2, ylim=c(-0.5, 0.1), cex.axis = 1.5, at = c(-0.5, -0.25, 0), 
+     labels = c(paste("\u2212",0.5,sep=""), paste("\u2212",0.25,sep=""), 
+                '0'))
+axis(2, ylim=c(-0.5, 0.1), cex.axis = 1.5, at = c(-0.25), 
+     labels = paste("\u2212",0.25,sep=""))
+box()
+
+par(new = TRUE)
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],
+     data_group_4wind$Ta[data_group_4wind$wind_category_day == 4],
+     type = 'l', lty = 2, lwd = 2, axes = FALSE, ylim = c(11, 17),
+     xlab = '', ylab = '', col = 'red', cex.lab = 2)
+lines(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],
+      data_group_4wind$water_temp[data_group_4wind$wind_category_day == 4],
+      lty=3, lwd = 2, col = 'red')
+axis(4, ylim=c(11, 17), at = c(12, 14, 16),
+     col = 'red', col.axis = 'red', cex.axis =1.5)
+axis(1, xlim = c(0,24), xlab = '', xaxt = 'n')
+minor.tick(ny=1, nx=5, tick.ratio=0.5)
 
 # e) Wind speed
-par(mai=c(0,0.6,0.1,0.1))
-plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],data_group_4wind$WS[data_group_4wind$wind_category_day == 4],
-     ylab='',xlab='',type='l',lwd=2,ylim=c(5,6.5),cex.lab=2,xaxt='n',yaxt='n')
-#text(-0.5,9.5,'e)',cex=2)
-minor.tick(ny=2,nx=5,tick.ratio=0.5)
-axis(side = 2,at=c(5,6,7),cex.axis=1.8)
+par(mai=c(0.05,0.6,0.05,0.3))
+plot(data_group_4wind$hour[data_group_4wind$wind_category_day == 4],
+     data_group_4wind$WS[data_group_4wind$wind_category_day == 4],
+     ylab='U',xlab='',type='l',lwd=2, ylim=c(4.9,6.5),
+     cex.lab=2, xaxt='n', yaxt = 'n')
+axis(2, at = c(5, 5.5, 6), labels = c('5.0','5.5','6.0'), cex.axis = 1.5)
+minor.tick(ny=1,nx=5,tick.ratio=0.5)
 axis(side=1,at=c(0,3,6,9,12,15,18,21,24),cex.axis=2)
 title(xlab='Hour (local time)',ylab='',outer=TRUE,cex.lab=2)
 
 rm(path_fig)
 
 dev.off()
+
 #### Fig. 2: Prob. density plots ####
 
 path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_2_density_plot.jpg')
