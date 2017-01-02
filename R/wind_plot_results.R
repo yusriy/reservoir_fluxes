@@ -2178,48 +2178,70 @@ multiplot2(plot8,plot9,plot10,
 rm(plot8,plot9,plot10)
 dev.off()
 
-#### ustar with u under different wind-class ####
+#### ustar and stability with u under different wind-class ####
 # Path where the plots will be saved
 path_fig <- 
   file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/fig_ustar.jpg')
-jpeg(file=path_fig,width=8, height = 8,res=360,units='cm')
+
+jpeg(file=path_fig,width=5, height=10,res=360,units='in')
 plot.new()
 
-par(family='Times',oma=c(0.5,0.4,0.1,0.1))
+par(family='Times',mfrow=c(2,1), #mar = c(4,4,0.5,0.5),
+    oma=c(0.1,0.1,0.1,0.1))
+
 
 # a) For positive deltaE
+# a) u* vs U for 4 wind-classes
 # Linear regression lines
 lm1 <- lm(df1$ustar1 ~ df1$U1)
 lm2 <- lm(df2$ustar2 ~ df2$U2)
 lm3 <- lm(df3$ustar3 ~ df3$U3)
 lm4 <- lm(df4$ustar4 ~ df4$U4)
 
-par(mai=c(0.5,0.6,0,0.1))
+par(mar=c(2,4,0.5,0.5))
 library(RColorBrewer)
 cols <- brewer.pal(4,"Set1")
 plot(df1$U1,df1$ustar1,pch=19,col='black',
-     xlab='', ylab='',cex=0.2,cex.axis=1,
-     cex.lab=1)
-
-mtext(side=2,expression(paste('u'['*'])),line=2,cex=1)
-mtext(side = 1, 'U', line = 2, cex = 1)
+     xlab='', ylab='',cex=0.4,cex.axis=1.5,xaxt = 'n', xlim = c(0,10),
+     cex.lab=2)
+text(0.1, 0.56,'a)', cex=2)
+mtext(side=2,expression(paste('u'['*'])),line=2.5,cex=2)
+#mtext(side = 1, 'U', line = 2, cex = 1)
 points(df2$U2,df2$ustar2,
-       pch=19,col = 'green',cex=0.2)
+       pch=19,col = 'green',cex=0.4)
 points(df3$U3,df3$ustar3,
-       pch=19,col = 'blue',cex=0.2)
+       pch=19,col = 'blue',cex=0.4)
 points(df4$U4,df4$ustar4,
-       pch=19,col = 'red',cex=0.2)
+       pch=19,col = 'red',cex=0.4)
 minor.tick(nx=2,ny=2)
 
 abline(lm1,lwd=4,lty=1,col='black')
 abline(lm2,lwd=4,lty=2,col='green')
 abline(lm3,lwd=4,lty=5,col='blue')
 abline(lm4,lwd=4,lty=4,col='red')
-legend('topleft',
+legend('bottomright',
        legend=c('Wind-class I','Wind-class II',
                 'Wind-class III','Wind-class IV'),
-       lty=c(1,2,3,4), lwd = c(2,2,2,2),cex = 0.6,
+       lty=c(1,2,3,4), lwd = c(2,2,2,2),cex = 1,
        col=c('black','green','blue','red'), bty = 'n')
+
+#b) z/L vs U for 4 wind classes
+par(mar = c(4,4,0,0.5))
+plot(df1$U1, df1$zl1, pch = 19, xlim = c(0,10), ylim = c(-10,10),
+     cex = 0.4, cex.axis = 1.5, cex.lab = 1.5, xlab = '', ylab = '',
+     yaxt = 'n')
+text(0.1, 9.5,'b)',cex=2)
+minor.tick(nx=2,ny=2)
+points(df2$U2, df2$zl2, pch = 19, col = 'green', cex = 0.4)
+points(df3$U3, df3$zl3, pch = 19, col = 'blue', cex = 0.4)
+points(df4$U4, df4$zl4, pch = 19, col = 'red', cex = 0.4)
+axis(2, at = c(-10,-5,0,5,10),
+     labels = c(paste('\u2212',10,sep = ''),
+                paste('\u2212',5,sep = ''),
+                0,5,10), cex.axis = 1.5)
+mtext(side=2,expression(zeta),line=2.5,cex=2)
+mtext(side = 1, 'U', line = 2.5, cex = 2)
+
 dev.off()
 
 #### Correlational analysis ####
