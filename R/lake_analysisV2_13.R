@@ -1529,6 +1529,7 @@ dev.off()
 
 #rm(stable,unstable,near_neutral)
 
+
 #### 6. Cleaning up ####
 
 # Deleting original margin settings for plots

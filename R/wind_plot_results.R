@@ -2278,6 +2278,25 @@ write.table(as.matrix(rcorr(wc4_cor_df, type = 'pearson')$r),
             file = 'wc4_cor.csv',
             sep = ',')
 
+#### Histogram plots of U ####
+path_fig <- file.path('/Users/Yusri/Documents/Work/Data_analysis/lake/figs/wind_figs/histograms_U.jpg')
+jpeg(file=path_fig,width=8,height=8,res=360,units='in')
+## Creating 5 panels of plots
+plot.new()
+par(family='Times',oma=c(1.1,1.1,0.1,0.1),mar=c(4.1,4.1,1.1,1.1))
+d1 <- density(df1$U1, na.rm=TRUE)
+plot(d1, xlab = 'U', main = '', cex.lab = 2, cex.axis=1.5, lwd=2,
+     ylab ='', xlim=c(0,13), ylim = c(0,0.4))
+lines(d2,lty=2,lwd=2, col = 'green')
+lines(d3,lty=3,lwd=2, col = 'blue')
+lines(d4,lty=4,lwd=2, col = 'red')
+mtext(side = 2, 'Probability', line=3, cex = 2)
+legend('topright',bty='n',lty=c(1,2,3,4),lwd=c(2,2,2,2),
+       legend=c('Wind-class I','Wind-class II','Wind-class III','Wind-class IV'),
+       col = c('black','green','blue','red'), cex=2)
+
+dev.off()
+
 #### Delete temp variables #########
 rm(path_fig,names_boxplot,plot1,plot2,plot3,plot4)
 rm(CD1,CD2,CD3,CD4,CE1,CE2,CE3,CE4,CH1,CH2,CH3,CH4)
