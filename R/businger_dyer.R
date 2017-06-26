@@ -1,7 +1,7 @@
 # Create a profile 
 
-z_L <- seq(-10,10,1)
-
+z_L <- c(-5.5,-0.75,-0.3,-0.125,-0.025,0.025,0.125,0.3,0.75,5.5)
+no_stability <- c(1,2,3,4,5,6,7,8,9,10)
 trident_func_m <- 0
 
 # Dimensionless wind shear
@@ -50,3 +50,5 @@ CH <- k^2 / (log(z/z0) + trident_func_m) / (log(z/z0) + trident_func_h)
 
 plot(z_L,CD, type = 'l', lwd = 2, col = 'blue', ylim =c(0,0.002), ylab = 'C_D and C_H or E')
 lines(z_L,CH, lwd = 2, col = 'red')
+wc_5 <- rep(as.factor('wc5'),length(CD))
+df_busingerDyer <- data.frame(wc_5,no_stability,z_L,CD,CH)

@@ -70,7 +70,7 @@ data <- convert_magic(data,c(rep('character',times = 30)))
 # Then, convert to numeric
 data <- convert_magic_num(data,c('character',rep('numeric',times = 29)))
 # Convert "date" from character to date
-data$time_stamp<-strptime(data$time_stamp,"%m/%d/%y %H:%M")
+data$time_stamp<-as.POSIXct(data$time_stamp,"%m/%d/%y %H:%M", tz = 'Asia/Kuala_Lumpur')
 # Changing all the '-999' (missing data) to NA
 for (i in 1:length(data)){
   data[i][data[i] == -999] <- NA
@@ -916,7 +916,7 @@ plot4 <- ggplot(na.omit(data[,c('u_deltaE','stability_no')]), aes(factor(stabili
   scale_x_discrete(labels=names_boxplot) +
   coord_cartesian(ylim = c(-5, 15))
 multiplot2(plot1,plot2,plot3,plot4,
-           cols=1,labs=list("             ASL stability ranges",""))
+           cols=1,labs=list('             ASL stability ranges',''))
 dev.off()
 rm(d)
 
