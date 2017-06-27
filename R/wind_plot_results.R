@@ -40,7 +40,7 @@ data_group_4wind <- data %>%
            hour=format(as.POSIXlt(cut(time_stamp,breaks='hour')),'%H')) %>%
   summarise(LE=mean(LE,na.rm=TRUE), H= mean(H,na.rm=TRUE),Z.L = mean(Z.L,na.rm=TRUE),
             WS = mean(WS_Spd_WVT,na.rm=TRUE),water_temp=mean(Water.surface.temperature,na.rm=TRUE),
-            es=mean(e_s1,na.rm=TRUE) * 0.1 ,ea=mean(e_a,na.rm=TRUE) * 0.1,deltaE=mean(deltaE,na.rm=TRUE),
+            es=mean(e_s1,na.rm=TRUE) * 0.1 ,ea=mean(e_a,na.rm=TRUE) * 0.1,deltaE=mean(deltaE,na.rm=TRUE),deltaT=mean(deltaT,na.rm= TRUE),
             Ta=mean(t_hmp_3_Avg,na.rm=TRUE),Rn=mean(Rn_Q71_Avg,na.rm=TRUE))
             # need to multiply e_s1 and e_a with 0.1 because units in hPa not kPa
 data_group_4wind <- data_group_4wind[-c(97:120),]
@@ -1640,14 +1640,14 @@ plot10 <- ggplot() +
                                    'Wind-class II',
                                    'Wind-class III',
                                    'Wind-class IV',
-                                   'Businger-Dyer'),
+                                   'Similarity theory'),
                         values = c('solid','dashed',
                                    'longdash','twodash','solid')) +
   scale_colour_manual(labels = c('Wind-class I',
                                  'Wind-class II',
                                  'Wind-class III',
                                  'Wind-class IV',
-                                 'Businger-Dyer'),
+                                 'Similarity theory'),
                       values = c('black','green','blue','red','purple')) +
   
   # END LEGEND #
