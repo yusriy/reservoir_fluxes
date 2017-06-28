@@ -986,7 +986,7 @@ slope_Hstaneg <- c(1.2715,1.0684,1.3850,6.7102) # negative deltaT
 # a) Regression slope of LE and deltaE for unstable and stable conditions
 par(mai=c(0.7,1,0,0.1))
 plot(x,slope_LEunst,pch=19,ylim=c(50,180),xlab='',
-     ylab=expression(paste('Slope of LE and ',Delta,'e')),
+     ylab=expression(paste('LE/',Delta,'e')),
      xaxt='n',cex.axis=2,cex=2,cex.lab=2)
 text(1.05,178,'a)',cex=2)
 axis(side=1,at=c(1,2,3,4),labels = c('','','',''))
@@ -997,7 +997,7 @@ lines(x,slope_LEsta,lty=2,lwd=2)
 # b) Regression slope of H and deltaT for unstable and stable conditions
 par(mai=c(1,1,0,0.1))
 plot(x,slope_Hunst,pch=19,ylim = c(0,15),xlab='Wind-class',
-     ylab=expression(paste('Slope of H and ',Delta,'T')),
+     ylab=expression(paste('H/',Delta,'T')),
      xaxt='n',cex=2,cex.axis=2,cex.lab=2)
 text(1.05,14.5,'b)',cex=2)
 axis(side=1,at=c(1,2,3,4),labels=c('I','II','III','IV'),cex.axis=2)
