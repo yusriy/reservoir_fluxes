@@ -130,6 +130,7 @@ data$Z.L[no_zl_spike] <- NA
 no_ustar_spike <- as.numeric(c(2503,4132:4138,5424,5771,2833:2880,4806,5665:5712,
                                7282,7283,7284))
 data$U.[no_ustar_spike] <- NA
+#data$U.[which(data$U. < 0.05)] <- NA
 
 # Cleaning up
 rm(no_rain_index,no_ustar_spike,no_zl_spike)
