@@ -64,6 +64,8 @@ C_E1 <- data$C_E[which(data$wind_category_day==1)]
 C_H1 <- data$C_H[which(data$wind_category_day==1)]
 zl1 <- data$Z.L[which(data$wind_category_day==1)]
 ustar1 <- data$U.[which(data$wind_category_day==1)]
+Ta1 <- data$Water.surface.temperature[which(data$wind_category_day==1)]
+Ts1 <- data$t_hmp_3_Avg[which(data$wind_category_day==1)]
 
 wc_2 <- rep('wc2',length(data$stability_no[which(data$wind_category_day == 2)]))
 no_stability2 <- data$stability_no[which(data$wind_category_day==2)]
@@ -83,6 +85,8 @@ C_E2 <- data$C_E[which(data$wind_category_day==2)]
 C_H2 <- data$C_H[which(data$wind_category_day==2)]
 zl2 <- data$Z.L[which(data$wind_category_day==2)]
 ustar2 <- data$U.[which(data$wind_category_day==2)]
+Ta2 <- data$Water.surface.temperature[which(data$wind_category_day==2)]
+Ts2 <- data$t_hmp_3_Avg[which(data$wind_category_day==2)]
 
 wc_3 <- rep('wc3',length(data$stability_no[which(data$wind_category_day == 3)]))
 no_stability3 <- data$stability_no[which(data$wind_category_day==3)]
@@ -102,6 +106,8 @@ C_E3 <- data$C_E[which(data$wind_category_day==3)]
 C_H3 <- data$C_H[which(data$wind_category_day==3)]
 zl3 <- data$Z.L[which(data$wind_category_day==3)]
 ustar3 <- data$U.[which(data$wind_category_day==3)]
+Ta3 <- data$Water.surface.temperature[which(data$wind_category_day==3)]
+Ts3 <- data$t_hmp_3_Avg[which(data$wind_category_day==3)]
 
 wc_4 <- rep('wc4',length(data$stability_no[which(data$wind_category_day == 4)]))
 no_stability4 <- data$stability_no[which(data$wind_category_day==4)]
@@ -121,21 +127,24 @@ C_E4 <- data$C_E[which(data$wind_category_day==4)]
 C_H4 <- data$C_H[which(data$wind_category_day==4)]
 zl4 <- data$Z.L[which(data$wind_category_day==4)]
 ustar4 <- data$U.[which(data$wind_category_day==4)]
+Ta4 <- data$Water.surface.temperature[which(data$wind_category_day==4)]
+Ts4 <- data$t_hmp_3_Avg[which(data$wind_category_day==4)]
 
 
 df1 <- data.frame(wc_1,no_stability1,LE1,H1,U1,deltaE1,ea1,es31,es21,es1,deltaT1,udeltaT1,udeltaE1,C_D1,
-                  C_E1,C_H1,zl1,ustar1)
+                  C_E1,C_H1,zl1,ustar1,Ta1,Ts1)
 df2 <- data.frame(wc_2,no_stability2,LE2,H2,U2,deltaE2,ea2,es32,es22,es2,deltaT2,udeltaT2,udeltaE2,C_D2,
-                  C_E2,C_H2,zl2,ustar2)
+                  C_E2,C_H2,zl2,ustar2,Ta2,Ts2)
 df3 <- data.frame(wc_3,no_stability3,LE3,H3,U3,deltaE3,ea3,es33,es23,es3,deltaT3,udeltaT3,udeltaE3,C_D3,
-                  C_E3,C_H3,zl3,ustar3)
+                  C_E3,C_H3,zl3,ustar3,Ta3,Ts3)
 df4 <- data.frame(wc_4,no_stability4,LE4,H4,U4,deltaE4,ea4,es34,es24,es4,deltaT4,udeltaT4,udeltaE4,C_D4,
-                  C_E4,C_H4,zl4,ustar4)
+                  C_E4,C_H4,zl4,ustar4,Ta4,Ts4)
 rm(wc_1,wc_2,wc_3,wc_4,no_stability1,no_stability2,no_stability3,no_stability4,LE1,LE2,LE3,LE4,H1,H2,H3,H4,
    U1,U2,U3,U4,deltaE1,deltaE2,deltaE3,deltaE4,ea1,es1,ea2,es2,ea3,es3,ea4,es4,
    es31,es21,es32,es22,es33,es23,es34,es24,deltaT1,deltaT2,deltaT3,deltaT4,
    udeltaT1,udeltaE1,udeltaT2,udeltaE2,udeltaT3,udeltaE3,udeltaT4,udeltaE4,
-   C_D1,C_D2,C_D3,C_D4,C_E1,C_E2,C_E3,C_E4,C_H1,C_H2,C_H3,C_H4,zl1,zl2,zl3,zl4,ustar1,ustar2,ustar3,ustar4)
+   C_D1,C_D2,C_D3,C_D4,C_E1,C_E2,C_E3,C_E4,C_H1,C_H2,C_H3,C_H4,zl1,zl2,zl3,zl4,ustar1,ustar2,ustar3,ustar4,
+   Ta1,Ts1,Ta2,Ts2,Ta3,Ts3,Ta4,Ts4)
 
 ##### Names of various figures and box plots ####
 names_boxplot = c('\u221210\u2264\u03B6<\u22121','\u22121\u2264\u03B6<\u22120.5','\u22120.5\u2264\u03B6<\u22120.1','\u22120.1\u2264\u03B6<\u22120.05',
@@ -1748,8 +1757,9 @@ dev.off()
 
 #### Correlational analysis ####
 # For wind-class I
-wc1_cor_df <- data.frame(df1$LE1, df1$H1, df1$U1, 
-                         df1$deltaE1, df1$deltaT1,df1$C_E1,df1$C_H1)
+wc1_cor_df <- data.frame(df1$LE1, df1$H1, df1$U1, df1$ea1, df1$es1,
+                         df1$deltaE1, df1$deltaT1,
+                         df1$C_E1,df1$C_H1)
 wc1_cor_df <- as.matrix(wc1_cor_df)
 rcorr(wc1_cor_df, type = 'pearson')
 write.table(as.matrix(rcorr(wc1_cor_df, type = 'pearson')$r), 
