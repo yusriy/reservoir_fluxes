@@ -64,8 +64,8 @@ C_E1 <- data$C_E[which(data$wind_category_day==1)]
 C_H1 <- data$C_H[which(data$wind_category_day==1)]
 zl1 <- data$Z.L[which(data$wind_category_day==1)]
 ustar1 <- data$U.[which(data$wind_category_day==1)]
-Ta1 <- data$Water.surface.temperature[which(data$wind_category_day==1)]
-Ts1 <- data$t_hmp_3_Avg[which(data$wind_category_day==1)]
+Ta1 <- data$t_hmp_3_Avg[which(data$wind_category_day==1)]
+Ts1 <- data$Water.surface.temperature[which(data$wind_category_day==1)]
 
 wc_2 <- rep('wc2',length(data$stability_no[which(data$wind_category_day == 2)]))
 no_stability2 <- data$stability_no[which(data$wind_category_day==2)]
@@ -85,8 +85,8 @@ C_E2 <- data$C_E[which(data$wind_category_day==2)]
 C_H2 <- data$C_H[which(data$wind_category_day==2)]
 zl2 <- data$Z.L[which(data$wind_category_day==2)]
 ustar2 <- data$U.[which(data$wind_category_day==2)]
-Ta2 <- data$Water.surface.temperature[which(data$wind_category_day==2)]
-Ts2 <- data$t_hmp_3_Avg[which(data$wind_category_day==2)]
+Ta2 <- data$t_hmp_3_Avg[which(data$wind_category_day==2)]
+Ts2 <- data$Water.surface.temperature[which(data$wind_category_day==2)]
 
 wc_3 <- rep('wc3',length(data$stability_no[which(data$wind_category_day == 3)]))
 no_stability3 <- data$stability_no[which(data$wind_category_day==3)]
@@ -106,8 +106,8 @@ C_E3 <- data$C_E[which(data$wind_category_day==3)]
 C_H3 <- data$C_H[which(data$wind_category_day==3)]
 zl3 <- data$Z.L[which(data$wind_category_day==3)]
 ustar3 <- data$U.[which(data$wind_category_day==3)]
-Ta3 <- data$Water.surface.temperature[which(data$wind_category_day==3)]
-Ts3 <- data$t_hmp_3_Avg[which(data$wind_category_day==3)]
+Ta3 <- data$t_hmp_3_Avg[which(data$wind_category_day==3)]
+Ts3 <- data$Water.surface.temperature[which(data$wind_category_day==3)]
 
 wc_4 <- rep('wc4',length(data$stability_no[which(data$wind_category_day == 4)]))
 no_stability4 <- data$stability_no[which(data$wind_category_day==4)]
@@ -127,8 +127,8 @@ C_E4 <- data$C_E[which(data$wind_category_day==4)]
 C_H4 <- data$C_H[which(data$wind_category_day==4)]
 zl4 <- data$Z.L[which(data$wind_category_day==4)]
 ustar4 <- data$U.[which(data$wind_category_day==4)]
-Ta4 <- data$Water.surface.temperature[which(data$wind_category_day==4)]
-Ts4 <- data$t_hmp_3_Avg[which(data$wind_category_day==4)]
+Ta4 <- data$t_hmp_3_Avg[which(data$wind_category_day==4)]
+Ts4 <- data$Water.surface.temperature[which(data$wind_category_day==4)]
 
 
 df1 <- data.frame(wc_1,no_stability1,LE1,H1,U1,deltaE1,ea1,es31,es21,es1,deltaT1,udeltaT1,udeltaE1,C_D1,
